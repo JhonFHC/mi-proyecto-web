@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.navbar {
+  background-color: #1e293b;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.navbar a:hover {
+  background-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.info-superior, .info-inferior {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.frase-celebre {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.semana {
+  margin-bottom: 20px;
+}
+
+.acordeon {
+  background-color: #0ea5e9;
+  color: white;
+  cursor: pointer;
+  padding: 14px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+.acordeon:hover {
+  background-color: #0369a1;
+}
+
+.panel {
+  background-color: white;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+  padding: 0 18px;
+  border-left: 3px solid #0ea5e9;
+}
+
+.panel p {
+  margin: 12px 0;
+}
+
+.btn {
+  display: inline-block;
+  margin: 10px 10px 10px 0;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #1d4ed8;
+}

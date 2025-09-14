@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Semana 1</title>
+  <title>Semana 1 - ¿Qué es GIT?</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -18,8 +18,310 @@
     </section>
 
     <section class="contenido-semana">
-      <h2>Semana 1 - Introducción al desarrollo web</h2>
-      <p>Aquí se explica todo el contenido de la semana: herramientas, estructura HTML, diferencias entre frontend y backend, etc.</p>
+      <h2>Semana 1 - ¿Qué es GIT?</h2>
+      <p>
+        GIT es un sistema de control de versiones (SCV), el cual guarda de un proyecto los cambios que realizaste,
+        en algo llamado historial de versiones (¿Quién? ¿Por qué?). Cabe aclarar que es ligeramente diferente a guardar; 
+        ya que un proyecto lo guardas, cierras y lo vuelves a abrir, empezarás desde el último guardado; no puedes retroceder.
+      </p>
+      <p>
+        Por ejemplo: El código nuevo implementado en un proyecto guardado, no funciona y malogró el proyecto; no puedes retroceder, 
+        y aquí hace presencia GIT ya que no solo guarda sino lo almacena en el historial de versiones, tomando eso en cuenta vas a la versión 
+        del proyecto donde no estaba el código, y donde sí funcionaba.
+      </p>
+      <p>
+        Una vez aclarado eso, una de las características o flexibilidad de GIT es que puedes trabajar sin conexión, podría decir que es con Visual Studio Code 
+        u otra herramienta, después puedes conectarte a internet y se sincroniza automáticamente lo que hiciste con tu proyecto y GIT (eso es lo que entendí). 
+        También dije flexibilidad, por el motivo de que permite que varios usuarios, trabajadores o equipo del proyecto se unan a la vez sin sobrescribirse.
+      </p>
+      <p>
+        Una vez hablado de qué es GIT pasamos lo que hace internamente, pero antes de eso aclaremos que GIT tiene un repositorio pero ¿Qué es un repositorio?
+      </p>
+      <p>
+        Un repositorio es una carpeta que contiene:
+        <ul>
+          <li>Archivos de tu proyecto (texto, código, imágenes, etc.)</li>
+          <li>Historial completo de todos los cambios realizados de tu proyecto</li>
+        </ul>
+        Cabe aclarar que no guarda versiones completas sino Snapshot (captura de estados), solo si hubo cambios; Snapshot se refiere a un Commit el cual guardó el archivo del proyecto en ese instante, con un mensaje de las modificaciones que hiciste.
+      </p>
+      <p>Lo que hace internamente GIT es:</p>
+      <ul>
+        <li><strong>Working Directory:</strong> Contiene los archivos de tu proyecto, el cual puedes editar, crear, borrar, etc.</li>
+        <li><strong>Staging Area:</strong> Te permite seleccionar qué cambios guardar en tu archivo, pero lo más recomendable es que guardes todo.</li>
+        <li><strong>Repositorio:</strong> Y aquí es lo que hablamos arriba, el lugar donde se guarda las versiones de tu proyecto.</li>
+      </ul>
+      <h3>¿Qué es una rama (Branch)?</h3>
+      <p>
+        La rama se implementa en GIT HUB, este se puede separar de la rama principal, es decir de tu proyecto, donde puedes probar ideas, experimentar y demás cosas. 
+        Como está separada puedes volver a unir a tu proyecto, tú decides.
+      </p>
+    </section>
+
+    <!-- Sección código Java con estructura cuadro general y dos columnas -->
+    <section class="seccion-codigo cuadro-general">
+      <h2>Semana 1</h2>
+
+      <div class="fila-dos-columnas">
+        <!-- Columna izquierda: Enunciado 1 -->
+        <div class="columna izquierda">
+          <h3>Enunciado 1</h3>
+          <div class="enunciado-subsecciones">
+            <div class="sub-cuadro">
+              <h4>Java Main Class</h4>
+              <pre><code>
+package com.zonajava.enunciado1;
+
+import Vista.DescuentoCamisa;
+
+public class Enunciado1 {
+    public static void main(String[] args) {
+        DescuentoCamisa descuento = new DescuentoCamisa();
+        descuento.setVisible(true);
+    }
+}
+              </code></pre>
+            </div>
+
+            <div class="sub-cuadro">
+              <h4>JFrame Form</h4>
+              <pre><code>
+package Vista;
+
+import javax.swing.JOptionPane;
+import javax.swing.*;
+
+public class DescuentoCamisa extends JFrame {
+
+    private JButton btnCalcular, btnNuevo, btnSalir;
+    private JTextField txtPrecio, txtCantidad;
+    private JTextArea txtSalida;
+
+    public DescuentoCamisa() {
+        initComponents();
+    }
+
+    private void initComponents() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Descuento de camisa");
+
+        btnCalcular = new JButton("Calcular");
+        btnNuevo = new JButton("Nuevo");
+        btnSalir = new JButton("Salir");
+        txtPrecio = new JTextField(10);
+        txtCantidad = new JTextField(10);
+        txtSalida = new JTextArea(8, 25);
+        txtSalida.setEditable(false);
+
+        JLabel lblTitulo = new JLabel("Descuento de camisa");
+        JLabel lblPrecio = new JLabel("Precio de la camisa");
+        JLabel lblCantidad = new JLabel("Cantidad");
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(lblTitulo);
+        panel.add(Box.createVerticalStrut(10));
+
+        JPanel filaPrecio = new JPanel();
+        filaPrecio.add(lblPrecio);
+        filaPrecio.add(txtPrecio);
+        panel.add(filaPrecio);
+
+        JPanel filaCantidad = new JPanel();
+        filaCantidad.add(lblCantidad);
+        filaCantidad.add(txtCantidad);
+        panel.add(filaCantidad);
+
+        JPanel filaBotones = new JPanel();
+        filaBotones.add(btnCalcular);
+        filaBotones.add(btnNuevo);
+        filaBotones.add(btnSalir);
+        panel.add(filaBotones);
+
+        JScrollPane scrollSalida = new JScrollPane(txtSalida);
+        panel.add(scrollSalida);
+
+        add(panel);
+        pack();
+        setLocationRelativeTo(null);
+
+        // Listeners
+        btnCalcular.addActionListener(e -> calcularDescuento());
+        btnNuevo.addActionListener(e -> limpiarCampos());
+        btnSalir.addActionListener(e -> System.exit(0));
+    }
+
+    private void calcularDescuento() {
+        try {
+            float precio = Float.parseFloat(txtPrecio.getText().trim());
+            int cantidad = Integer.parseInt(txtCantidad.getText().trim());
+            if (precio <= 0 || cantidad <= 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese valores mayores a cero");
+                return;
+            }
+            float importe = precio * cantidad;
+            float descuento1 = importe * 0.07f;
+            float descuento2 = (importe - descuento1) * 0.07f;
+            float descuentoTotal = descuento1 + descuento2;
+            float importePagar = importe - descuentoTotal;
+
+            txtSalida.setText("Detalle de la compra:\n");
+            txtSalida.append("----------------------------\n");
+            txtSalida.append(String.format("Importe de la compra: %.2f\n", importe));
+            txtSalida.append(String.format("Primer descuento (7%%): %.2f\n", descuento1));
+            txtSalida.append(String.format("Segundo descuento (7%% sobre restante): %.2f\n", descuento2));
+            txtSalida.append(String.format("Descuento total: %.2f\n", descuentoTotal));
+            txtSalida.append(String.format("Importe a pagar: %.2f\n", importePagar));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos");
+        }
+    }
+
+    private void limpiarCampos() {
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        txtSalida.setText("");
+        txtPrecio.requestFocus();
+    }
+}
+              </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enunciado 2 -->
+    <section class="seccion-codigo cuadro-general">
+      <h2>Semana 1</h2>
+
+      <div class="fila-dos-columnas">
+        <div class="columna izquierda">
+          <h3>Enunciado 2</h3>
+
+          <div class="enunciado-subsecciones">
+            <div class="sub-cuadro">
+              <h4>Java Main Class</h4>
+              <pre><code>
+package com.zonajava.enunciado2;
+
+import Vista.GastosFeriales;
+
+public class Enunciado2 {
+    public static void main(String[] args) {
+        GastosFeriales gastos = new GastosFeriales();
+        gastos.setVisible(true);
+    }
+}
+              </code></pre>
+            </div>
+
+            <div class="sub-cuadro">
+              <h4>JFrame Form</h4>
+              <pre><code>
+package Vista;
+
+import javax.swing.JOptionPane;
+import javax.swing.*;
+
+public class GastosFeriales extends JFrame {
+
+    private JButton btnCalcular, btnNuevo, btnSalir;
+    private JTextField txtMonto;
+    private JTextArea txtSalida;
+
+    public GastosFeriales() {
+        initComponents();
+    }
+
+    private void initComponents() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Gastos feriales");
+
+        btnCalcular = new JButton("Calcular");
+        btnNuevo = new JButton("Nuevo");
+        btnSalir = new JButton("Salir");
+        txtMonto = new JTextField(10);
+        txtSalida = new JTextArea(8, 25);
+        txtSalida.setEditable(false);
+
+        JLabel lblTitulo = new JLabel("Gastos feriales");
+        JLabel lblMonto = new JLabel("Monto total a invertir");
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(lblTitulo);
+        panel.add(Box.createVerticalStrut(10));
+
+        JPanel filaMonto = new JPanel();
+        filaMonto.add(lblMonto);
+        filaMonto.add(txtMonto);
+        panel.add(filaMonto);
+
+        JPanel filaBotones = new JPanel();
+        filaBotones.add(btnCalcular);
+        filaBotones.add(btnNuevo);
+        filaBotones.add(btnSalir);
+        panel.add(filaBotones);
+
+        JScrollPane scrollSalida = new JScrollPane(txtSalida);
+        panel.add(scrollSalida);
+
+        add(panel);
+        pack();
+        setLocationRelativeTo(null);
+
+        btnCalcular.addActionListener(e -> calcularGastos());
+        btnNuevo.addActionListener(e -> limpiarCampos());
+        btnSalir.addActionListener(e -> System.exit(0));
+    }
+
+    private void calcularGastos() {
+        try {
+            float monto = Float.parseFloat(txtMonto.getText().trim());
+            if (monto <= 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese un monto mayor a cero");
+                return;
+            }
+            float alquiler = monto * 0.23f;
+            float publicidad = monto * 0.07f;
+            float transporte = monto * 0.26f;
+            float servicios = monto * 0.12f;
+            float decoracion = monto * 0.21f;
+            float gastosVarios = monto * 0.11f;
+
+            txtSalida.setText("Detalle de gastos:\n");
+            txtSalida.append("-----------------------------\n");
+            txtSalida.append(String.format("Alquiler de espacio: $%.2f\n", alquiler));
+            txtSalida.append(String.format("Publicidad:          $%.2f\n", publicidad));
+            txtSalida.append(String.format("Transporte:          $%.2f\n", transporte));
+            txtSalida.append(String.format("Servicios feriales:  $%.2f\n", servicios));
+            txtSalida.append(String.format("Decoración:          $%.2f\n", decoracion));
+            txtSalida.append(String.format("Gastos varios:       $%.2f\n", gastosVarios));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido");
+        }
+    }
+
+    private void limpiarCampos() {
+        txtMonto.setText("");
+        txtSalida.setText("");
+        txtMonto.requestFocus();
+    }
+}
+              </code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="descarga-manual">
+      <h2>Manual de Cómo crear una cuenta en GIT-HUB</h2>
+      <p>Descarga el manual completo en formato DOCX:</p>
+      <a href="/downloads/Manual de Como crear una cuenta en GIT-HUB.docx" download class="btn">⬇️ Descargar Manual</a>
     </section>
   </main>
 </body>
