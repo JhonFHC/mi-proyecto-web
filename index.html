@@ -6,6 +6,8 @@
   <title>Inicio - Proyecto Web</title>
   <link rel="stylesheet" href="assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="assets/slider.js"></script>
+  <script defer src="assets/interacciones.js"></script>
 </head>
 <body>
   <nav class="navbar">
@@ -14,13 +16,30 @@
   </nav>
 
   <main class="container">
-    <section class="info-superior">
+    <section class="slider-container">
+      <div class="slider">
+        <div class="slides">
+          <img src="IMG/imagen1.jpg.jpeg" alt="Imagen 1" />
+          <img src="IMG/imagen2.jpg.jpg" alt="Imagen 2" />
+          <img src="IMG/imagen3.jpg.jpg" alt="Imagen 3" />
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+        <div class="dots">
+          <span class="dot" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-superior fade-in">
       <h1>Jhon Frank Huaman Cardenas</h1>
       <h2>Universidad Peruana Los Andes</h2>
       <h3>Profesor: Mg.Raúl Fernández Bejarano</h3>
     </section>
 
-    <section class="info-inferior">
+    <section class="info-inferior fade-in">
       <h2>Misión</h2>
       <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
         integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>

@@ -83,7 +83,7 @@ body {
 
 .btn {
   display: inline-block;
-  margin: 10px 10px 10px 0;
+  margin: 10px 10px 10px 0; 
   padding: 8px 16px;
   background-color: #3b82f6;
   color: white;
@@ -94,4 +94,120 @@ body {
 
 .btn:hover {
   background-color: #1d4ed8;
+}
+
+.slider-container {
+  max-width: 1000px;
+  height: 400px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.slider {
+  position: relative;
+  height: 100%;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.slides img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+  transition: background-color 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.prev {
+  left: 15px;
+}
+
+.next {
+  right: 15px;
+}
+
+.dots {
+  text-align: center;
+  padding: 12px 0;
+  background-color: #f5f5f5;
+}
+
+.dot {
+  height: 14px;
+  width: 14px;
+  margin: 0 6px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.4s;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #3b82f6;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar a {
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar a::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition: all 0.4s ease;
+  color: #fff;
+  pointer-events: none;
+}
+
+.navbar a.clicked::after {
+  transform: translate(-50%, -300%) scale(1.4);
+  opacity: 1;
+}
+
+#contenedor-semanas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* espacio entre columnas y filas */
 }
