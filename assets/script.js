@@ -1,9 +1,9 @@
 // Datos de las semanas (puedes cambiar títulos aquí)
 const semanas = [
-  "Introducción al desarrollo web",
-  "HTML Semántico y Estructura Básica",
-  "CSS Básico y Estilos en Línea",
-  "Selectores de CSS y Model Box",
+  "Apache Maven",
+  "Métodos",
+  "Programación Orientada a Objetos",
+  "Arquitectura: Modelo - Vista - Controlador",
   "Colores, Tipografía y Unidades en CSS",
   "Posicionamiento y Display en CSS",
   "Flexbox y Layout Responsivo",
@@ -29,7 +29,7 @@ semanas.forEach((titulo, i) => {
       <button class="acordeon">Semana ${numero}</button>
       <div class="panel">
         <p>Título: ${titulo}</p>
-        <a href="semana${numero}.html" class="btn">📖 Ver Contenido</a>
+        <a href="semanas/semana${numero}.html" class="btn">📖 Ver Contenido</a>
         <a href="downloads/Taller Aplicaciones - Semana${numero}.docx" class="btn" download>⬇️ Descargar</a>
         <a href="https://github.com/JhonFHC/mi-proyecto-web" class="btn" target="_blank">🔗 Ver en GitHub</a>
       </div>

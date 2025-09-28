@@ -1,3 +1,4 @@
+/* assets/interacciones.js (unchanged, as it handles fade-in and nav effects without conflicts) */
 document.addEventListener('DOMContentLoaded', () => {
   // Animación de entrada (fade-in)
   const fadeInSections = document.querySelectorAll('.fade-in');
@@ -22,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
     link.setAttribute('data-text', label);
 
     link.addEventListener('click', (e) => {
-      e.preventDefault(); // Prevenir navegación inmediata
+      e.preventDefault(); 
       link.classList.add('clicked');
 
       const href = link.getAttribute('href');
 
       setTimeout(() => {
         window.location.href = href;
-      }, 400); // Espera que termine la animación
+      }, 400); 
     });
   });
 });

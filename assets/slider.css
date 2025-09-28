@@ -1,0 +1,209 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0e0e0e;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+/* Canvas partículas (fondo) */
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background: #0e0e0e;
+}
+
+/* Botón toggle tema */
+#toggleTheme {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #00ffc3;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #000;
+  filter: drop-shadow(0 0 5px #00ffc3);
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+#toggleTheme:hover {
+  background: #00cfa3;
+}
+
+/* Slider 3D */
+.slider-3d {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  perspective: 1000px;
+  z-index: 5;
+  overflow: visible;
+}
+
+.slider-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  cursor: grab;
+  user-select: none;
+}
+
+/* Cada slide es un contenedor */
+.slide {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 255, 195, 0.7);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+/* Imagen dentro de cada slide */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+/* Overlay texto + botón */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 15px 20px;
+  color: #00ffc3;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.slide:hover .overlay {
+  transform: translateY(0);
+}
+
+.overlay h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+}
+
+.overlay p {
+  margin: 0 0 10px 0;
+}
+
+.action-btn {
+  background: #00ffc3;
+  border: none;
+  padding: 8px 14px;
+  font-weight: bold;
+  color: #000;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+.action-btn:hover {
+  background: #00cfa3;
+}
+
+/* Botones de navegación */
+#prevBtn, #nextBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #00ffc3;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #000;
+  user-select: none;
+  filter: drop-shadow(0 0 5px #00ffc3);
+  transition: background 0.3s ease;
+  z-index: 10;
+}
+
+#prevBtn:hover, #nextBtn:hover {
+  background: #00cfa3;
+}
+
+#prevBtn {
+  left: -60px;
+}
+
+#nextBtn {
+  right: -60px;
+}
+
+/* Modo claro */
+body.light {
+  background: #f0f0f0;
+  color: #000;
+}
+
+body.light #particles {
+  background: #f0f0f0;
+}
+
+body.light .slide {
+  box-shadow: 0 10px 20px rgba(0, 200, 180, 0.7);
+}
+
+body.light .overlay {
+  background: rgba(255, 255, 255, 0.8);
+  color: #00705a;
+}
+
+body.light .action-btn {
+  background: #00705a;
+  color: #fff;
+}
+
+body.light .action-btn:hover {
+  background: #005037;
+}
+
+body.light #prevBtn,
+body.light #nextBtn,
+body.light #toggleTheme {
+  background: #00705a;
+  color: #fff;
+  filter: drop-shadow(0 0 5px #00705a);
+}
+
+body.light #prevBtn:hover,
+body.light #nextBtn:hover,
+body.light #toggleTheme:hover {
+  background: #005037;
+}

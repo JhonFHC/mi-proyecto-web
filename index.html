@@ -2,52 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inicio - Proyecto Web</title>
-  <link rel="stylesheet" href="assets/style1.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script defer src="assets/slider.js"></script>
-  <script defer src="assets/interacciones.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UPLA - Portal de Acceso</title>
+  <link rel="stylesheet" href="/assets/instyle.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Para íconos -->
+  <script defer src="/assets/inscript.js"></script>
+  <script defer src="/assets/particles.js"></script> <!-- Partículas de fondo -->
 </head>
 <body>
-  <nav class="navbar">
-    <a href="index.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
-  </nav>
+  <!-- Fondo de partículas -->
+  <canvas id="particles"></canvas>
 
-  <main class="container">
-    <section class="slider-container">
-      <div class="slider">
-        <div class="slides">
-          <img src="IMG/imagen1.jpg.jpeg" alt="Imagen 1" />
-          <img src="IMG/imagen2.jpg.jpg" alt="Imagen 2" />
-          <img src="IMG/imagen3.jpg.jpg" alt="Imagen 3" />
-        </div>
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
-        <div class="dots">
-          <span class="dot" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
-      </div>
-    </section>
+  <div class="hero-section">
+    <!-- Header principal -->
+    <header class="header-title">
+      <h1>Universidad Peruana Los Andes</h1>
+      <p class="subtitle">Portal de Acceso Estudiantil</p>
+      <p class="description">Bienvenido al sistema de la UPLA. Accede a tus recursos educativos, tareas y más. Formación integral con excelencia académica.</p>
+    </header>
 
-    <section class="info-superior fade-in">
-      <h1>Jhon Frank Huaman Cardenas</h1>
-      <h2>Universidad Peruana Los Andes</h2>
-      <h3>Profesor: Mg.Raúl Fernández Bejarano</h3>
-    </section>
-
-    <section class="info-inferior fade-in">
-      <h2>Misión</h2>
-      <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
-        integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
-
-      <h2>Visión</h2>
-      <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
-        académica y pertinencia social.</p>
-    </section>
-  </main>
+    <!-- Bloque central de entrada -->
+    <div class="text-block" id="portal" data-target="interfaz.html">
+      <i class="fas fa-door-open"></i> <!-- Ícono de portal/puerta -->
+      <h2>Entrar a la Interfaz</h2>
+      <p>Haz clic aquí para comenzar tu experiencia</p>
+    </div>
+  </div>
 </body>
 </html>

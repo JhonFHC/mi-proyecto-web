@@ -1,0 +1,84 @@
+<!-- Updated interfaz.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Proyecto Web</title>
+  <link rel="stylesheet" href="assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="assets/slider.js"></script>
+  <script defer src="assets/interacciones.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+  </nav>
+  <canvas id="particles"></canvas>
+  <main class="container">
+    <section class="slider-3d">
+      <div class="slider-container" id="sliderContainer">
+        <div class="slide" data-title="Montañas" data-desc="Paisaje espectacular">
+          <img src="/IMG/imagen1.jpg.jpeg" alt="Imagen 1" />
+          <div class="overlay">
+            <h3>Montañas</h3>
+            <p>Paisaje espectacular</p>
+            <button class="action-btn" onclick="alert('Montañas seleccionadas!')">Ver más</button>
+          </div>
+        </div>
+        <div class="slide" data-title="Bosque" data-desc="Naturaleza viva">
+          <img src="/IMG/imagen2.jpg.jpg" alt="Imagen 2" />
+          <div class="overlay">
+            <h3>Bosque</h3>
+            <p>Naturaleza viva</p>
+            <button class="action-btn" onclick="alert('Bosque seleccionado!')">Ver más</button>
+          </div>
+        </div>
+        <div class="slide" data-title="Río" data-desc="Agua cristalina">
+          <img src="/IMG/imagen3.jpg.jpg" alt="Imagen 3" />
+          <div class="overlay">
+            <h3>Río</h3>
+            <p>Agua cristalina</p>
+            <button class="action-btn" onclick="alert('Río seleccionado!')">Ver más</button>
+          </div>
+        </div>
+        <div class="slide" data-title="Desierto" data-desc="Calor y arena">
+          <img src="https://picsum.photos/id/1015/400/300" alt="Imagen 4" />
+          <div class="overlay">
+            <h3>Desierto</h3>
+            <p>Calor y arena</p>
+            <button class="action-btn" onclick="alert('Desierto seleccionado!')">Ver más</button>
+          </div>
+        </div>
+        <div class="slide" data-title="Lago" data-desc="Reflejo perfecto">
+          <img src="https://picsum.photos/id/1016/400/300" alt="Imagen 5" />
+          <div class="overlay">
+            <h3>Lago</h3>
+            <p>Reflejo perfecto</p>
+            <button class="action-btn" onclick="alert('Lago seleccionado!')">Ver más</button>
+          </div>
+        </div>
+      </div>
+
+      <button id="prevBtn" aria-label="Imagen anterior">◀</button>
+      <button id="nextBtn" aria-label="Siguiente imagen">▶</button>
+    </section>
+
+    <section class="info-superior fade-in">
+      <h1>Jhon Frank Huaman Cardenas</h1>
+      <h3>Profesor: Mg.Raúl Fernández Bejarano</h3>
+    </section>
+
+    <section class="info-inferior fade-in">
+      <h2>Misión</h2>
+      <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
+        integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
+
+      <h2>Visión</h2>
+      <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
+        académica y pertinencia social.</p>
+    </section>
+  </main>
+</body>
+</html>
