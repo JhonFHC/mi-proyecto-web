@@ -1,4 +1,3 @@
-<!-- Updated interfaz.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +11,10 @@
 </head>
 <body>
   <nav class="navbar">
+    <!-- Logo Universidad -->
+    <a href="interfaz.html" class="logo-link" aria-label="Inicio">
+      <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+    </a>
     <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
     <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
   </nav>
@@ -19,28 +22,25 @@
   <main class="container">
     <section class="slider-3d">
       <div class="slider-container" id="sliderContainer">
-        <div class="slide" data-title="Montañas" data-desc="Paisaje espectacular">
-          <img src="IMG/imagen1.jpeg" alt="Imagen 1" />
+        <div class="slide" data-title="Rector Bustinza Suaznabar" data-desc="Rector de la Universidad">
+          <img src="IMG/imagen1.jpeg" alt="Rector Bustinza Suaznabar" />
           <div class="overlay">
-            <h3>Montañas</h3>
-            <p>Paisaje espectacular</p>
-            <button class="action-btn" onclick="alert('Montañas seleccionadas!')">Ver más</button>
+            <h3>Rector Bustinza Suaznabar</h3>
+            <p>Es el rector de nuestra universidad, reconocido por su liderazgo y compromiso con la educación de calidad.</p>
           </div>
         </div>
-        <div class="slide" data-title="Bosque" data-desc="Naturaleza viva">
-          <img src="IMG/imagen2.jpg" alt="Imagen 2" />
+        <div class="slide" data-title="Universidad" data-desc="Nuestra institución">
+          <img src="IMG/imagen2.jpg" alt="Universidad" />
           <div class="overlay">
-            <h3>Bosque</h3>
-            <p>Naturaleza viva</p>
-            <button class="action-btn" onclick="alert('Bosque seleccionado!')">Ver más</button>
+            <h3>Universidad</h3>
+            <p>Somos una universidad privada asociativa de calidad, con presencia nacional e internacional y excelencia académica.</p>
           </div>
         </div>
-        <div class="slide" data-title="Río" data-desc="Agua cristalina">
-          <img src="IMG/imagen3.jpg" alt="Imagen 3" />
+        <div class="slide" data-title="Profesor de Taller" data-desc="Apache NetBeans, Maven, Diseño MVC">
+          <img src="IMG/imagen3.jpg" alt="Profesor de Taller" />
           <div class="overlay">
-            <h3>Río</h3>
-            <p>Agua cristalina</p>
-            <button class="action-btn" onclick="alert('Río seleccionado!')">Ver más</button>
+            <h3>Profesor de Taller</h3>
+            <p>Nos enseña Apache NetBeans, Maven, diseño, vista y controlador. Fue quien nos guió para crear esta página web.</p>
           </div>
         </div>
         <div class="slide" data-title="Desierto" data-desc="Calor y arena">
@@ -48,7 +48,6 @@
           <div class="overlay">
             <h3>Desierto</h3>
             <p>Calor y arena</p>
-            <button class="action-btn" onclick="alert('Desierto seleccionado!')">Ver más</button>
           </div>
         </div>
         <div class="slide" data-title="Lago" data-desc="Reflejo perfecto">
@@ -56,7 +55,6 @@
           <div class="overlay">
             <h3>Lago</h3>
             <p>Reflejo perfecto</p>
-            <button class="action-btn" onclick="alert('Lago seleccionado!')">Ver más</button>
           </div>
         </div>
       </div>
@@ -66,19 +64,23 @@
     </section>
 
     <section class="info-superior fade-in">
-      <h1>Jhon Frank Huaman Cardenas</h1>
-      <h3>Profesor: Mg.Raúl Fernández Bejarano</h3>
-    </section>
-
-    <section class="info-inferior fade-in">
-      <h2>Misión</h2>
-      <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
-        integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
-
-      <h2>Visión</h2>
-      <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
-        académica y pertinencia social.</p>
-    </section>
+    <h1>Taller de Aplicaciones</h1>
+    <h3>Aprendizaje de Apache NetBeans, Maven, Diseño MVC y desarrollo web</h3>
+    <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación.</p>
+  </section>
+  <section class="info-inferior fade-in">
+    <h2>Misión</h2>
+    <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
+      integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
+    <h2>Visión</h2>
+    <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
+      académica y pertinencia social.</p>
+  </section>
+  <section class="info-inferior fade-in">
+    <h2>Sobre mí</h2>
+    <p>Hola, soy Jhon Frank Huaman Cardenas, estudiante de Ingeniería de Sistemas y Computación. Soy optimista, no me doy por vencido y siempre busco aprender más.</p>
+    <button class="btn" id="btnSobreMi">Conóceme</button>
+  </section>
   </main>
 </body>
 </html>

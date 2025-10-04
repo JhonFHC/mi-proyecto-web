@@ -2,9 +2,81 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Semana 3 - Aplicacion</title>
-  <link rel="stylesheet" href="../assets/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semana 3 - Aplicación</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Acordeón */
+    .acordeon {
+      background-color: #00ffc3;
+      color: #000;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .acordeon:hover {
+      background-color: #00cfa3;
+    }
+    .panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 18px;
+      border-left: 3px solid #00ffc3;
+      color: #ccc;
+      margin-bottom: 20px;
+      border-radius: 0 0 5px 5px;
+    }
+    pre {
+      background: #111;
+      color: #0ff;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .btn {
+      background-color: #00ffc3;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #00cfa3;
+    }
+    .fila-dos-columnas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .columna {
+      flex: 1 1 300px;
+    }
+    .columna.izquierda {
+      max-width: 400px;
+    }
+    .columna.derecha {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -18,46 +90,42 @@
     </section>
 
     <section>
-        <!-- Parte 1: Documento informativo -->
-        <div class="fila-dos-columnas">
-          <div class="columna izquierda">
-            <h3>Parte 1: Archivo Informativo</h3>
-            <ul>
-              <li><strong>Cómo crear un repositorio en GIT-HUB.docx</strong></li>
-            </ul>
-            <a href="../downloads/Taller Aplicaciones - Semana3.docx" class="btn" download>⬇️ Descargar Archivo</a>
-          </div>
-          <div class="columna derecha">
-            <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
-          </div>
-        </div>
+      <h2>Semana 3 - Aplicación</h2>
+      <p>En esta semana trabajaremos con aplicaciones Java que manejan ofertas de productos y transportes con interfaces gráficas.</p>
     </section>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 3</h2>
-
+    <button class="acordeon">Ver archivo informativo</button>
+    <div class="panel">
       <div class="fila-dos-columnas">
-        <!-- Columna izquierda: Enunciado 1 -->
         <div class="columna izquierda">
-          <h3>Enunciado 5</h3>
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
-                package com.zonajava.enunciado1;
-                import Vista.CFormulario;
-                public class Enunciado1 {
-                    public static void main(String[] args) {
-                        CFormulario ventana = new CFormulario();
-                        ventana.setVisible(true);
-                    }
-                }
-              </code></pre>
-            </div>
+          <h3>Archivo Informativo</h3>
+          <ul>
+            <li><strong>Taller Aplicaciones - Semana3.docx</strong></li>
+          </ul>
+          <a href="../downloads/Taller Aplicaciones - Semana3.docx" class="btn" download>⬇️ Descargar Archivo</a>
+        </div>
+        <div class="columna derecha">
+          <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
+        </div>
+      </div>
+    </div>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
+    <button class="acordeon">Ver Enunciado 5 (Java Main Class y JFrame)</button>
+    <div class="panel">
+      <h3>Enunciado 5 - Java Main Class</h3>
+      <pre><code>
+package com.zonajava.enunciado1;
+import Vista.CFormulario;
+public class Enunciado1 {
+    public static void main(String[] args) {
+        CFormulario ventana = new CFormulario();
+        ventana.setVisible(true);
+    }
+}
+      </code></pre>
+
+      <h4>JFrame Form</h4>
+      <pre><code>
 package Vista;
 import Clases.COfertaProducto;
 import java.awt.Color;
@@ -86,7 +154,6 @@ public class CFormulario extends javax.swing.JFrame {
     }
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
         try {
             float precio = Float.parseFloat(txtPrecioDocena.getText().trim());
             int cantidad = Integer.parseInt(txtCantidadDocenas.getText().trim());
@@ -115,7 +182,6 @@ public class CFormulario extends javax.swing.JFrame {
     }                                           
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         txtPrecioDocena.setText("");
         txtCantidadDocenas.setText("");
         txtResultado.setText("");
@@ -125,7 +191,6 @@ public class CFormulario extends javax.swing.JFrame {
     }                                        
 
     private void btnSaliActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
         int r = JOptionPane.showConfirmDialog(this, "¿Deseas salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (r == JOptionPane.YES_OPTION) {
             System.exit(0);
@@ -138,7 +203,6 @@ public class CFormulario extends javax.swing.JFrame {
 
         boolean habilitar = !precio.isEmpty() && !cantidad.isEmpty();
 
-        // Verificamos que ambos campos sean numéricos válidos
         try {
             Float.parseFloat(precio);
             Integer.parseInt(cantidad);
@@ -150,39 +214,32 @@ public class CFormulario extends javax.swing.JFrame {
     }
 
     private void txtPrecioDocenaKeyReleased(java.awt.event.KeyEvent evt) {                                            
-        // TODO add your handling code here:
         validarCampos();  
     }                                           
 
     private void txtPrecioDocenaKeyTyped(java.awt.event.KeyEvent evt) {                                         
-        // TODO add your handling code here:
         validarCampos();
     }                                        
 
     private void txtCantidadDocenasKeyPressed(java.awt.event.KeyEvent evt) {                                              
-        // TODO add your handling code here:
         validarCampos();
     }                                             
 
     private void txtCantidadDocenasKeyReleased(java.awt.event.KeyEvent evt) {                                               
-        // TODO add your handling code here:
         validarCampos();
     }
-              </code></pre>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Java Class</h4>
-              <pre><code>
-                package Clases;
+      <h4>Java Class</h4>
+      <pre><code>
+package Clases;
 
 public class COfertaProducto {
     private float precioDocena;
     private int cantidadDocenas;
 
-    // Constructor vacío
     public COfertaProducto() {}
 
-    // Setters
     public void setPrecioDocena(float precioDocena) {
         this.precioDocena = precioDocena;
     }
@@ -191,12 +248,10 @@ public class COfertaProducto {
         this.cantidadDocenas = cantidadDocenas;
     }
 
-    // Cálculo del importe de compra
     public float calcularImporteCompra() {
         return precioDocena * cantidadDocenas;
     }
 
-    // Cálculo del descuento
     public float calcularDescuento() {
         float importe = calcularImporteCompra();
         if (cantidadDocenas >= 10) {
@@ -206,12 +261,10 @@ public class COfertaProducto {
         }
     }
 
-    // Cálculo del importe a pagar
     public float calcularImportePagar() {
         return calcularImporteCompra() - calcularDescuento();
     }
 
-    // Cálculo de lapiceros obsequio
     public int calcularLapiceros() {
         float importePagar = calcularImportePagar();
         if (importePagar >= 200) {
@@ -221,25 +274,14 @@ public class COfertaProducto {
         }
     }
 }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 3</h2>
-
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Enunciado 6</h3>
-
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
-                package com.zonajava.enunciado2;
+    <button class="acordeon">Ver Enunciado 6 (Java Main Class y JFrame)</button>
+    <div class="panel">
+      <h3>Enunciado 6 - Java Main Class</h3>
+      <pre><code>
+package com.zonajava.enunciado2;
 import Vista.CFormulario;
 
 public class Enunciado2 {
@@ -249,12 +291,10 @@ public class Enunciado2 {
         venta.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
+      <h4>JFrame Form</h4>
+      <pre><code>
 package Vista;
 import Clase.COfertaTransporte;
 import java.awt.Color;
@@ -304,7 +344,6 @@ public class CFormulario extends javax.swing.JFrame {
 
     
     private void inicializarElementos(){
-    // Centrado del texto de cboCategoria
         listRenderer = new DefaultListCellRenderer();
         listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
         
@@ -317,7 +356,6 @@ public class CFormulario extends javax.swing.JFrame {
     }
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
         try {
             String turnoSeleccionado = (String) comboTurno.getSelectedItem();
             if (turnoSeleccionado == null || turnoSeleccionado.isEmpty()) {
@@ -355,7 +393,6 @@ public class CFormulario extends javax.swing.JFrame {
     }                                           
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         comboTurno.setSelectedIndex(0);
         txtCantidadPasajes.setText("");
         txtResultado.setText("");
@@ -365,7 +402,6 @@ public class CFormulario extends javax.swing.JFrame {
     }                                        
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         int r = JOptionPane.showConfirmDialog(this, "¿Deseas salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (r == JOptionPane.YES_OPTION) {
             System.exit(0);
@@ -373,20 +409,17 @@ public class CFormulario extends javax.swing.JFrame {
     }
 
     private void txtCantidadPasajesKeyReleased(java.awt.event.KeyEvent evt) {                                               
-        // TODO add your handling code here:
         validarCampos();
     }                                              
 
     private void comboTurnoItemStateChanged(java.awt.event.ItemEvent evt) {                                            
-        // TODO add your handling code here:
         validarCampos();
     }
-              </code></pre>
-            
-            <div class="sub-cuadro">
-              <h4>Java Class</h4>
-              <pre><code>
-                package Clase;
+      </code></pre>
+      
+      <h4>Java Class</h4>
+      <pre><code>
+package Clase;
 
 public class COfertaTransporte {
     private String turno; // "Mañana" o "Noche"
@@ -423,12 +456,26 @@ public class COfertaTransporte {
         return 0;
     }
 }
-            </pre></code>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
   </main>
+
+  <script>
+    // Script para acordeón
+    const acordeones = document.querySelectorAll('.acordeon');
+    acordeones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -18,14 +18,16 @@ body {
   padding: 10px;
   display: flex;
   gap: 20px;
-  justify-content: center;
-  position: fixed;  /* Fijo en la parte superior */
+  justify-content: center; /* ya estaba */
+  align-items: center; /* agregar para centrar vertical */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;  /* Alto z-index para estar encima del canvas y slider */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);  /* Sombra sutil para resaltar */
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
+
 .navbar a {
   color: #fff;
   text-decoration: none;
@@ -38,6 +40,27 @@ body {
   background-color: #3b82f6;
   transform: scale(1.05);
 }
+
+/* Agregar al inicio o donde estén los estilos del navbar */
+
+/* Logo en navbar */
+.logo-link {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 0 3px #00ffc3);
+  transition: filter 0.3s ease;
+}
+
+.logo-link:hover .logo {
+  filter: drop-shadow(0 0 6px #00cfa3);
+}
+
 /* Ajuste para el contenido principal (para que no se superponga con el navbar fijo) */
 .container {
   padding: 20px;
@@ -63,9 +86,23 @@ body {
   margin-bottom: 10px;
 }
 
+.info-inferior {
+  margin-bottom: 40px;
+  text-align: center; /* centrado */
+  background: rgba(14, 14, 14, 0.8);
+  padding: 15px 20px; /* menos padding */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 255, 195, 0.2);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.95rem; /* tamaño más pequeño */
+}
+
 .info-inferior p {
   color: #ccc;
-  line-height: 1.6;
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
 .frase-celebre {

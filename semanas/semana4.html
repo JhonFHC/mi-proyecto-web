@@ -2,10 +2,81 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Semana 2 - Repositorio y Código</title>
-  <link rel="stylesheet" href="../assets/style.css" />
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semana 4 – Aplicaciones / Enunciados</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Acordeón */
+    .acordeon {
+      background-color: #00ffc3;
+      color: #000;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .acordeon:hover {
+      background-color: #00cfa3;
+    }
+    .panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 18px;
+      border-left: 3px solid #00ffc3;
+      color: #ccc;
+      margin-bottom: 20px;
+      border-radius: 0 0 5px 5px;
+    }
+    pre {
+      background: #111;
+      color: #0ff;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .btn {
+      background-color: #00ffc3;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #00cfa3;
+    }
+    .fila-dos-columnas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .columna {
+      flex: 1 1 300px;
+    }
+    .columna.izquierda {
+      max-width: 400px;
+    }
+    .columna.derecha {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+  </style>
 <body>
   <nav class="navbar">
     <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
@@ -14,36 +85,19 @@
 
   <main class="container">
     <section class="frase-celebre">
-      <blockquote>"La sabiduría comienza con el deseo de saber, pero la imaginación es el motor para descubrir lo desconocido." – Leonardo da Vinci </blockquote>
+      <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
     </section>
 
     <section>
-        <!-- Parte 1: Documento informativo -->
-        <div class="fila-dos-columnas">
-          <div class="columna izquierda">
-            <h3>Parte 1: Archivo Informativo</h3>
-            <ul>
-              <li><strong>Taller Aplicaciones - Semana4.docx</strong></li>
-            </ul>
-            <a href="../downloads/Taller Aplicaciones - Semana4.docx" class="btn" download>⬇️ Descargar Archivo</a>
-          </div>
-          <div class="columna derecha">
-            <p>Este documento explica paso a paso cómo implementar las aplciaiones correctamente.</p>
-          </div>
-        </div>
+      <h2>Semana 4 – Enunciados y Aplicaciones</h2>
+      <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
     </section>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 4</h2>
-
-      <div class="fila-dos-columnas">
-        <!-- Columna izquierda: Enunciado 1 -->
-        <div class="columna izquierda">
-          <h3>Enunciado 1</h3>
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
+    <!-- Acordeón para Enunciado 1 -->
+    <button class="acordeon">Ver Enunciado 1 (Main + Lógica / Vista)</button>
+    <div class="panel">
+      <h3>Enunciado 1 – Java Main Class</h3>
+      <pre><code>
 package com.zonajava.enunciado01;
 
 import Controlador.FiguraControlador;
@@ -56,122 +110,10 @@ public class Enunciado01 {
         vista.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Modelo - Figura</h4>
-              <pre><code>
-package Modelo;
-
-/**
- *
- * @author La Zona Vip
- */
-public abstract class Figura {
-    protected double lado;
-
-    public Figura(double lado) {
-        this.lado = lado;
-    }
-
-    public void setLado(double lado) {
-        this.lado = lado;
-    }
-
-    public double getLado() {
-        return lado;
-    }
-
-    public abstract double calcularArea();
-    public abstract double calcularPerimetro();
-}
-              </code></pre>
-            </div>
-
-            <div class="sub-cuadro">
-              <h4>Modelo - Cuadrado</h4>
-              <pre><code>
-package Modelo;
-
-public class Cuadrado extends Figura {
-
-    public Cuadrado(double lado) {
-        super(lado);
-    }
-
-    @Override
-    public double calcularArea() {
-        return lado * lado;
-    }
-
-    @Override
-    public double calcularPerimetro() {
-        return 4 * lado;
-    }
-}
-              </code></pre>
-            </div>
-
-            <div class="sub-cuadro">
-              <h4>Modelo - Circulo</h4>
-              <pre><code>
-package Modelo;
-
-/**
- *
- * @author La Zona Vip
- */
-public class Circulo extends Figura {
-
-    public Circulo(double radio) {
-        super(radio);
-    }
-
-    @Override
-    public double calcularArea() {
-        return Math.PI * lado * lado;
-    }
-
-    @Override
-    public double calcularPerimetro() {
-        return 2 * Math.PI * lado;
-    }
-}
-              </code></pre>
-            </div>
-
-            <div class="sub-cuadro">
-              <h4>Modelo - Triangulo</h4>
-              <pre><code>
-package Modelo;
-
-/**
- *
- * @author La Zona Vip
- */
-public class Triangulo extends Figura {
-
-    public Triangulo(double lado) {
-        super(lado);
-    }
-
-    @Override
-    public double calcularArea() {
-        return (Math.sqrt(3) / 4) * lado * lado;
-    }
-
-    @Override
-    public double calcularPerimetro() {
-        return 3 * lado;
-    }
-}
-              </code></pre>
-            </div>
-
-            <div class="sub-cuadro">
-              <h4>Controlador - FiguraControlador</h4>
-              <pre><code>
+      <h4>Controlador – FiguraControlador</h4>
+      <pre><code>
 package Controlador;
 
 import Modelo.*;
@@ -232,24 +174,21 @@ public class FiguraControlador {
         vista.mostrarResultados(area, perimetro);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Vista - CuadradoVista</h4>
-              <pre><code>
+      <h4>Vista – CuadradoVista</h4>
+      <pre><code>
 package Vista;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-
 public class CuadradoVista extends javax.swing.JFrame {
     // Botones figura
     private String figuraSeleccionada;
     private PanelDibujo panelFigura;
-    
+
     public CuadradoVista() {
         initComponents();
         formulario();
@@ -308,183 +247,17 @@ public class CuadradoVista extends javax.swing.JFrame {
             mostrarResultados(area, perimetro);
         });
     }
-    
-    private void formulario() {
-        this.setSize(650, 450);
-        this.setLayout(null);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        panelSeleccionar.setLayout(null);
-        panelSeleccionar.setBounds(20, 20, 200, 150);
-
-        btnCuadrado.setBounds(20, 10, 150, 30);
-        btnCirculo.setBounds(20, 50, 150, 30);
-        btnTriangulo.setBounds(20, 90, 150, 30);
-
-        panelSeleccionar.add(btnCuadrado);
-        panelSeleccionar.add(btnCirculo);
-        panelSeleccionar.add(btnTriangulo);
-
-        this.add(panelSeleccionar);
-
-        panelDatos.setLayout(null);
-        panelDatos.setBounds(250, 20, 350, 120);
-        panelDatos.setVisible(false);
-
-        txtLado.setBounds(10, 10, 100, 25);
-        panelDatos.add(txtLado);
-
-        txtLado.setBounds(120, 10, 100, 25);
-        panelDatos.add(txtLado);
-
-        JScrollPane scroll = new JScrollPane(txtSalida);
-        scroll.setBounds(10, 50, 300, 60);
-        panelDatos.add(scroll);
-
-        this.add(panelDatos);
-
-        panelCalcular.setLayout(null);
-        panelCalcular.setBounds(250, 160, 350, 50);
-        panelCalcular.setVisible(false);
-
-        btnCalcular.setBounds(10, 10, 100, 30);
-        btnCalcular.setEnabled(false);
-
-        btnNuevo.setBounds(120, 10, 100, 30);
-        btnNuevo.setEnabled(false);
-
-        btnSalir.setBounds(230, 10, 100, 30);
-
-        panelCalcular.add(btnCalcular);
-        panelCalcular.add(btnNuevo);
-        panelCalcular.add(btnSalir);
-
-        this.add(panelCalcular);
-
-        panelFigura = new PanelDibujo();
-        panelFigura.setBounds(20, 220, 580, 180);
-        panelFigura.setBackground(Color.LIGHT_GRAY);
-        panelFigura.setVisible(false);
-
-        this.add(panelFigura);
-    }
-
-
-    private void seleccionarFigura(String figura) {
-        this.figuraSeleccionada = figura;
-        panelDatos.setVisible(true);
-        panelCalcular.setVisible(true);
-        panelFigura.setVisible(true);
-        limpiarCampos();
-    }
-
-    private void habilitarBotones() {
-        boolean habilitar = !txtLado.getText().trim().isEmpty();
-        btnCalcular.setEnabled(habilitar);
-        btnNuevo.setEnabled(habilitar);
-    }
-
-    public double obtenerLado() {
-        try {
-            return Double.parseDouble(txtLado.getText());
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
-
-    public void mostrarResultados(double area, double perimetro) {
-        txtSalida.setText("Resultados:\n");
-        txtSalida.append("Área: " + String.format("%.2f", area) + "\n");
-        txtSalida.append("Perímetro: " + String.format("%.2f", perimetro));
-        int ladoInt = (int) obtenerLado();
-        panelFigura.setFigura(figuraSeleccionada);
-        panelFigura.setLado(ladoInt);
-    }
-
-    public void limpiarCampos() {
-        txtLado.setText("");
-        txtSalida.setText("");
-        panelFigura.setFigura("");
-        panelFigura.setLado(0);
-        btnCalcular.setEnabled(false);
-        btnNuevo.setEnabled(false);
-    }
-    
-    public void agregarCalcularListener(ActionListener listener) {
-        btnCalcular.addActionListener(listener);
-    }
-
-    public void agregarNuevoListener(ActionListener listener) {
-        btnNuevo.addActionListener(listener);
-    }
-
-    public void agregarSairListener(ActionListener listener) {
-        btnSalir.addActionListener(listener);
-    }
-
-    private class PanelDibujo extends JPanel {
-        private String figura = "";
-        private int lado = 0;
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (lado <= 0) return;
-
-            switch (figura) {
-                case "cuadrado":
-                    g.setColor(Color.BLUE);
-                    g.fillRect(10, 10, lado, lado);
-                    break;
-                case "circulo":
-                    g.setColor(Color.RED);
-                    g.fillOval(10, 10, lado * 2, lado * 2);
-                    break;
-                case "triangulo":
-                    g.setColor(Color.GREEN);
-                    int altura = (int) (Math.sqrt(3) * lado / 2);
-                    g.fillPolygon(
-                        new int[]{10, 10 + lado / 2, 10 + lado},
-                        new int[]{10 + altura, 10, 10 + altura},
-                        3);
-                    break;
-            }
-        }
-
-        public void setFigura(String f) {
-            this.figura = f;
-            repaint();
-        }
-
-        public void setLado(int l) {
-            this.lado = l;
-            repaint();
-        }
-    }
-
-    public String getFiguraSeleccionada() {
-        return figuraSeleccionada;
-    }
+    // ... continúa con los métodos obtenerLado, limpiarCampos, etc.
 }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 2</h2>
-
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Enunciado 2</h3>
-
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
+    <!-- Acordeón para Enunciado 2 -->
+    <button class="acordeon">Ver Enunciado 2 (Login / Conversión)</button>
+    <div class="panel">
+      <h3>Enunciado 2 – Java Main Class</h3>
+      <pre><code>
 package com.zonajava.enunciado02;
 
 import Controlador.LoginControlador;
@@ -501,7 +274,7 @@ public class Enunciado02 {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            List&lt;Usuario&gt; usuarios = List.of(
+            List<Usuario> usuarios = List.of(
                 new Usuario("alumno1", "pass1", "ALUMNO"),
                 new Usuario("profesor1", "pass2", "PROFESOR")
             );
@@ -512,12 +285,10 @@ public class Enunciado02 {
         });
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Controlador - ConversionControlador</h4>
-              <pre><code>
+      <h4>Controlador – ConversionControlador</h4>
+      <pre><code>
 package Controlador;
 
 import Modelo.*;
@@ -529,9 +300,9 @@ import java.util.List;
 public class ConversionControlador {
     private ConversionVista vista;
     private Usuario usuario;
-    private List&lt;Usuario&gt; usuarios;
+    private List<Usuario> usuarios;
 
-    public ConversionControlador(ConversionVista vista, Usuario usuario, List&lt;Usuario&gt; usuarios) {
+    public ConversionControlador(ConversionVista vista, Usuario usuario, List<Usuario> usuarios) {
         this.vista = vista;
         this.usuario = usuario;
         this.usuarios = usuarios;
@@ -607,16 +378,14 @@ public class ConversionControlador {
     private void volverAlLogin() {
         vista.dispose();
         LoginVista loginVista = new LoginVista();
-        new LoginControlador(loginVista, usuarios); // Corrección: ahora pasamos la lista
+        new LoginControlador(loginVista, usuarios);
         loginVista.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Controlador - LoginControlador</h4>
-              <pre><code>
+      <h4>Controlador – LoginControlador</h4>
+      <pre><code>
 package Controlador;
 
 import Modelo.Usuario;
@@ -630,9 +399,9 @@ import java.util.List;
 
 public class LoginControlador {
     private final LoginVista loginVista;
-    private final List&lt;Usuario&gt; usuarios;
+    private final List<Usuario> usuarios;
 
-    public LoginControlador(LoginVista vista, List&lt;Usuario&gt; usuarios) {
+    public LoginControlador(LoginVista vista, List<Usuario> usuarios) {
         this.loginVista = vista;
         this.usuarios = usuarios;
 
@@ -671,12 +440,10 @@ public class LoginControlador {
         });
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Modelo - Conversion</h4>
-              <pre><code>
+      <h4>Modelo – Conversion</h4>
+      <pre><code>
 package Modelo;
 
 public class Conversion {
@@ -697,25 +464,23 @@ public class Conversion {
         return valor + " " + unidadOrigen + " = " + resultado + " " + unidadDestino;
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Modelo - RepositorioConversiones</h4>
-              <pre><code>
+      <h4>Modelo – RepositorioConversiones</h4>
+      <pre><code>
 package Modelo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioConversiones {
-    public static List&lt;Conversion&gt; conversiones = new ArrayList&lt;&gt;();
+    public static List<Conversion> conversiones = new ArrayList<>();
 
     public static void guardar(Conversion c) {
         conversiones.add(c);
     }
 
-    public static List&lt;Conversion&gt; obtenerConversiones() {
+    public static List<Conversion> obtenerConversiones() {
         return conversiones;
     }
 
@@ -723,12 +488,10 @@ public class RepositorioConversiones {
         conversiones.clear();
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Modelo - Usuario</h4>
-              <pre><code>
+      <h4>Modelo – Usuario</h4>
+      <pre><code>
 package Modelo;
 
 public class Usuario {
@@ -754,12 +517,14 @@ public class Usuario {
         return rol;
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
+    </div>
 
-            <div class="sub-cuadro">
-              <h4>Vista - ConversionVista</h4>
-              <pre><code>
+    <!-- Acordeón para Vista Login -->
+    <button class="acordeon">Ver Vista – ConversionVista / LoginVista</button>
+    <div class="panel">
+      <h4>Vista – ConversionVista</h4>
+      <pre><code>
 package Vista;
 
 import javax.swing.*;
@@ -767,31 +532,28 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class ConversionVista extends JFrame {
+    // Aquí irían tus atributos y componentes Swing…
     public ConversionVista() {
         initComponents();
         inicializarElementos();
-        
-        btnCalcular.addActionListener(e->{
-        
+
+        btnCalcular.addActionListener(e -> {
+            // …
         });
     }
 
     public String getValor() {
         return txtValor.getText().trim();
     }
-
     public String getUnidadOrigen() {
         return (String) cmbOrigen.getSelectedItem();
     }
-
     public String getUnidadDestino() {
         return (String) cmbDestino.getSelectedItem();
     }
-
     public void setResultado(String texto) {
         txtResultado.setText(texto);
     }
-
     public void setRol(String rol) {
         lblRol.setText("Rol: " + rol);
         if ("PROFESOR".equalsIgnoreCase(rol)) {
@@ -804,11 +566,9 @@ public class ConversionVista extends JFrame {
             btnGuardarSalir.setVisible(true);
         }
     }
-
     public void agregarCalcularListener(ActionListener listener) {
         btnCalcular.addActionListener(listener);
     }
-    
     public void inicializarElementos() {
         DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
         listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
@@ -828,29 +588,21 @@ public class ConversionVista extends JFrame {
         cmbOrigen.setSelectedIndex(0);
         cmbDestino.setSelectedIndex(1);
     }
-
-    
-
     public void mostrarConversiones(String texto) {
         txtResultado.setText(texto);
     }
-
     public void agregarGuardarSalirListener(ActionListener listener) {
         btnGuardarSalir.addActionListener(listener);
     }
-
     public void agregarEliminarListener(ActionListener listener) {
         btnEliminarTodo.addActionListener(listener);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>Vista - LoginVista</h4>
-              <pre><code>
+      <h4>Vista – LoginVista</h4>
+      <pre><code>
 package Vista;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -859,35 +611,47 @@ import java.awt.event.ActionListener;
 public class LoginVista extends javax.swing.JFrame {
     public LoginVista() {
         initComponents();
-        
+
         btnLogin.addActionListener(e -> {
-        
-        
+            // …
         });
     }
-
     public String getUsuario() {
         return txtUsuario.getText().trim();
     }
-
     public String getPassword() {
         return new String(txtPassword.getPassword());
     }
-
     public void setMensaje(String mensaje) {
         lblMensaje.setText(mensaje);
     }
-
     public void agregarLoginListener(ActionListener listener) {
         btnLogin.addActionListener(listener);
     }
 }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
   </main>
+
+  <script>
+    const acordeones = document.querySelectorAll('.acordeon');
+    acordeones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
+        }
+      });
+      // Inicializar con “Ver …” si no tiene
+      if (!btn.textContent.startsWith('Ver')) {
+        btn.textContent = 'Ver ' + btn.textContent;
+      }
+    });
+  </script>
 </body>
 </html>

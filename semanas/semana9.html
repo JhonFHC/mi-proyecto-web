@@ -2,300 +2,656 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Semana 2 - Repositorio y Código</title>
-  <link rel="stylesheet" href="assets/style.css" />
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semana 4 – Aplicaciones / Enunciados</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Acordeón */
+    .acordeon {
+      background-color: #00ffc3;
+      color: #000;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .acordeon:hover {
+      background-color: #00cfa3;
+    }
+    .panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 18px;
+      border-left: 3px solid #00ffc3;
+      color: #ccc;
+      margin-bottom: 20px;
+      border-radius: 0 0 5px 5px;
+    }
+    pre {
+      background: #111;
+      color: #0ff;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .btn {
+      background-color: #00ffc3;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #00cfa3;
+    }
+    .fila-dos-columnas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .columna {
+      flex: 1 1 300px;
+    }
+    .columna.izquierda {
+      max-width: 400px;
+    }
+    .columna.derecha {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+  </style>
 <body>
   <nav class="navbar">
-    <a href="index.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
+    <a href="../tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
   </nav>
 
   <main class="container">
     <section class="frase-celebre">
-      <blockquote>“La lógica te llevará del punto A al punto B. La imaginación te llevará a todas partes.” – Albert Einstein</blockquote>
+      <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
     </section>
 
     <section>
-        <!-- Parte 1: Documento informativo -->
-        <div class="fila-dos-columnas">
-          <div class="columna izquierda">
-            <h3>Parte 1: Archivo Informativo</h3>
-            <ul>
-              <li><strong>Cómo crear un repositorio en GIT-HUB.docx</strong></li>
-            </ul>
-            <a href="/downloads/Cómo crear un repositorio en GIT-HUB.docx" class="btn" download>⬇️ Descargar Archivo</a>
-          </div>
-          <div class="columna derecha">
-            <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
-          </div>
-        </div>
+      <h2>Semana 4 – Enunciados y Aplicaciones</h2>
+      <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
     </section>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 2</h2>
+    <!-- Acordeón para Enunciado 1 -->
+    <button class="acordeon">Ver Enunciado 1 (Main + Lógica / Vista)</button>
+    <div class="panel">
+      <h3>Enunciado 1 – Java Main Class</h3>
+      <pre><code>
+package com.zonajava.enunciado01;
 
-      <div class="fila-dos-columnas">
-        <!-- Columna izquierda: Enunciado 1 -->
-        <div class="columna izquierda">
-          <h3>Enunciado 3</h3>
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
-package com.zonajava.enunciado3;
+import Controlador.FiguraControlador;
+import Vista.CuadradoVista;
 
-import Vista.ImporteProducto;
-
-public class Enunciado3 {
+public class Enunciado01 {
     public static void main(String[] args) {
-        ImporteProducto ventana = new ImporteProducto();
-        ventana.setVisible(true);
+        CuadradoVista vista = new CuadradoVista();
+        FiguraControlador controlador = new FiguraControlador(vista);
+        vista.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
-package Vista;
+      <h4>Controlador – FiguraControlador</h4>
+      <pre><code>
+package Controlador;
 
-import javax.swing.*;
+import Modelo.*;
+import Vista.CuadradoVista;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ImporteProducto extends JFrame {
-    private JTextField txtPrecio, txtCantidad;
-    private JTextArea txtSalida;
+public class FiguraControlador {
+    private Figura modelo;
+    private final CuadradoVista vista;
 
-    public ImporteProducto() {
-        initComponents();
+    public FiguraControlador(CuadradoVista vista) {
+        this.vista = vista;
+
+        this.vista.agregarCalcularListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calcular();
+            }
+        });
+
+        this.vista.agregarNuevoListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.limpiarCampos();
+            }
+        });
+
+        this.vista.agregarSairListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
-    private void initComponents() {
-        txtPrecio = new JTextField(10);
-        txtCantidad = new JTextField(10);
-        txtSalida = new JTextArea(8, 25);
-        txtSalida.setEditable(false);
-        JScrollPane scroll = new JScrollPane(txtSalida);
+    public void calcular() {
+        double lado = vista.obtenerLado();
+        String figura = vista.getFiguraSeleccionada();
 
-        JButton btnCalcular = new JButton("Calcular");
-        JButton btnNuevo = new JButton("Nuevo");
-        JButton btnSalir = new JButton("Salir");
+        switch (figura) {
+            case "cuadrado":
+                modelo = new Cuadrado(lado);
+                break;
+            case "circulo":
+                modelo = new Circulo(lado);
+                break;
+            case "triangulo":
+                modelo = new Triangulo(lado);
+                break;
+            default:
+                vista.mostrarResultados(0, 0);
+                return;
+        }
 
-        btnCalcular.addActionListener(e -> calcular());
-        btnNuevo.addActionListener(e -> limpiar());
+        double area = modelo.calcularArea();
+        double perimetro = modelo.calcularPerimetro();
+        vista.mostrarResultados(area, perimetro);
+    }
+}
+      </code></pre>
+
+      <h4>Vista – CuadradoVista</h4>
+      <pre><code>
+package Vista;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
+public class CuadradoVista extends javax.swing.JFrame {
+    // Botones figura
+    private String figuraSeleccionada;
+    private PanelDibujo panelFigura;
+
+    public CuadradoVista() {
+        initComponents();
+        formulario();
+        this.setTitle("Área y Perímetro de Figuras");
+        setLocationRelativeTo(null); // Centra la ventana
+
+        btnCalcular.setEnabled(false);
+        btnNuevo.setEnabled(false);
+
         btnSalir.addActionListener(e -> System.exit(0));
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Precio por docena"));
-        panel.add(txtPrecio);
-        panel.add(new JLabel("Cantidad de docenas"));
-        panel.add(txtCantidad);
-        panel.add(btnCalcular);
-        panel.add(btnNuevo);
-        panel.add(btnSalir);
-        panel.add(scroll);
+        btnCuadrado.addActionListener(e -> seleccionarFigura("cuadrado"));
+        btnCirculo.addActionListener(e -> seleccionarFigura("circulo"));
+        btnTriangulo.addActionListener(e -> seleccionarFigura("triangulo"));
 
-        add(panel);
-        pack();
-        setLocationRelativeTo(null);
-        setTitle("Venta de Productos");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        txtLado.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                habilitarBotones();
+            }
+
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char key = evt.getKeyChar();
+                if (!Character.isDigit(key) && key != '.') {
+                    evt.consume();
+                }
+            }
+        });
+
+        btnNuevo.addActionListener(e -> limpiarCampos());
+
+        btnCalcular.addActionListener(e -> {
+            double lado = obtenerLado();
+            if (lado <= 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor válido mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            double area = 0, perimetro = 0;
+            switch (figuraSeleccionada) {
+                case "cuadrado":
+                    area = lado * lado;
+                    perimetro = 4 * lado;
+                    break;
+                case "circulo":
+                    area = Math.PI * lado * lado;
+                    perimetro = 2 * Math.PI * lado;
+                    break;
+                case "triangulo":
+                    double altura = Math.sqrt(3) * lado / 2;
+                    area = (lado * altura) / 2;
+                    perimetro = 3 * lado;
+                    break;
+            }
+            mostrarResultados(area, perimetro);
+        });
+    }
+
+    // ... continúa con los métodos obtenerLado, limpiarCampos, etc.
+}
+      </code></pre>
+    </div>
+
+    <!-- Acordeón para Enunciado 2 -->
+    <button class="acordeon">Ver Enunciado 2 (Login / Conversión)</button>
+    <div class="panel">
+      <h3>Enunciado 2 – Java Main Class</h3>
+      <pre><code>
+package com.zonajava.enunciado02;
+
+import Controlador.LoginControlador;
+import Modelo.Usuario;
+import Vista.LoginVista;
+
+import javax.swing.*;
+import java.util.List;
+/**
+ *
+ * @author La Zona Vip
+ */
+public class Enunciado02 {
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            List<Usuario> usuarios = List.of(
+                new Usuario("alumno1", "pass1", "ALUMNO"),
+                new Usuario("profesor1", "pass2", "PROFESOR")
+            );
+
+            LoginVista login = new LoginVista();
+            LoginControlador controlador = new LoginControlador(login, usuarios);
+            login.setVisible(true);
+        });
+    }
+}
+      </code></pre>
+
+      <h4>Controlador – ConversionControlador</h4>
+      <pre><code>
+package Controlador;
+
+import Modelo.*;
+import Vista.ConversionVista;
+import Vista.LoginVista;
+
+import java.util.List;
+
+public class ConversionControlador {
+    private ConversionVista vista;
+    private Usuario usuario;
+    private List<Usuario> usuarios;
+
+    public ConversionControlador(ConversionVista vista, Usuario usuario, List<Usuario> usuarios) {
+        this.vista = vista;
+        this.usuario = usuario;
+        this.usuarios = usuarios;
+
+        vista.setRol(usuario.getRol());
+
+        vista.agregarCalcularListener(e -> calcular());
+        vista.agregarGuardarSalirListener(e -> guardarYSalir());
+        vista.agregarEliminarListener(e -> eliminarTodo());
+
+        if ("PROFESOR".equalsIgnoreCase(usuario.getRol())) {
+            mostrarConversionesGuardadas();
+        }
     }
 
     private void calcular() {
         try {
-            double precio = Double.parseDouble(txtPrecio.getText());
-            int cantidad = Integer.parseInt(txtCantidad.getText());
+            double valor = Double.parseDouble(vista.getValor());
+            String origen = vista.getUnidadOrigen();
+            String destino = vista.getUnidadDestino();
+            double resultado = convertir(valor, origen, destino);
 
-            if (precio < 0 || cantidad < 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese valores positivos");
-                return;
+            vista.setResultado(valor + " " + origen + " = " + resultado + " " + destino);
+        } catch (NumberFormatException ex) {
+            vista.setResultado("Por favor, ingrese un número válido.");
+        }
+    }
+
+    private double convertir(double valor, String origen, String destino) {
+        double valorEnMetros = switch (origen) {
+            case "cm" -> valor / 100;
+            case "mm" -> valor / 1000;
+            case "km" -> valor * 1000;
+            default -> valor;
+        };
+
+        return switch (destino) {
+            case "cm" -> valorEnMetros * 100;
+            case "mm" -> valorEnMetros * 1000;
+            case "km" -> valorEnMetros / 1000;
+            default -> valorEnMetros;
+        };
+    }
+
+    private void guardarYSalir() {
+        try {
+            double valor = Double.parseDouble(vista.getValor());
+            String origen = vista.getUnidadOrigen();
+            String destino = vista.getUnidadDestino();
+            double resultado = convertir(valor, origen, destino);
+
+            RepositorioConversiones.guardar(new Conversion(valor, origen, destino, resultado));
+        } catch (NumberFormatException ex) {
+            vista.setResultado("Error al guardar: valor no numérico.");
+        }
+
+        volverAlLogin();
+    }
+
+    private void eliminarTodo() {
+        RepositorioConversiones.limpiarConversiones();
+        vista.setResultado("Conversiones eliminadas.");
+    }
+
+    private void mostrarConversionesGuardadas() {
+        StringBuilder sb = new StringBuilder();
+        for (Conversion c : RepositorioConversiones.obtenerConversiones()) {
+            sb.append(c.toString()).append("\n");
+        }
+        vista.mostrarConversiones(sb.toString());
+    }
+
+    private void volverAlLogin() {
+        vista.dispose();
+        LoginVista loginVista = new LoginVista();
+        new LoginControlador(loginVista, usuarios);
+        loginVista.setVisible(true);
+    }
+}
+      </code></pre>
+
+      <h4>Controlador – LoginControlador</h4>
+      <pre><code>
+package Controlador;
+
+import Modelo.Usuario;
+import Vista.LoginVista;
+import Vista.ConversionVista;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+public class LoginControlador {
+    private final LoginVista loginVista;
+    private final List<Usuario> usuarios;
+
+    public LoginControlador(LoginVista vista, List<Usuario> usuarios) {
+        this.loginVista = vista;
+        this.usuarios = usuarios;
+
+        this.loginVista.agregarLoginListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                login();
             }
+        });
+    }
 
-            double importe = precio * cantidad;
-            double descuento = (cantidad >= 10) ? 0.20 * importe : 0.10 * importe;
-            double total = importe - descuento;
-            int obsequio = (total >= 200) ? 2 * cantidad : 0;
+    private void login() {
+        String usuario = loginVista.getUsuario();
+        String password = loginVista.getPassword();
 
-            txtSalida.setText("Resumen de compra:\n");
-            txtSalida.append(String.format("Importe: S/ %.2f\n", importe));
-            txtSalida.append(String.format("Descuento: S/ %.2f\n", descuento));
-            txtSalida.append(String.format("Total a pagar: S/ %.2f\n", total));
-            txtSalida.append("Lapiceros de obsequio: " + obsequio);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese valores válidos");
+        Usuario userEncontrado = usuarios.stream()
+                .filter(u -> u.getUsername().equals(usuario) && u.getPassword().equals(password))
+                .findFirst()
+                .orElse(null);
+
+        if (userEncontrado == null) {
+            loginVista.setMensaje("Usuario o contraseña incorrectos.");
+        } else {
+            loginVista.setMensaje("Bienvenido " + userEncontrado.getUsername());
+            abrirConversionVista(userEncontrado);
         }
     }
 
-    private void limpiar() {
-        txtPrecio.setText("");
-        txtCantidad.setText("");
-        txtSalida.setText("");
-        txtPrecio.requestFocus();
+    private void abrirConversionVista(Usuario usuario) {
+        SwingUtilities.invokeLater(() -> {
+            ConversionVista conversionVista = new ConversionVista();
+            ConversionControlador conversionControlador = new ConversionControlador(conversionVista, usuario, usuarios);
+            conversionVista.setRol(usuario.getRol());
+            conversionVista.setVisible(true);
+            loginVista.dispose();
+        });
     }
 }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 2</h2>
+      <h4>Modelo – Conversion</h4>
+      <pre><code>
+package Modelo;
 
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Enunciado 4</h3>
+public class Conversion {
+    private double valor;
+    private String unidadOrigen;
+    private String unidadDestino;
+    private double resultado;
 
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
-package com.zonajava.enunciado2;
-import Vista.SueldoEmpleado;
+    public Conversion(double valor, String unidadOrigen, String unidadDestino, double resultado) {
+        this.valor = valor;
+        this.unidadOrigen = unidadOrigen;
+        this.unidadDestino = unidadDestino;
+        this.resultado = resultado;
+    }
 
-public class Enunciado2 {
-
-    public static void main(String[] args) {
-        SueldoEmpleado sueldo = new SueldoEmpleado();
-        sueldo.setVisible(true);
+    @Override
+    public String toString() {
+        return valor + " " + unidadOrigen + " = " + resultado + " " + unidadDestino;
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
+      <h4>Modelo – RepositorioConversiones</h4>
+      <pre><code>
+package Modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RepositorioConversiones {
+    public static List<Conversion> conversiones = new ArrayList<>();
+
+    public static void guardar(Conversion c) {
+        conversiones.add(c);
+    }
+
+    public static List<Conversion> obtenerConversiones() {
+        return conversiones;
+    }
+
+    public static void limpiarConversiones() {
+        conversiones.clear();
+    }
+}
+      </code></pre>
+
+      <h4>Modelo – Usuario</h4>
+      <pre><code>
+package Modelo;
+
+public class Usuario {
+    private String username;
+    private String password;
+    private String rol; // "ALUMNO" o "PROFESOR"
+
+    public Usuario(String username, String password, String rol) {
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+}
+      </code></pre>
+    </div>
+
+    <!-- Acordeón para Vista Login -->
+    <button class="acordeon">Ver Vista – ConversionVista / LoginVista</button>
+    <div class="panel">
+      <h4>Vista – ConversionVista</h4>
+      <pre><code>
 package Vista;
-import javax.swing.DefaultListCellRenderer;
-import java.awt.Color;
-import java.awt.Dimension;
 
-public class SueldoEmpleado extends javax.swing.JFrame {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
-    private DefaultListCellRenderer listRenderer;
-    String categoria;
-    int horasTrabajadas, numHijos;
-    double tarifa, sueldoBasico, bonificacion, sueldoBruto, descuento, sueldoNeto;
-
-    public SueldoEmpleado() {
+public class ConversionVista extends JFrame {
+    // Aquí irían tus atributos y componentes Swing…
+    public ConversionVista() {
         initComponents();
-        formulario();
         inicializarElementos();
+
+        btnCalcular.addActionListener(e -> {
+            // …
+        });
     }
 
-    private void formulario() {
-        this.setTitle("Cálculo de Sueldo del Empleado");
-        this.setLocationRelativeTo(this);
-        this.setResizable(false);
-        this.setSize(new Dimension(500, 500));
-        this.getContentPane().setBackground(Color.WHITE);
-        this.panelDatos.setBackground(Color.WHITE);
-        this.panelCalcular.setBackground(Color.WHITE);
+    public String getValor() {
+        return txtValor.getText().trim();
     }
-
-    private void inicializarElementos() {
-        listRenderer = new DefaultListCellRenderer();
+    public String getUnidadOrigen() {
+        return (String) cmbOrigen.getSelectedItem();
+    }
+    public String getUnidadDestino() {
+        return (String) cmbDestino.getSelectedItem();
+    }
+    public void setResultado(String texto) {
+        txtResultado.setText(texto);
+    }
+    public void setRol(String rol) {
+        lblRol.setText("Rol: " + rol);
+        if ("PROFESOR".equalsIgnoreCase(rol)) {
+            txtValor.setEditable(false);
+            btnCalcular.setEnabled(false);
+            btnGuardarSalir.setVisible(false);
+        } else {
+            txtValor.setEditable(true);
+            btnCalcular.setEnabled(true);
+            btnGuardarSalir.setVisible(true);
+        }
+    }
+    public void agregarCalcularListener(ActionListener listener) {
+        btnCalcular.addActionListener(listener);
+    }
+    public void inicializarElementos() {
+        DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
         listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-        cboCategoria.setRenderer(listRenderer);
-        cboCategoria.addItem("Seleccione");
-        cboCategoria.addItem("A");
-        cboCategoria.addItem("B");
-        cboCategoria.requestFocus();
-    }
 
-    void ingresarDatos() {
-        categoria = cboCategoria.getSelectedItem().toString();
-        horasTrabajadas = Integer.parseInt(txtHoras.getText());
-        numHijos = Integer.parseInt(txtHijos.getText());
-    }
+        cmbOrigen.setRenderer(listRenderer);
+        cmbDestino.setRenderer(listRenderer);
 
-    void calcularSueldoBasico() {
-        switch (categoria) {
-            case "A":
-                tarifa = 45.0;
-                break;
-            case "B":
-                tarifa = 37.5;
-                break;
-            default:
-                tarifa = 0;
+        cmbOrigen.removeAllItems();
+        cmbDestino.removeAllItems();
+
+        String[] unidades = {"m", "cm", "mm", "km"};
+        for (String unidad : unidades) {
+            cmbOrigen.addItem(unidad);
+            cmbDestino.addItem(unidad);
         }
-        sueldoBasico = horasTrabajadas * tarifa;
+
+        cmbOrigen.setSelectedIndex(0);
+        cmbDestino.setSelectedIndex(1);
     }
-
-    void calcularBonificacion() {
-        if (numHijos <= 3) {
-            bonificacion = numHijos * 40.5;
-        } else {
-            bonificacion = numHijos * 35.0;
-        }
+    public void mostrarConversiones(String texto) {
+        txtResultado.setText(texto);
     }
-
-    void calcularSueldoBruto() {
-        sueldoBruto = sueldoBasico + bonificacion;
+    public void agregarGuardarSalirListener(ActionListener listener) {
+        btnGuardarSalir.addActionListener(listener);
     }
-
-    void calcularDescuento() {
-        if (sueldoBruto >= 3500) {
-            descuento = sueldoBruto * 0.135;
-        } else {
-            descuento = sueldoBruto * 0.10;
-        }
+    public void agregarEliminarListener(ActionListener listener) {
+        btnEliminarTodo.addActionListener(listener);
     }
+}
+      </code></pre>
 
-    void calcularSueldoNeto() {
-        sueldoNeto = sueldoBruto - descuento;
+      <h4>Vista – LoginVista</h4>
+      <pre><code>
+package Vista;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+public class LoginVista extends javax.swing.JFrame {
+    public LoginVista() {
+        initComponents();
+
+        btnLogin.addActionListener(e -> {
+            // …
+        });
     }
-
-    void mostrarResultados() {
-        txtSalida.setText("");
-        imprimir("Sueldo Básico: S/. " + sueldoBasico);
-        imprimir("Bonificación: S/. " + bonificacion);
-        imprimir("Sueldo Bruto: S/. " + sueldoBruto);
-        imprimir("Descuento: S/. " + descuento);
-        imprimir("Sueldo Neto: S/. " + sueldoNeto);
+    public String getUsuario() {
+        return txtUsuario.getText().trim();
     }
-
-    void imprimir(String mensaje) {
-        txtSalida.append(mensaje + "\n");
+    public String getPassword() {
+        return new String(txtPassword.getPassword());
     }
-
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        ingresarDatos();
-        calcularSueldoBasico();
-        calcularBonificacion();
-        calcularSueldoBruto();
-        calcularDescuento();
-        calcularSueldoNeto();
-        mostrarResultados();
-    } 
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        txtHoras.setText("");
-        txtHijos.setText("");
-        txtSalida.setText("");
-        cboCategoria.setSelectedIndex(0);
-        cboCategoria.requestFocus();
-    } 
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        System.exit(0);
+    public void setMensaje(String mensaje) {
+        lblMensaje.setText(mensaje);
     }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    public void agregarLoginListener(ActionListener listener) {
+        btnLogin.addActionListener(listener);
+    }
+}
+      </code></pre>
+    </div>
   </main>
+
+  <script>
+    const acordeones = document.querySelectorAll('.acordeon');
+    acordeones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
+        }
+      });
+      // Inicializar con “Ver …” si no tiene
+      if (!btn.textContent.startsWith('Ver')) {
+        btn.textContent = 'Ver ' + btn.textContent;
+      }
+    });
+  </script>
 </body>
 </html>

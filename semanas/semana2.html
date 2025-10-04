@@ -2,9 +2,81 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana 2 - Repositorio y Código</title>
-  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Acordeón */
+    .acordeon {
+      background-color: #00ffc3;
+      color: #000;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .acordeon:hover {
+      background-color: #00cfa3;
+    }
+    .panel {
+      background-color: rgba(255, 255, 255, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 18px;
+      border-left: 3px solid #00ffc3;
+      color: #ccc;
+      margin-bottom: 20px;
+      border-radius: 0 0 5px 5px;
+    }
+    pre {
+      background: #111;
+      color: #0ff;
+      padding: 10px;
+      overflow-x: auto;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .btn {
+      background-color: #00ffc3;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #00cfa3;
+    }
+    .fila-dos-columnas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .columna {
+      flex: 1 1 300px;
+    }
+    .columna.izquierda {
+      max-width: 400px;
+    }
+    .columna.derecha {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -18,32 +90,30 @@
     </section>
 
     <section>
-        <!-- Parte 1: Documento informativo -->
-        <div class="fila-dos-columnas">
-          <div class="columna izquierda">
-            <h3>Parte 1: Archivo Informativo</h3>
-            <ul>
-              <li><strong>Cómo crear un repositorio en GIT-HUB.docx</strong></li>
-            </ul>
-            <a href="../downloads/Como crear un repositorio en GIT-HUB.docx" class="btn" download>⬇️ Descargar Archivo</a>
-          </div>
-          <div class="columna derecha">
-            <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
-          </div>
-        </div>
+      <h2>Semana 2 - Repositorio y Código</h2>
+      <p>En esta semana aprenderás a crear repositorios en GitHub y a manejar código Java con interfaces gráficas.</p>
     </section>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 2</h2>
-
+    <button class="acordeon">Ver detalles del archivo informativo</button>
+    <div class="panel">
       <div class="fila-dos-columnas">
-        <!-- Columna izquierda: Enunciado 1 -->
         <div class="columna izquierda">
-          <h3>Enunciado 3</h3>
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
+          <h3>Archivo Informativo</h3>
+          <ul>
+            <li><strong>Cómo crear un repositorio en GIT-HUB.docx</strong></li>
+          </ul>
+          <a href="../downloads/Como crear un repositorio en GIT-HUB.docx" class="btn" download>⬇️ Descargar Archivo</a>
+        </div>
+        <div class="columna derecha">
+          <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="acordeon">Ver Enunciado 3 (Java Main Class y JFrame)</button>
+    <div class="panel">
+      <h3>Enunciado 3 - Java Main Class</h3>
+      <pre><code>
 package com.zonajava.enunciado3;
 
 import Vista.ImporteProducto;
@@ -54,12 +124,10 @@ public class Enunciado3 {
         ventana.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
+      <h4>JFrame Form</h4>
+      <pre><code>
 package Vista;
 
 import javax.swing.*;
@@ -137,24 +205,13 @@ public class ImporteProducto extends JFrame {
         txtPrecio.requestFocus();
     }
 }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
 
-    <section class="seccion-codigo cuadro-general">
-      <h2>Semana 2</h2>
-
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Enunciado 4</h3>
-
-          <div class="enunciado-subsecciones">
-            <div class="sub-cuadro">
-              <h4>Java Main Class</h4>
-              <pre><code>
+    <button class="acordeon">Ver Enunciado 4 (Java Main Class y JFrame)</button>
+    <div class="panel">
+      <h3>Enunciado 4 - Java Main Class</h3>
+      <pre><code>
 package com.zonajava.enunciado2;
 import Vista.SueldoEmpleado;
 
@@ -165,12 +222,10 @@ public class Enunciado2 {
         sueldo.setVisible(true);
     }
 }
-              </code></pre>
-            </div>
+      </code></pre>
 
-            <div class="sub-cuadro">
-              <h4>JFrame Form</h4>
-              <pre><code>
+      <h4>JFrame Form</h4>
+      <pre><code>
 package Vista;
 import javax.swing.DefaultListCellRenderer;
 import java.awt.Color;
@@ -267,7 +322,6 @@ public class SueldoEmpleado extends javax.swing.JFrame {
     }
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
         ingresarDatos();
         calcularSueldoBasico();
         calcularBonificacion();
@@ -278,7 +332,6 @@ public class SueldoEmpleado extends javax.swing.JFrame {
     } 
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         txtHoras.setText("");
         txtHijos.setText("");
         txtSalida.setText("");
@@ -287,15 +340,39 @@ public class SueldoEmpleado extends javax.swing.JFrame {
     } 
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
         System.exit(0);
     }
-              </code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </code></pre>
+    </div>
   </main>
+
+  <script>
+    // Script para acordeón
+    const acordeones = document.querySelectorAll('.acordeon');
+    acordeones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const panel = btn.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+          btn.textContent = 'Ver detalles del archivo informativo';
+          if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 3')) {
+            btn.textContent = 'Ver Enunciado 3 (Java Main Class y JFrame)';
+          } else if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 4')) {
+            btn.textContent = 'Ver Enunciado 4 (Java Main Class y JFrame)';
+          }
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 3')) {
+            btn.textContent = 'Ocultar Enunciado 3';
+          } else if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 4')) {
+            btn.textContent = 'Ocultar Enunciado 4';
+          } else {
+            btn.textContent = 'Ocultar contenido';
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
