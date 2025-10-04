@@ -23,19 +23,23 @@ const contenedor = document.getElementById("contenedor-semanas");
 
 semanas.forEach((titulo, i) => {
   const numero = i + 1;
-  const githubBase = "https://github.com/JhonFHC/mi-proyecto-web";
-  const githubLink = (numero <= 4)
-    ? `${githubBase}/tree/main/Semana${numero}`
-    : githubBase;
+
+  // Construir URL de GitHub para las primeras 4 semanas que están en carpetas específicas
+  let githubUrl = "https://github.com/JhonFHC/mi-proyecto-web";
+  if (numero >= 1 && numero <= 4) {
+    githubUrl += `/tree/main/semanas/Semana${numero}`;
+  } else {
+    githubUrl += "/tree/main"; // Para las otras semanas, enlace general al repositorio (o cambia según necesites)
+  }
 
   const semanaHTML = `
     <div class="semana">
       <button class="acordeon">Semana ${numero}</button>
       <div class="panel">
-        <p><strong>Título:</strong> ${titulo}</p>
+        <p>Título: ${titulo}</p>
         <a href="semanas/semana${numero}.html" class="btn">📖 Ver Contenido</a>
         <a href="downloads/Taller Aplicaciones - Semana${numero}.docx" class="btn" download>⬇️ Descargar</a>
-        <a href="${githubLink}" class="btn" target="_blank">🔗 Ver en GitHub</a>
+        <a href="${githubUrl}" class="btn" target="_blank">🔗 Ver en GitHub</a>
       </div>
     </div>
   `;
@@ -81,25 +85,21 @@ function showSlide(index) {
 }
 
 // Manejo de los botones de navegación del slider
-if (prevBtn && nextBtn && slides) {
-  prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
-  nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
-}
+prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
+nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
 
 // Manejo de los puntos de navegación
-if (dots.length > 0) {
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const index = parseInt(dot.getAttribute('data-index'));
-      showSlide(index);
-    });
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const index = parseInt(dot.getAttribute('data-index'));
+    showSlide(index);
   });
+});
 
-  // Auto-slide (opcional)
-  setInterval(() => {
-    showSlide(currentIndex + 1);
-  }, 5000);
+// Auto-slide (opcional)
+setInterval(() => {
+  showSlide(currentIndex + 1);
+}, 5000);
 
-  // Inicializar
-  showSlide(currentIndex);
-}
+// Inicializar
+showSlide(currentIndex);
