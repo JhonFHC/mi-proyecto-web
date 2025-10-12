@@ -8,6 +8,53 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="assets/slider.js"></script>
   <script defer src="assets/interacciones.js"></script>
+  <style>
+    /* Estilo para navbar y clicked (si no está en style1.css) */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -15,7 +62,8 @@
     <a href="interfaz.html" class="logo-link" aria-label="Inicio">
       <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
     </a>
-    <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="interfaz.html" class="clicked"><i class="fas fa-home"></i> Inicio</a> <!-- Activo aquí -->
+    <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- En medio -->
     <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
   </nav>
   <canvas id="particles"></canvas>
@@ -25,36 +73,36 @@
         <div class="slide" data-title="Rector Bustinza Suaznabar" data-desc="Rector de la Universidad">
           <img src="IMG/imagen1.jpeg" alt="Rector Bustinza Suaznabar" />
           <div class="overlay">
-            <h3>Rector Bustinza Suaznabar</h3>
+            <h3>Rector. BUSTINZA SUAZNABAR</h3>
             <p>Es el rector de nuestra universidad, reconocido por su liderazgo y compromiso con la educación de calidad.</p>
           </div>
         </div>
         <div class="slide" data-title="Universidad" data-desc="Nuestra institución">
           <img src="IMG/imagen2.jpg" alt="Universidad" />
           <div class="overlay">
-            <h3>Universidad</h3>
+            <h3>UNIVERSIDAD</h3>
             <p>Somos una universidad privada asociativa de calidad, con presencia nacional e internacional y excelencia académica.</p>
           </div>
         </div>
         <div class="slide" data-title="Profesor de Taller" data-desc="Apache NetBeans, Maven, Diseño MVC">
           <img src="IMG/imagen3.jpg" alt="Profesor de Taller" />
           <div class="overlay">
-            <h3>Profesor de Taller</h3>
+            <h3>MG. RAUL ENRIQUE FERNANDEZ BEJARANO</h3>
             <p>Nos enseña Apache NetBeans, Maven, diseño, vista y controlador. Fue quien nos guió para crear esta página web.</p>
           </div>
         </div>
         <div class="slide" data-title="Desierto" data-desc="Calor y arena">
-          <img src="https://picsum.photos/id/1015/400/300" alt="Imagen 4" />
+          <img src="IMG/imagen4.PNG" alt="Imagen 4" />
           <div class="overlay">
-            <h3>Desierto</h3>
-            <p>Calor y arena</p>
+            <h3>PROYECTO WEB</h3>
+            <p>Resultado del trabajo del curso usando HTML, CSS, JavaScript y buenas prácticas de diseño.</p>
           </div>
         </div>
         <div class="slide" data-title="Lago" data-desc="Reflejo perfecto">
-          <img src="https://picsum.photos/id/1016/400/300" alt="Imagen 5" />
+          <img src="IMG/imagen5.jpg" alt="Imagen 5" />
           <div class="overlay">
-            <h3>Lago</h3>
-            <p>Reflejo perfecto</p>
+            <h3>TALLER EN LABORATORIO</h3>
+            <p>Espacio donde aplicamos lo aprendido, con trabajo en equipo, práctica y retroalimentación del docente.</p>
           </div>
         </div>
       </div>
@@ -69,17 +117,13 @@
     <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación.</p>
   </section>
   <section class="info-inferior fade-in">
+    <h1>UPLA</h1>
     <h2>Misión</h2>
     <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
       integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
     <h2>Visión</h2>
     <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
       académica y pertinencia social.</p>
-  </section>
-  <section class="info-inferior fade-in">
-    <h2>Sobre mí</h2>
-    <p>Hola, soy Jhon Frank Huaman Cardenas, estudiante de Ingeniería de Sistemas y Computación. Soy optimista, no me doy por vencido y siempre busco aprender más.</p>
-    <button class="btn" id="btnSobreMi">Conóceme</button>
   </section>
   </main>
 </body>

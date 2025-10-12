@@ -2,12 +2,58 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Semana 4 – Aplicaciones / Enunciados</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script> <!-- Agregado para partículas -->
   <style>
-    /* Acordeón */
+    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    nav.navbar {
+      background-color: #1e293b;    
+      padding: 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+    /* Acordeón (estilos originales intactos) */
     .acordeon {
       background-color: #00ffc3;
       color: #000;
@@ -60,6 +106,7 @@
     .btn:hover {
       background-color: #00cfa3;
     }
+    /* Estilos específicos de semana3 (originales intactos) */
     .fila-dos-columnas {
       display: flex;
       gap: 20px;
@@ -76,19 +123,37 @@
       color: #ccc;
       font-size: 0.95rem;
     }
+    /* Estilo para el botón de regresar (extiende .btn) */
+    .btn-regresar {
+      margin: 20px auto;
+      display: block;
+      text-align: center;
+      max-width: 200px;
+    }
+    /* Ajuste para main (compensa navbar fija) */
+    .container {
+      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+    }
   </style>
+</head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="../tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <!-- Logo Universidad (agregado con ruta ajustada para subcarpeta) -->
+    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+    </a>
+    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a> <!-- Cambiado de "Casa" a "Inicio" para consistencia -->
+    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
+    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí, enlazado a página principal de tareas -->
   </nav>
+  <canvas id="particles"></canvas> <!-- Agregado para partículas que se mueven -->
 
   <main class="container">
-    <section class="frase-celebre">
+    <section class="frase-celebre fade-in">
       <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
     </section>
 
-    <section>
+    <section class="fade-in"> <!-- Agregada clase fade-in para consistencia -->
       <h2>Semana 4 – Enunciados y Aplicaciones</h2>
       <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
     </section>
@@ -631,6 +696,10 @@ public class LoginVista extends javax.swing.JFrame {
 }
       </code></pre>
     </div>
+    <!-- Botón de regresar agregado aquí (al inicio del main, centrado) -->
+    <a href="../tareas.html" class="btn btn-regresar">
+      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    </a>
   </main>
 
   <script>

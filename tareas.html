@@ -2,24 +2,81 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tareas por Semanas</title>
   <link rel="stylesheet" href="assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="assets/interacciones.js"></script>
+  <style>
+    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+    /* Ajuste para el main (para compensar navbar fija, si no está en style1.css) */
+    .container {
+      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
+    <!-- Logo Universidad (agregado con el mismo formato) -->
+    <a href="interfaz.html" class="logo-link" aria-label="Inicio">
+      <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+    </a>
     <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
-    <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
+    <a href="tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí -->
   </nav>
+  <canvas id="particles"></canvas> <!-- Agregado para consistencia visual (particles) -->
 
   <main class="container">
     <section class="frase-celebre fade-in">
       <blockquote>“La educación es el arma más poderosa que puedes usar para cambiar el mundo.” – Nelson Mandela</blockquote>
     </section>
 
-      <section class="semanas" id="contenedor-semanas">
+    <section class="semanas" id="contenedor-semanas">
       <!-- Las semanas se generarán dinámicamente desde JS -->
     </section>
   </main>
