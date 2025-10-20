@@ -2,12 +2,58 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Semana 4 – Aplicaciones / Enunciados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 7 - Base de Datos del Sistema</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Acordeón */
+    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+    /* Acordeón (estilos originales intactos) */
     .acordeon {
       background-color: #00ffc3;
       color: #000;
@@ -60,580 +106,351 @@
     .btn:hover {
       background-color: #00cfa3;
     }
-    .fila-dos-columnas {
-      display: flex;
+    /* Estilo para el botón de regresar (extiende .btn) */
+    .btn-regresar {
+      margin: 20px auto;
+      display: block;
+      text-align: center;
+      max-width: 200px;
+    }
+    /* Ajuste para main (compensa navbar fija) */
+    .container {
+      margin-top: 80px;
+    }
+    /* Estilos para características de la base de datos */
+    .caracteristicas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
-    .columna {
-      flex: 1 1 300px;
+    .caracteristica {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #00ffc3;
     }
-    .columna.izquierda {
-      max-width: 400px;
+    .caracteristica h4 {
+      color: #00ffc3;
+      margin-top: 0;
     }
-    .columna.derecha {
-      color: #ccc;
-      font-size: 0.95rem;
+    .tabla-info {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    .tabla-info h5 {
+      color: #00ffc3;
+      margin-top: 0;
     }
   </style>
+</head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="../tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+    </a>
+    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
   </nav>
+  <canvas id="particles"></canvas>
 
   <main class="container">
-    <section class="frase-celebre">
-      <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
+
+    <section class="frase-celebre fade-in">
+      <blockquote>"Los datos son el nuevo oro. Una base de datos bien diseñada es la mina que lo extrae." – Anónimo</blockquote>
     </section>
 
-    <section>
-      <h2>Semana 4 – Enunciados y Aplicaciones</h2>
-      <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
+    <section class="fade-in">
+      <h2>Semana 7 - Base de Datos del Sistema Académico</h2>
+      <p>Diseño e implementación de una base de datos MySQL para gestionar usuarios, cursos, inscripciones y calificaciones en un sistema académico de enseñanza de idiomas.</p>
     </section>
 
-    <!-- Acordeón para Enunciado 1 -->
-    <button class="acordeon">Ver Enunciado 1 (Main + Lógica / Vista)</button>
+    <div class="caracteristicas">
+      <div class="caracteristica">
+        <h4>🏗️ Estructura de la Base de Datos</h4>
+        <ul>
+          <li>4 tablas principales</li>
+          <li>Relaciones bien definidas</li>
+          <li>Claves foráneas y restricciones</li>
+          <li>Índices para optimización</li>
+        </ul>
+      </div>
+      <div class="caracteristica">
+        <h4>👥 Gestión de Usuarios</h4>
+        <ul>
+          <li>3 roles: admin, profesor, estudiante</li>
+          <li>Autenticación segura</li>
+          <li>Datos personales completos</li>
+          <li>Control de estado activo/inactivo</li>
+        </ul>
+      </div>
+      <div class="caracteristica">
+        <h4>📊 Funcionalidades Académicas</h4>
+        <ul>
+          <li>Gestión de cursos por niveles</li>
+          <li>Sistema de calificaciones detallado</li>
+          <li>Inscripciones y seguimiento</li>
+          <li>Reportes y consultas avanzadas</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="acordeon">Script Completo de la Base de Datos</button>
     <div class="panel">
-      <h3>Enunciado 1 – Java Main Class</h3>
+      <h3>Estructura Completa del Sistema</h3>
+      <p>Script SQL para crear la base de datos, tablas, relaciones y datos de ejemplo:</p>
+      
       <pre><code>
-package com.zonajava.enunciado01;
+-- =============================================
+-- SISTEMA DE GESTIÓN ACADÉMICA - BASE DE DATOS
+-- =============================================
 
-import Controlador.FiguraControlador;
-import Vista.CuadradoVista;
+-- Crear base de datos y seleccionarla
+DROP DATABASE IF EXISTS sistema_gestion_academica;
+CREATE DATABASE sistema_gestion_academica;
+USE sistema_gestion_academica;
 
-public class Enunciado01 {
-    public static void main(String[] args) {
-        CuadradoVista vista = new CuadradoVista();
-        FiguraControlador controlador = new FiguraControlador(vista);
-        vista.setVisible(true);
-    }
-}
-      </code></pre>
+-- =============================================
+-- TABLA: Usuarios
+-- =============================================
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ingresoUsuario VARCHAR(50) UNIQUE NOT NULL,
+    ingresoContrasenia VARCHAR(100) NOT NULL,
+    rol ENUM('admin', 'profesor', 'estudiante') NOT NULL DEFAULT 'estudiante',
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefono VARCHAR(15),
+    fecha_nacimiento DATE,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    activo BOOLEAN DEFAULT TRUE
+);
 
-      <h4>Controlador – FiguraControlador</h4>
-      <pre><code>
-package Controlador;
+-- =============================================
+-- TABLA: Cursos
+-- =============================================
+CREATE TABLE Cursos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_curso VARCHAR(100) NOT NULL,
+    nivel ENUM('A1', 'A2', 'B1', 'B2', 'C1', 'C2') NOT NULL,
+    descripcion TEXT,
+    profesor_id INT NOT NULL,
+    max_estudiantes INT DEFAULT 20,
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    activo BOOLEAN DEFAULT TRUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
+);
 
-import Modelo.*;
-import Vista.CuadradoVista;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+-- =============================================
+-- TABLA: Calificaciones
+-- =============================================
+CREATE TABLE Calificaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    estudiante_id INT NOT NULL,
+    curso_id INT NOT NULL,
+    habilidad ENUM('speaking', 'writing', 'reading', 'listening', 'grammar', 'vocabulary') NOT NULL,
+    puntaje DECIMAL(4,2) NOT NULL,
+    fecha_evaluacion DATE NOT NULL,
+    comentario TEXT,
+    tipo_evaluacion ENUM('examen', 'tarea', 'proyecto', 'participacion') DEFAULT 'examen',
+    periodo ENUM('Q1', 'Q2', 'Q3', 'Q4') NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
+    CHECK (puntaje >= 0 AND puntaje <= 20),
+    UNIQUE KEY unique_evaluacion (estudiante_id, curso_id, habilidad, fecha_evaluacion)
+);
 
-public class FiguraControlador {
-    private Figura modelo;
-    private final CuadradoVista vista;
-
-    public FiguraControlador(CuadradoVista vista) {
-        this.vista = vista;
-
-        this.vista.agregarCalcularListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                calcular();
-            }
-        });
-
-        this.vista.agregarNuevoListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.limpiarCampos();
-            }
-        });
-
-        this.vista.agregarSairListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-    }
-
-    public void calcular() {
-        double lado = vista.obtenerLado();
-        String figura = vista.getFiguraSeleccionada();
-
-        switch (figura) {
-            case "cuadrado":
-                modelo = new Cuadrado(lado);
-                break;
-            case "circulo":
-                modelo = new Circulo(lado);
-                break;
-            case "triangulo":
-                modelo = new Triangulo(lado);
-                break;
-            default:
-                vista.mostrarResultados(0, 0);
-                return;
-        }
-
-        double area = modelo.calcularArea();
-        double perimetro = modelo.calcularPerimetro();
-        vista.mostrarResultados(area, perimetro);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – CuadradoVista</h4>
-      <pre><code>
-package Vista;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-public class CuadradoVista extends javax.swing.JFrame {
-    // Botones figura
-    private String figuraSeleccionada;
-    private PanelDibujo panelFigura;
-
-    public CuadradoVista() {
-        initComponents();
-        formulario();
-        this.setTitle("Área y Perímetro de Figuras");
-        setLocationRelativeTo(null); // Centra la ventana
-
-        btnCalcular.setEnabled(false);
-        btnNuevo.setEnabled(false);
-
-        btnSalir.addActionListener(e -> System.exit(0));
-
-        btnCuadrado.addActionListener(e -> seleccionarFigura("cuadrado"));
-        btnCirculo.addActionListener(e -> seleccionarFigura("circulo"));
-        btnTriangulo.addActionListener(e -> seleccionarFigura("triangulo"));
-
-        txtLado.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habilitarBotones();
-            }
-
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char key = evt.getKeyChar();
-                if (!Character.isDigit(key) && key != '.') {
-                    evt.consume();
-                }
-            }
-        });
-
-        btnNuevo.addActionListener(e -> limpiarCampos());
-
-        btnCalcular.addActionListener(e -> {
-            double lado = obtenerLado();
-            if (lado <= 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese un valor válido mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            double area = 0, perimetro = 0;
-            switch (figuraSeleccionada) {
-                case "cuadrado":
-                    area = lado * lado;
-                    perimetro = 4 * lado;
-                    break;
-                case "circulo":
-                    area = Math.PI * lado * lado;
-                    perimetro = 2 * Math.PI * lado;
-                    break;
-                case "triangulo":
-                    double altura = Math.sqrt(3) * lado / 2;
-                    area = (lado * altura) / 2;
-                    perimetro = 3 * lado;
-                    break;
-            }
-            mostrarResultados(area, perimetro);
-        });
-    }
-
-    // ... continúa con los métodos obtenerLado, limpiarCampos, etc.
-}
+-- =============================================
+-- TABLA: Inscripciones (Relación muchos a muchos)
+-- =============================================
+CREATE TABLE Inscripciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    estudiante_id INT NOT NULL,
+    curso_id INT NOT NULL,
+    fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado ENUM('activo', 'completado', 'cancelado') DEFAULT 'activo',
+    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
+    UNIQUE KEY unique_inscripcion (estudiante_id, curso_id)
+);
       </code></pre>
     </div>
 
-    <!-- Acordeón para Enunciado 2 -->
-    <button class="acordeon">Ver Enunciado 2 (Login / Conversión)</button>
+    <button class="acordeon">Datos de Ejemplo y Población</button>
     <div class="panel">
-      <h3>Enunciado 2 – Java Main Class</h3>
+      <h3>Inserción de Datos de Prueba</h3>
+      <p>Script para poblar la base de datos con datos realistas de prueba:</p>
+      
       <pre><code>
-package com.zonajava.enunciado02;
+-- =============================================
+-- INSERCIÓN DE DATOS DE EJEMPLO
+-- =============================================
 
-import Controlador.LoginControlador;
-import Modelo.Usuario;
-import Vista.LoginVista;
+-- 1. INSERTAR USUARIOS
+INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email, telefono, fecha_nacimiento) VALUES
+('admin', 'admin123', 'admin', 'María González', 'maria.gonzalez@instituto.edu', '+1234567890', '1980-05-15'),
+('sistema', 'sistema456', 'admin', 'Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', '+1234567891', '1975-08-22'),
+('profe_ana', 'profe123', 'profesor', 'Ana Martínez', 'ana.martinez@instituto.edu', '+1234567892', '1985-03-10'),
+('profe_luis', 'profe456', 'profesor', 'Luis Fernández', 'luis.fernandez@instituto.edu', '+1234567893', '1978-11-30'),
+('profe_sofia', 'profe789', 'profesor', 'Sofia Ramírez', 'sofia.ramirez@instituto.edu', '+1234567894', '1990-07-25'),
+('est_juan', 'est123', 'estudiante', 'Juan Pérez', 'juan.perez@estudiante.edu', '+1234567895', '2000-01-20'),
+('est_maria', 'est456', 'estudiante', 'María López', 'maria.lopez@estudiante.edu', '+1234567896', '2001-03-15'),
+('est_carlos', 'est789', 'estudiante', 'Carlos Sánchez', 'carlos.sanchez@estudiante.edu', '+1234567897', '1999-08-10'),
+('est_laura', 'est012', 'estudiante', 'Laura García', 'laura.garcia@estudiante.edu', '+1234567898', '2000-12-05'),
+('est_pedro', 'est345', 'estudiante', 'Pedro Martínez', 'pedro.martinez@estudiante.edu', '+1234567899', '2001-06-18'),
+('est_ana', 'est678', 'estudiante', 'Ana Rodríguez', 'ana.rodriguez@estudiante.edu', '+1234567800', '2000-09-22');
 
-import javax.swing.*;
-import java.util.List;
-/**
- *
- * @author La Zona Vip
- */
-public class Enunciado02 {
+-- 2. INSERTAR CURSOS
+INSERT INTO Cursos (nombre_curso, nivel, descripcion, profesor_id, max_estudiantes, fecha_inicio, fecha_fin) VALUES
+('Inglés Básico I', 'A1', 'Curso introductorio de inglés para principiantes.', 3, 15, '2024-01-15', '2024-06-15'),
+('Inglés Intermedio', 'B1', 'Desarrollo de habilidades comunicativas intermedias.', 3, 12, '2024-01-15', '2024-06-15'),
+('Conversación Avanzada', 'C1', 'Perfeccionamiento del speaking y listening.', 4, 10, '2024-02-01', '2024-07-01'),
+('Writing Académico', 'B2', 'Desarrollo de habilidades de escritura formal.', 4, 8, '2024-02-01', '2024-07-01'),
+('Preparación TOEFL', 'C1', 'Curso intensivo de preparación para el examen TOEFL.', 5, 6, '2024-03-01', '2024-08-01');
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            List<Usuario> usuarios = List.of(
-                new Usuario("alumno1", "pass1", "ALUMNO"),
-                new Usuario("profesor1", "pass2", "PROFESOR")
-            );
+-- 3. INSERTAR INSCRIPCIONES
+INSERT INTO Inscripciones (estudiante_id, curso_id) VALUES
+(6, 1), (7, 1), (8, 1), (9, 1),  -- Inglés Básico I
+(7, 2), (8, 2), (10, 2),         -- Inglés Intermedio
+(9, 3), (10, 3), (11, 3);        -- Conversación Avanzada
 
-            LoginVista login = new LoginVista();
-            LoginControlador controlador = new LoginControlador(login, usuarios);
-            login.setVisible(true);
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – ConversionControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.*;
-import Vista.ConversionVista;
-import Vista.LoginVista;
-
-import java.util.List;
-
-public class ConversionControlador {
-    private ConversionVista vista;
-    private Usuario usuario;
-    private List<Usuario> usuarios;
-
-    public ConversionControlador(ConversionVista vista, Usuario usuario, List<Usuario> usuarios) {
-        this.vista = vista;
-        this.usuario = usuario;
-        this.usuarios = usuarios;
-
-        vista.setRol(usuario.getRol());
-
-        vista.agregarCalcularListener(e -> calcular());
-        vista.agregarGuardarSalirListener(e -> guardarYSalir());
-        vista.agregarEliminarListener(e -> eliminarTodo());
-
-        if ("PROFESOR".equalsIgnoreCase(usuario.getRol())) {
-            mostrarConversionesGuardadas();
-        }
-    }
-
-    private void calcular() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            vista.setResultado(valor + " " + origen + " = " + resultado + " " + destino);
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Por favor, ingrese un número válido.");
-        }
-    }
-
-    private double convertir(double valor, String origen, String destino) {
-        double valorEnMetros = switch (origen) {
-            case "cm" -> valor / 100;
-            case "mm" -> valor / 1000;
-            case "km" -> valor * 1000;
-            default -> valor;
-        };
-
-        return switch (destino) {
-            case "cm" -> valorEnMetros * 100;
-            case "mm" -> valorEnMetros * 1000;
-            case "km" -> valorEnMetros / 1000;
-            default -> valorEnMetros;
-        };
-    }
-
-    private void guardarYSalir() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            RepositorioConversiones.guardar(new Conversion(valor, origen, destino, resultado));
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Error al guardar: valor no numérico.");
-        }
-
-        volverAlLogin();
-    }
-
-    private void eliminarTodo() {
-        RepositorioConversiones.limpiarConversiones();
-        vista.setResultado("Conversiones eliminadas.");
-    }
-
-    private void mostrarConversionesGuardadas() {
-        StringBuilder sb = new StringBuilder();
-        for (Conversion c : RepositorioConversiones.obtenerConversiones()) {
-            sb.append(c.toString()).append("\n");
-        }
-        vista.mostrarConversiones(sb.toString());
-    }
-
-    private void volverAlLogin() {
-        vista.dispose();
-        LoginVista loginVista = new LoginVista();
-        new LoginControlador(loginVista, usuarios);
-        loginVista.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – LoginControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.Usuario;
-import Vista.LoginVista;
-import Vista.ConversionVista;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-public class LoginControlador {
-    private final LoginVista loginVista;
-    private final List<Usuario> usuarios;
-
-    public LoginControlador(LoginVista vista, List<Usuario> usuarios) {
-        this.loginVista = vista;
-        this.usuarios = usuarios;
-
-        this.loginVista.agregarLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login();
-            }
-        });
-    }
-
-    private void login() {
-        String usuario = loginVista.getUsuario();
-        String password = loginVista.getPassword();
-
-        Usuario userEncontrado = usuarios.stream()
-                .filter(u -> u.getUsername().equals(usuario) && u.getPassword().equals(password))
-                .findFirst()
-                .orElse(null);
-
-        if (userEncontrado == null) {
-            loginVista.setMensaje("Usuario o contraseña incorrectos.");
-        } else {
-            loginVista.setMensaje("Bienvenido " + userEncontrado.getUsername());
-            abrirConversionVista(userEncontrado);
-        }
-    }
-
-    private void abrirConversionVista(Usuario usuario) {
-        SwingUtilities.invokeLater(() -> {
-            ConversionVista conversionVista = new ConversionVista();
-            ConversionControlador conversionControlador = new ConversionControlador(conversionVista, usuario, usuarios);
-            conversionVista.setRol(usuario.getRol());
-            conversionVista.setVisible(true);
-            loginVista.dispose();
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Conversion</h4>
-      <pre><code>
-package Modelo;
-
-public class Conversion {
-    private double valor;
-    private String unidadOrigen;
-    private String unidadDestino;
-    private double resultado;
-
-    public Conversion(double valor, String unidadOrigen, String unidadDestino, double resultado) {
-        this.valor = valor;
-        this.unidadOrigen = unidadOrigen;
-        this.unidadDestino = unidadDestino;
-        this.resultado = resultado;
-    }
-
-    @Override
-    public String toString() {
-        return valor + " " + unidadOrigen + " = " + resultado + " " + unidadDestino;
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – RepositorioConversiones</h4>
-      <pre><code>
-package Modelo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RepositorioConversiones {
-    public static List<Conversion> conversiones = new ArrayList<>();
-
-    public static void guardar(Conversion c) {
-        conversiones.add(c);
-    }
-
-    public static List<Conversion> obtenerConversiones() {
-        return conversiones;
-    }
-
-    public static void limpiarConversiones() {
-        conversiones.clear();
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Usuario</h4>
-      <pre><code>
-package Modelo;
-
-public class Usuario {
-    private String username;
-    private String password;
-    private String rol; // "ALUMNO" o "PROFESOR"
-
-    public Usuario(String username, String password, String rol) {
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-}
+-- 4. INSERTAR CALIFICACIONES
+INSERT INTO Calificaciones (estudiante_id, curso_id, habilidad, puntaje, fecha_evaluacion, periodo) VALUES
+(6, 1, 'speaking', 14.5, '2024-01-20', 'Q1'),
+(6, 1, 'writing', 13.0, '2024-01-25', 'Q1'),
+(7, 1, 'speaking', 16.5, '2024-01-20', 'Q1'),
+(7, 1, 'writing', 15.0, '2024-01-25', 'Q1'),
+(8, 2, 'speaking', 17.0, '2024-01-22', 'Q1'),
+(8, 2, 'writing', 16.5, '2024-01-27', 'Q1');
       </code></pre>
     </div>
 
-    <!-- Acordeón para Vista Login -->
-    <button class="acordeon">Ver Vista – ConversionVista / LoginVista</button>
+    <button class="acordeon">Consultas y Reportes Avanzados</button>
     <div class="panel">
-      <h4>Vista – ConversionVista</h4>
+      <h3>Consultas SQL para Gestión del Sistema</h3>
+      <p>Consultas útiles para extraer información y generar reportes:</p>
+      
       <pre><code>
-package Vista;
+-- =============================================
+-- CONSULTAS DE VERIFICACIÓN Y REPORTES
+-- =============================================
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+-- 1. Verificar usuarios por rol
+SELECT rol, COUNT(*) as total FROM Usuarios GROUP BY rol;
 
-public class ConversionVista extends JFrame {
-    // Aquí irían tus atributos y componentes Swing…
-    public ConversionVista() {
-        initComponents();
-        inicializarElementos();
+-- 2. Cursos y sus profesores
+SELECT c.nombre_curso, c.nivel, u.nombre as profesor 
+FROM Cursos c 
+JOIN Usuarios u ON c.profesor_id = u.id;
 
-        btnCalcular.addActionListener(e -> {
-            // …
-        });
-    }
+-- 3. Estudiantes inscritos por curso
+SELECT c.nombre_curso, COUNT(i.estudiante_id) as total_estudiantes
+FROM Cursos c 
+LEFT JOIN Inscripciones i ON c.id = i.curso_id 
+GROUP BY c.nombre_curso;
 
-    public String getValor() {
-        return txtValor.getText().trim();
-    }
-    public String getUnidadOrigen() {
-        return (String) cmbOrigen.getSelectedItem();
-    }
-    public String getUnidadDestino() {
-        return (String) cmbDestino.getSelectedItem();
-    }
-    public void setResultado(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void setRol(String rol) {
-        lblRol.setText("Rol: " + rol);
-        if ("PROFESOR".equalsIgnoreCase(rol)) {
-            txtValor.setEditable(false);
-            btnCalcular.setEnabled(false);
-            btnGuardarSalir.setVisible(false);
-        } else {
-            txtValor.setEditable(true);
-            btnCalcular.setEnabled(true);
-            btnGuardarSalir.setVisible(true);
-        }
-    }
-    public void agregarCalcularListener(ActionListener listener) {
-        btnCalcular.addActionListener(listener);
-    }
-    public void inicializarElementos() {
-        DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
+-- 4. Promedio de calificaciones por estudiante
+SELECT u.nombre as estudiante, c.nombre_curso, AVG(cal.puntaje) as promedio
+FROM Calificaciones cal
+JOIN Usuarios u ON cal.estudiante_id = u.id
+JOIN Cursos c ON cal.curso_id = c.id
+GROUP BY u.nombre, c.nombre_curso
+ORDER BY promedio DESC;
 
-        cmbOrigen.setRenderer(listRenderer);
-        cmbDestino.setRenderer(listRenderer);
+-- 5. Progreso por habilidad
+SELECT u.nombre, cal.habilidad, AVG(cal.puntaje) as promedio, COUNT(*) as evaluaciones
+FROM Calificaciones cal
+JOIN Usuarios u ON cal.estudiante_id = u.id
+WHERE u.rol = 'estudiante'
+GROUP BY u.nombre, cal.habilidad
+ORDER BY u.nombre, promedio DESC;
 
-        cmbOrigen.removeAllItems();
-        cmbDestino.removeAllItems();
-
-        String[] unidades = {"m", "cm", "mm", "km"};
-        for (String unidad : unidades) {
-            cmbOrigen.addItem(unidad);
-            cmbDestino.addItem(unidad);
-        }
-
-        cmbOrigen.setSelectedIndex(0);
-        cmbDestino.setSelectedIndex(1);
-    }
-    public void mostrarConversiones(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void agregarGuardarSalirListener(ActionListener listener) {
-        btnGuardarSalir.addActionListener(listener);
-    }
-    public void agregarEliminarListener(ActionListener listener) {
-        btnEliminarTodo.addActionListener(listener);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – LoginVista</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-public class LoginVista extends javax.swing.JFrame {
-    public LoginVista() {
-        initComponents();
-
-        btnLogin.addActionListener(e -> {
-            // …
-        });
-    }
-    public String getUsuario() {
-        return txtUsuario.getText().trim();
-    }
-    public String getPassword() {
-        return new String(txtPassword.getPassword());
-    }
-    public void setMensaje(String mensaje) {
-        lblMensaje.setText(mensaje);
-    }
-    public void agregarLoginListener(ActionListener listener) {
-        btnLogin.addActionListener(listener);
-    }
-}
+-- 6. Estudiantes activos por curso
+SELECT c.nombre_curso, u.nombre as estudiante, i.fecha_inscripcion
+FROM Inscripciones i
+JOIN Cursos c ON i.curso_id = c.id
+JOIN Usuarios u ON i.estudiante_id = u.id
+WHERE i.estado = 'activo'
+ORDER BY c.nombre_curso, u.nombre;
       </code></pre>
     </div>
+
+    <button class="acordeon">Especificaciones Técnicas y Características</button>
+    <div class="panel">
+      <h3>Características de la Base de Datos</h3>
+      
+      <div class="tabla-info">
+        <h5>📋 Tabla Usuarios</h5>
+        <ul>
+          <li><strong>Propósito:</strong> Gestionar todos los usuarios del sistema</li>
+          <li><strong>Campos clave:</strong> ingresoUsuario (único), rol, email (único)</li>
+          <li><strong>Seguridad:</strong> Contraseñas encriptadas, control de estado activo</li>
+          <li><strong>Auditoría:</strong> fecha_registro automática</li>
+        </ul>
+      </div>
+
+      <div class="tabla-info">
+        <h5>📚 Tabla Cursos</h5>
+        <ul>
+          <li><strong>Propósito:</strong> Gestionar la oferta académica</li>
+          <li><strong>Niveles:</strong> A1, A2, B1, B2, C1, C2 (Marco Europeo)</li>
+          <li><strong>Control:</strong> Límite de estudiantes, fechas de duración</li>
+          <li><strong>Relación:</strong> Profesor asignado (clave foránea)</li>
+        </ul>
+      </div>
+
+      <div class="tabla-info">
+        <h5>📊 Tabla Calificaciones</h5>
+        <ul>
+          <li><strong>Propósito:</strong> Registrar evaluaciones detalladas</li>
+          <li><strong>Habilidades:</strong> 6 tipos diferentes (speaking, writing, etc.)</li>
+          <li><strong>Validaciones:</strong> Puntaje 0-20, evaluaciones únicas por fecha</li>
+          <li><strong>Periodos:</strong> Sistema de cuatrimestres (Q1-Q4)</li>
+        </ul>
+      </div>
+
+      <div class="tabla-info">
+        <h5>🔗 Tabla Inscripciones</h5>
+        <ul>
+          <li><strong>Propósito:</strong> Relacionar estudiantes con cursos</li>
+          <li><strong>Restricción:</strong> Inscripción única por estudiante-curso</li>
+          <li><strong>Estados:</strong> activo, completado, cancelado</li>
+          <li><strong>Auditoría:</strong> Fecha automática de inscripción</li>
+        </ul>
+      </div>
+
+      <h4>✅ Características de Seguridad</h4>
+      <ul>
+        <li><strong>Integridad Referencial:</strong> Claves foráneas con restricciones</li>
+        <li><strong>Unicidad:</strong> Campos únicos para evitar duplicados</li>
+        <li><strong>Validaciones:</strong> CHECK constraints para valores válidos</li>
+        <li><strong>Índices:</strong> Optimización para consultas frecuentes</li>
+      </ul>
+
+      <h4>🚀 Optimizaciones Implementadas</h4>
+      <ul>
+        <li><strong>Índices Únicos:</strong> Para búsquedas rápidas de usuarios y cursos</li>
+        <li><strong>Claves Foráneas:</strong> Mantienen la integridad de los datos</li>
+        <li><strong>Tipos de Datos Adecuados:</strong> ENUM para campos con opciones limitadas</li>
+        <li><strong>Valores por Defecto:</strong> Simplifican las inserciones</li>
+      </ul>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn btn-regresar">
+      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    </a>
+    
   </main>
 
   <script>
+    // Script para acordeón
     const acordeones = document.querySelectorAll('.acordeon');
     acordeones.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -647,10 +464,6 @@ public class LoginVista extends javax.swing.JFrame {
           btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
         }
       });
-      // Inicializar con “Ver …” si no tiene
-      if (!btn.textContent.startsWith('Ver')) {
-        btn.textContent = 'Ver ' + btn.textContent;
-      }
     });
   </script>
 </body>
