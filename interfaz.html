@@ -54,6 +54,27 @@
     .navbar a.clicked {
       background-color: #3b82f6;
     }
+    /* Estilos para la sección del nombre */
+    .nombre-desarrollador {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 2px solid #00ffc3;
+    }
+    .nombre-desarrollador h2 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0, 255, 195, 0.5);
+    }
+    .nombre-desarrollador p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -68,6 +89,31 @@
   </nav>
   <canvas id="particles"></canvas>
   <main class="container">
+    <!-- Sección con tu nombre donde estaba el slider -->
+    <section class="nombre-desarrollador fade-in">
+      <h2>Jhon Huaman Cardenas</h2>
+      <p>Desarrollador del Proyecto - Estudiante de Ingeniería de Sistemas</p>
+    </section>
+
+    <!-- Información del taller -->
+    <section class="info-superior fade-in">
+      <h1>Taller de Aplicaciones</h1>
+      <h3>Aprendizaje de Apache NetBeans, Maven, Diseño MVC y desarrollo web</h3>
+      <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación.</p>
+    </section>
+    
+    <!-- Información de la UPLA -->
+    <section class="info-inferior fade-in">
+      <h1>UPLA</h1>
+      <h2>Misión</h2>
+      <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
+        integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
+      <h2>Visión</h2>
+      <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
+        académica y pertinencia social.</p>
+    </section>
+
+    <!-- El slider ahora va al final -->
     <section class="slider-3d">
       <div class="slider-container" id="sliderContainer">
         <div class="slide" data-title="Rector Bustinza Suaznabar" data-desc="Rector de la Universidad">
@@ -110,21 +156,6 @@
       <button id="prevBtn" aria-label="Imagen anterior">◀</button>
       <button id="nextBtn" aria-label="Siguiente imagen">▶</button>
     </section>
-
-    <section class="info-superior fade-in">
-    <h1>Taller de Aplicaciones</h1>
-    <h3>Aprendizaje de Apache NetBeans, Maven, Diseño MVC y desarrollo web</h3>
-    <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación.</p>
-  </section>
-  <section class="info-inferior fade-in">
-    <h1>UPLA</h1>
-    <h2>Misión</h2>
-    <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
-      integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
-    <h2>Visión</h2>
-    <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
-      académica y pertinencia social.</p>
-  </section>
   </main>
 </body>
 </html>
