@@ -1,0 +1,125 @@
+🧩 Estructura Base del Sistema
+📚 1. Base de Datos
+CREATE DATABASE sistema_gestion_academica;
+USE sistema_gestion_academica;
+
+👤 2. Tabla: Usuarios
+
+Contiene información de administradores, profesores y estudiantes.
+
+Campo	Tipo	Descripción
+id	INT (PK)	Identificador único
+ingresoUsuario	VARCHAR(50) UNIQUE	Usuario para login
+ingresoContrasenia	VARCHAR(100)	Contraseña
+rol	ENUM	admin, profesor, estudiante
+nombre	VARCHAR(100)	Nombre completo
+email	VARCHAR(100) UNIQUE	Correo electrónico
+telefono	VARCHAR(15)	Teléfono
+fecha_nacimiento	DATE	Fecha de nacimiento
+fecha_registro	TIMESTAMP	Fecha de registro automático
+activo	BOOLEAN	Activo o inactivo
+📘 3. Tabla: Cursos
+
+Información sobre los cursos dictados.
+
+Campo	Tipo	Descripción
+id	INT (PK)	ID del curso
+nombre_curso	VARCHAR(100)	Nombre del curso
+nivel	ENUM	A1, A2, B1, B2, C1, C2
+descripcion	TEXT	Descripción del curso
+profesor_id	INT (FK)	Referencia a Usuarios(id) (profesor)
+max_estudiantes	INT	Máximo número de estudiantes (default: 20)
+fecha_inicio	DATE	Fecha de inicio
+fecha_fin	DATE	Fecha de fin
+activo	BOOLEAN	Activo o no
+📝 4. Tabla: Calificaciones
+
+Guarda las evaluaciones por habilidad y tipo.
+
+Campo	Tipo	Descripción
+id	INT (PK)	ID de la calificación
+estudiante_id	INT (FK)	Usuario estudiante
+curso_id	INT (FK)	Curso evaluado
+habilidad	ENUM	Ej: speaking, writing, reading, etc.
+puntaje	DECIMAL(4,2)	Puntaje del 0 al 20
+fecha_evaluacion	DATE	Fecha de evaluación
+comentario	TEXT	Comentario de retroalimentación
+tipo_evaluacion	ENUM	Examen, tarea, proyecto, participación
+periodo	ENUM	Q1, Q2, Q3, Q4 (trimestres)
+
+🔐 Restricciones:
+
+Un estudiante no puede tener dos evaluaciones del mismo tipo en el mismo día, curso y habilidad (restricción UNIQUE).
+
+📄 5. Tabla: Inscripciones
+
+Relación muchos a muchos entre estudiantes y cursos.
+
+Campo	Tipo	Descripción
+id	INT (PK)	ID de inscripción
+estudiante_id	INT (FK)	ID del usuario estudiante
+curso_id	INT (FK)	ID del curso
+estado	ENUM	activo, completado, cancelado
+
+🔐 Restricción UNIQUE: Un estudiante solo puede inscribirse una vez por curso.
+
+🧪 6. Consultas Útiles
+
+Aquí algunos reportes clave incluidos:
+
+Usuarios por rol:
+
+SELECT rol, COUNT(*) FROM Usuarios GROUP BY rol;
+
+
+Cursos con su profesor:
+
+SELECT c.nombre_curso, u.nombre AS profesor
+FROM Cursos c JOIN Usuarios u ON c.profesor_id = u.id;
+
+
+Total de estudiantes por curso:
+
+SELECT c.nombre_curso, COUNT(i.estudiante_id)
+FROM Cursos c
+LEFT JOIN Inscripciones i ON c.id = i.curso_id
+GROUP BY c.nombre_curso;
+
+
+Promedio por estudiante en cada curso:
+
+SELECT u.nombre AS estudiante, c.nombre_curso, AVG(cal.puntaje) AS promedio
+FROM Calificaciones cal
+JOIN Usuarios u ON cal.estudiante_id = u.id
+JOIN Cursos c ON cal.curso_id = c.id
+GROUP BY u.nombre, c.nombre_curso
+ORDER BY promedio DESC;
+
+🛠️ 7. Gestión de Usuario MySQL (admin)
+
+Verificación, creación y asignación de permisos para el usuario admin en MySQL:
+
+CREATE USER IF NOT EXISTS 'admin'@'localhost' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON sistema_gestion_academica.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+
+🧪 Datos de Ejemplo Insertados
+🔸 Usuarios:
+
+2 administradores
+
+3 profesores
+
+6 estudiantes
+
+🔸 Cursos:
+
+5 cursos de inglés de distintos niveles
+
+🔸 Inscripciones:
+
+Múltiples estudiantes por curso (relación m:m)
+
+🔸 Calificaciones:
+
+Evaluaciones por habilidad, tipo y trimestre

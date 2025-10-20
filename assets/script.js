@@ -24,12 +24,14 @@ const contenedor = document.getElementById("contenedor-semanas");
 semanas.forEach((titulo, i) => {
   const numero = i + 1;
 
-  // Construir URL de GitHub para las primeras 4 semanas que están en carpetas específicas
+  // Construir URL de GitHub para las semanas que están en carpetas específicas
   let githubUrl = "https://github.com/JhonFHC/mi-proyecto-web";
-  if (numero >= 1 && numero <= 4) {
+  
+  // MODIFICACIÓN AQUÍ: Incluir semanas 7 y 8
+  if (numero >= 1 && numero <= 4 || numero === 7 || numero === 8) {
     githubUrl += `/tree/main/semanas/Semana${numero}`;
   } else {
-    githubUrl += "/tree/main"; // Para las otras semanas, enlace general al repositorio (o cambia según necesites)
+    githubUrl += "/tree/main"; // Para las otras semanas, enlace general al repositorio
   }
 
   const semanaHTML = `
@@ -47,24 +49,22 @@ semanas.forEach((titulo, i) => {
   contenedor.innerHTML += semanaHTML;
 });
 
-// Funcionalidad del acordeón (se ejecuta después de generar el HTML)
-setTimeout(() => {
-  const acordeones = document.querySelectorAll(".acordeon");
+// El resto del código permanece igual...
+const acordeones = document.querySelectorAll(".acordeon");
 
-  acordeones.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      this.classList.toggle("active");
-      const panel = this.nextElementSibling;
-      if (panel.style.maxHeight) {
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      }
-    });
+acordeones.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    this.classList.toggle("active");
+    const panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
   });
-}, 0);
+});
 
-// SLIDER - Funcionalidad
+// SLIDER - Funcionalidad (si existe en tu página)
 const slides = document.querySelector('.slides');
 const dots = document.querySelectorAll('.dot');
 const prevBtn = document.querySelector('.prev');
@@ -85,21 +85,29 @@ function showSlide(index) {
 }
 
 // Manejo de los botones de navegación del slider
-prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
-nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
+if (prevBtn && nextBtn) {
+  prevBtn.addEventListener('click', () => showSlide(currentIndex - 1));
+  nextBtn.addEventListener('click', () => showSlide(currentIndex + 1));
+}
 
 // Manejo de los puntos de navegación
-dots.forEach(dot => {
-  dot.addEventListener('click', () => {
-    const index = parseInt(dot.getAttribute('data-index'));
-    showSlide(index);
+if (dots.length > 0) {
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.getAttribute('data-index'));
+      showSlide(index);
+    });
   });
-});
+}
 
 // Auto-slide (opcional)
-setInterval(() => {
-  showSlide(currentIndex + 1);
-}, 5000);
+if (slides) {
+  setInterval(() => {
+    showSlide(currentIndex + 1);
+  }, 5000);
+}
 
 // Inicializar
-showSlide(currentIndex);
+if (slides) {
+  showSlide(currentIndex);
+}
