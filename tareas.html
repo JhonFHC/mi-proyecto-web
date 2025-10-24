@@ -8,13 +8,12 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,32 +70,230 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Ajuste para el main (para compensar navbar fija, si no está en style1.css) */
+
+    /* Ajuste para el main */
     .container {
-      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+      margin-top: 80px;
+      padding: 20px;
+    }
+
+    /* Mejoras para las semanas */
+    .seccion-titulo {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .seccion-titulo h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .seccion-titulo p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Grid mejorado para semanas */
+    #contenedor-semanas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .semana {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .semana:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 255, 195, 0.3);
+    }
+
+    .acordeon {
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
+      color: #000;
+      cursor: pointer;
+      padding: 20px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .acordeon:hover {
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+    }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+    }
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel p {
+      color: #cbd5e1;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .botones-semana {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 6px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    /* Badge de estado */
+    .badge-estado {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .badge-completado {
+      background: #10b981;
+      color: #000;
+    }
+
+    .badge-progreso {
+      background: #f59e0b;
+      color: #000;
+    }
+
+    .badge-pendiente {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #contenedor-semanas {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-semana {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <!-- Logo Universidad (agregado con el mismo formato) -->
-    <a href="interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
-    <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
-    <a href="tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí -->
+    <div class="navbar-left">
+      <a href="interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
-  <canvas id="particles"></canvas> <!-- Agregado para consistencia visual (particles) -->
+
+  <canvas id="particles"></canvas>
 
   <main class="container">
+    <section class="seccion-titulo fade-in">
+      <h1><i class="fas fa-tasks"></i> Tareas por Semanas</h1>
+      <p>Explora el progreso de mi aprendizaje en el Taller de Aplicaciones. Cada semana representa un nuevo desafío y oportunidad de crecimiento en desarrollo web y programación.</p>
+    </section>
+
     <section class="frase-celebre fade-in">
       <blockquote>“La educación es el arma más poderosa que puedes usar para cambiar el mundo.” – Nelson Mandela</blockquote>
     </section>
@@ -81,6 +303,105 @@
     </section>
   </main>
 
-  <script src="assets/script.js"></script>
+  <script>
+    // Datos de las semanas actualizados
+    const semanas = [
+      { titulo: "Apache Maven", estado: "completado" },
+      { titulo: "Métodos", estado: "completado" },
+      { titulo: "Programación Orientada a Objetos", estado: "completado" },
+      { titulo: "Arquitectura: Modelo - Vista - Controlador", estado: "completado" },
+      { titulo: "Planificación del Sistema de Login", estado: "completado" },
+      { titulo: "Sistema de Login", estado: "completado" },
+      { titulo: "Base de datos de mi Aplicativo", estado: "completado" },
+      { titulo: "Aplicativo completo", estado: "completado" },
+      { titulo: "Introducción a JavaScript", estado: "pendiente" },
+      { titulo: "Variables, Tipos de Datos y Operadores", estado: "pendiente" },
+      { titulo: "Estructuras de Control y Funciones", estado: "pendiente" },
+      { titulo: "DOM y Manipulación de Elementos", estado: "pendiente" },
+      { titulo: "Eventos en JavaScript", estado: "pendiente" },
+      { titulo: "Arreglos y Objetos en JavaScript", estado: "pendiente" },
+      { titulo: "Proyecto Final – Maquetación Web", estado: "pendiente" },
+      { titulo: "Presentación de Proyectos y Evaluación", estado: "pendiente" }
+    ];
+
+    // Generar dinámicamente el contenido
+    const contenedor = document.getElementById("contenedor-semanas");
+
+    semanas.forEach((semana, i) => {
+      const numero = i + 1;
+      const estado = semana.estado;
+      const titulo = semana.titulo;
+
+      // Construir URL de GitHub
+      let githubUrl = "https://github.com/JhonFHC/mi-proyecto-web";
+      if (numero >= 1 && numero <= 4 || numero === 7 || numero === 8) {
+        githubUrl += `/tree/main/semanas/Semana${numero}`;
+      } else {
+        githubUrl += "/tree/main";
+      }
+
+      // Determinar badge de estado
+      let badgeHTML = '';
+      let badgeClass = '';
+      switch(estado) {
+        case 'completado':
+          badgeHTML = '<span class="badge-estado badge-completado"><i class="fas fa-check"></i> Completado</span>';
+          badgeClass = 'completado';
+          break;
+        case 'progreso':
+          badgeHTML = '<span class="badge-estado badge-progreso"><i class="fas fa-spinner"></i> En Progreso</span>';
+          badgeClass = 'progreso';
+          break;
+        case 'pendiente':
+          badgeHTML = '<span class="badge-estado badge-pendiente"><i class="fas fa-clock"></i> Pendiente</span>';
+          badgeClass = 'pendiente';
+          break;
+      }
+
+      const semanaHTML = `
+        <div class="semana ${badgeClass}">
+          <button class="acordeon">
+            Semana ${numero} ${badgeHTML}
+          </button>
+          <div class="panel">
+            <p><strong>Tema:</strong> ${titulo}</p>
+            <p><strong>Estado:</strong> ${estado.charAt(0).toUpperCase() + estado.slice(1)}</p>
+            <div class="botones-semana">
+              <a href="semanas/semana${numero}.html" class="btn">
+                <i class="fas fa-book-open"></i> Ver Contenido
+              </a>
+              ${numero <= 3 ? `<a href="downloads/Taller Aplicaciones - Semana${numero}.docx" class="btn descargar" download>
+                <i class="fas fa-download"></i> Descargar
+              </a>` : ''}
+              <a href="${githubUrl}" class="btn github" target="_blank">
+                <i class="fab fa-github"></i> Ver en GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+
+      contenedor.innerHTML += semanaHTML;
+    });
+
+    // Funcionalidad del acordeón
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll(".acordeon");
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.classList.toggle("active");
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

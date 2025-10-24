@@ -8,12 +8,12 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
   <style>
+    /* MISMOS ESTILOS DE SEMANA 1 */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -21,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -45,178 +70,443 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
     .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
       text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
     }
+
     .btn:hover {
-      background-color: #00cfa3;
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
     }
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
       max-width: 200px;
     }
-    .container {
-      margin-top: 80px;
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
     }
+
+    /* Grid de resumen (nuevo para semana 8) */
     .resumen-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
+      gap: 25px;
+      margin: 40px 0;
     }
-    .tarjeta {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      border-radius: 10px;
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
       text-align: center;
-      border: 1px solid #00ffc3;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
     }
-    .tarjeta h4 {
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
       color: #00ffc3;
-      margin-top: 0;
     }
-    .icono {
-      font-size: 2rem;
-      margin-bottom: 10px;
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid #9333ea;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-informativo p {
+      color: #9333ea;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
+
   <canvas id="particles"></canvas>
 
   <main class="container">
-
-    <section class="frase-celebre fade-in">
-      <blockquote>"La simplicidad es la máxima sofisticación." – Leonardo da Vinci</blockquote>
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-rocket"></i> Semana 8 - Proyecto Integrado Completo</h1>
+      <p>Resumen ejecutivo del sistema de gestión académica desarrollado, integrando todas las componentes trabajadas en las semanas anteriores en un proyecto funcional y completo.</p>
     </section>
 
-    <section class="fade-in">
-      <h2>Semana 8 - Proyecto Integrado Completo</h2>
-      <p>Resumen ejecutivo del sistema de gestión académica desarrollado, integrando todas las componentes trabajadas en las semanas anteriores.</p>
-    </section>
-
-    <div class="resumen-grid">
-      <div class="tarjeta">
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
         <div class="icono">🔐</div>
         <h4>Sistema de Login</h4>
         <p>Autenticación segura con validaciones en tiempo real y límite de intentos</p>
       </div>
-      <div class="tarjeta">
+      <div class="tarjeta-resumen">
         <div class="icono">📊</div>
         <h4>Base de Datos</h4>
         <p>MySQL con 4 tablas principales y relaciones bien definidas</p>
       </div>
-      <div class="tarjeta">
+      <div class="tarjeta-resumen">
         <div class="icono">👥</div>
         <h4>Gestión de Usuarios</h4>
         <p>3 roles: Admin, Profesor, Estudiante con permisos diferenciados</p>
       </div>
-      <div class="tarjeta">
+      <div class="tarjeta-resumen">
         <div class="icono">🎯</div>
         <h4>Interfaces Optimizadas</h4>
         <p>Diseño limpio y responsive con experiencia de usuario mejorada</p>
       </div>
     </div>
 
-    <button class="acordeon">Resumen Técnico del Proyecto</button>
-    <div class="panel">
-      <h3>Arquitectura del Sistema</h3>
-      
-      <h4>🎯 Tecnologías Implementadas</h4>
-      <ul>
-        <li><strong>Frontend:</strong> Java Swing - Interfaces gráficas modernas</li>
-        <li><strong>Backend:</strong> Java - Lógica de negocio robusta</li>
-        <li><strong>Base de Datos:</strong> MySQL - Almacenamiento persistente</li>
-        <li><strong>Seguridad:</strong> Validaciones múltiples y encriptación</li>
-      </ul>
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Resumen Técnico -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-cogs"></i> Resumen Técnico del Proyecto</h2>
+        <p>Arquitectura completa del sistema integrado, tecnologías implementadas y características principales desarrolladas durante el proyecto.</p>
 
-      <h4>🚀 Características Principales</h4>
-      <ul>
-        <li>Sistema de autenticación seguro con 3 intentos máximos</li>
-        <li>Gestión completa de usuarios con diferentes roles</li>
-        <li>Base de datos normalizada con integridad referencial</li>
-        <li>Interfaces intuitivas con feedback inmediato al usuario</li>
-        <li>Sistema de calificaciones detallado por habilidades</li>
-      </ul>
+        <button class="acordeon">
+          <i class="fas fa-layer-group"></i> Arquitectura del Sistema
+        </button>
+        <div class="panel">
+          <h4>🎯 Tecnologías Implementadas</h4>
+          <ul>
+            <li><strong>Frontend:</strong> Java Swing - Interfaces gráficas modernas</li>
+            <li><strong>Backend:</strong> Java - Lógica de negocio robusta</li>
+            <li><strong>Base de Datos:</strong> MySQL - Almacenamiento persistente</li>
+            <li><strong>Seguridad:</strong> Validaciones múltiples y encriptación</li>
+            <li><strong>Control de Versiones:</strong> Git - Gestión del código fuente</li>
+          </ul>
 
-      <h4>✅ Validaciones Implementadas</h4>
-      <ul>
-        <li>Campos obligatorios en tiempo real</li>
-        <li>Longitud mínima de contraseña (4 caracteres)</li>
-        <li>Formato de email válido</li>
-        <li>Usuario sin espacios</li>
-        <li>Límite de intentos fallidos</li>
-      </ul>
-    </div>
+          <h4>🚀 Características Principales</h4>
+          <ul>
+            <li>Sistema de autenticación seguro con 3 intentos máximos</li>
+            <li>Gestión completa de usuarios con diferentes roles</li>
+            <li>Base de datos normalizada con integridad referencial</li>
+            <li>Interfaces intuitivas con feedback inmediato al usuario</li>
+            <li>Sistema de calificaciones detallado por habilidades</li>
+            <li>Validaciones en tiempo real en formularios</li>
+          </ul>
+        </div>
 
-    <button class="acordeon">Código Esencial - Clase Principal</button>
-    <div class="panel">
-      <h3>Núcleo del Sistema de Login</h3>
-      <pre><code>
-public class FormLogin extends javax.swing.JFrame {
+        <button class="acordeon">
+          <i class="fas fa-shield-alt"></i> Validaciones Implementadas
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Campos obligatorios:</strong> Validación en tiempo real</li>
+            <li><strong>Contraseñas:</strong> Longitud mínima de 4 caracteres</li>
+            <li><strong>Email:</strong> Formato válido con expresión regular</li>
+            <li><strong>Usuario:</strong> Sin espacios y único en el sistema</li>
+            <li><strong>Seguridad:</strong> Límite de 3 intentos fallidos</li>
+            <li><strong>Datos numéricos:</strong> Rango válido en calificaciones</li>
+          </ul>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana8" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Proyecto Completo
+          </a>
+          <a href="../downloads/proyecto_completo_documentacion.pdf" class="btn descargar" download>
+            <i class="fas fa-download"></i> Descargar Documentación
+          </a>
+        </div>
+      </section>
+
+      <!-- Tarjeta Código y Estructura -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-code"></i> Implementación y Código</h2>
+        <p>Núcleo del sistema con código esencial, estructura de base de datos y componentes principales desarrollados.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-laptop-code"></i> Código Esencial - Clase Principal
+        </button>
+        <div class="panel">
+          <p>Núcleo del sistema de login con validaciones y control de seguridad:</p>
+          
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-terminal"></i> FormLogin.java</h4>
+            </div>
+            <pre><code>public class FormLogin extends javax.swing.JFrame {
     private int intentosFallidos = 0;
     private static final int MAX_INTENTOS = 3;
 
@@ -228,7 +518,6 @@ public class FormLogin extends javax.swing.JFrame {
     }
 
     private boolean validarCamposLogin() {
-        // Validaciones esenciales
         String usuario = txtUsuario.getText().trim();
         String contrasenia = String.valueOf(txtContrasenia.getPassword());
         
@@ -258,15 +547,21 @@ public class FormLogin extends javax.swing.JFrame {
             }
         }
     }
-}
-      </code></pre>
-    </div>
+}</code></pre>
+          </div>
+        </div>
 
-    <button class="acordeon">Estructura de Base de Datos</button>
-    <div class="panel">
-      <h3>Resumen de Tablas Principales</h3>
-      <pre><code>
--- TABLA PRINCIPAL: Usuarios
+        <button class="acordeon">
+          <i class="fas fa-database"></i> Estructura de Base de Datos
+        </button>
+        <div class="panel">
+          <p>Resumen de las tablas principales y sus relaciones en el sistema:</p>
+          
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-table"></i> Esquema Principal</h4>
+            </div>
+            <pre><code>-- TABLA PRINCIPAL: Usuarios
 CREATE TABLE Usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ingresoUsuario VARCHAR(50) UNIQUE NOT NULL,
@@ -294,62 +589,90 @@ CREATE TABLE Calificaciones (
     puntaje DECIMAL(4,2) NOT NULL,
     FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
     FOREIGN KEY (curso_id) REFERENCES Cursos(id)
-);
-      </code></pre>
+);</code></pre>
+          </div>
+        </div>
+
+        <div class="mensaje-informativo">
+          <p><i class="fas fa-star"></i> ¡Proyecto completamente funcional y documentado!</p>
+        </div>
+      </section>
     </div>
 
-    <button class="acordeon">Logros y Conclusiones</button>
-    <div class="panel">
-      <h3>✅ Lo Logrado en el Proyecto</h3>
-      
-      <h4>🎯 Objetivos Cumplidos</h4>
-      <ul>
-        <li>Sistema de login seguro y funcional</li>
-        <li>Base de datos bien estructurada y normalizada</li>
-        <li>Interfaces de usuario intuitivas y responsivas</li>
-        <li>Código mantenible y escalable</li>
-        <li>Documentación completa del proyecto</li>
-      </ul>
+    <!-- Sección de Logros y Conclusiones -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-trophy"></i> Logros y Conclusiones</h2>
+      <p>Evaluación final del proyecto, aprendizajes obtenidos y perspectivas futuras para el sistema desarrollado.</p>
 
-      <h4>🚀 Próximos Pasos Posibles</h4>
-      <ul>
-        <li>Implementación de más módulos académicos</li>
-        <li>Sistema de reportes avanzados</li>
-        <li>API REST para integraciones</li>
-        <li>Aplicación móvil complementaria</li>
-        <li>Sistema de notificaciones</li>
-      </ul>
+      <button class="acordeon">
+        <i class="fas fa-check-circle"></i> Objetivos Cumplidos
+      </button>
+      <div class="panel">
+        <ul>
+          <li><strong>Sistema de login seguro:</strong> Autenticación robusta con control de intentos</li>
+          <li><strong>Base de datos normalizada:</strong> Estructura eficiente y escalable</li>
+          <li><strong>Interfaces de usuario:</strong> Diseño intuitivo y experiencia mejorada</li>
+          <li><strong>Código mantenible:</strong> Arquitectura clara y documentación completa</li>
+          <li><strong>Validaciones integrales:</strong> Seguridad y usabilidad garantizadas</li>
+          <li><strong>Integración completa:</strong> Todas las componentes funcionando en conjunto</li>
+        </ul>
+      </div>
 
-      <h4>💡 Aprendizajes Clave</h4>
-      <ul>
-        <li>Arquitectura MVC en aplicaciones Java</li>
-        <li>Diseño de bases de datos relacionales</li>
-        <li>Principios de seguridad en autenticación</li>
-        <li>Gestión de proyectos de software</li>
-        <li>Documentación técnica profesional</li>
-      </ul>
-    </div>
+      <button class="acordeon">
+        <i class="fas fa-graduation-cap"></i> Aprendizajes Clave
+      </button>
+      <div class="panel">
+        <h4>💡 Habilidades Desarrolladas</h4>
+        <ul>
+          <li><strong>Arquitectura MVC:</strong> Implementación en aplicaciones Java Swing</li>
+          <li><strong>Diseño de BD:</strong> Normalización y relaciones en MySQL</li>
+          <li><strong>Seguridad:</strong> Principios de autenticación y validación</li>
+          <li><strong>Gestión de Proyectos:</strong> Planificación y desarrollo por etapas</li>
+          <li><strong>Documentación:</strong> Creación de documentación técnica profesional</li>
+          <li><strong>Control de Versiones:</strong> Uso avanzado de Git y GitHub</li>
+        </ul>
+      </div>
+
+      <button class="acordeon">
+        <i class="fas fa-road"></i> Próximos Pasos
+      </button>
+      <div class="panel">
+        <h4>🚀 Mejoras Futuras Posibles</h4>
+        <ul>
+          <li>Implementación de más módulos académicos</li>
+          <li>Sistema de reportes y dashboards avanzados</li>
+          <li>API REST para integraciones externas</li>
+          <li>Aplicación móvil complementaria</li>
+          <li>Sistema de notificaciones en tiempo real</li>
+          <li>Integración con servicios de nube</li>
+        </ul>
+      </div>
+    </section>
 
     <!-- Botón de regresar -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
-    
   </main>
 
   <script>
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones (mismo que semana 1)
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
     });
   </script>

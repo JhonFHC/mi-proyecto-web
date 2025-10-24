@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 1 - ¿Qué es GIT?</title>
+  <title>Semana 1 - Apache Maven & GIT</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script defer src="../assets/interacciones.js"></script> <!-- Agregado para partículas -->
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,262 +70,464 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Acordeón (estilos originales intactos) */
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
     .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
       text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
     }
+
     .btn:hover {
-      background-color: #00cfa3;
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
     }
-    /* Estilo para el botón de regresar (extiende .btn) */
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
       max-width: 200px;
     }
-    /* Ajuste para main (compensa navbar fija) */
-    .container {
-      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Mensaje de descarga */
+    .mensaje-descarga {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid #3b82f6;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-descarga p {
+      color: #3b82f6;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <!-- Logo Universidad (agregado con ruta ajustada para subcarpeta) -->
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a> <!-- Cambiado de "Casa" a "Inicio" para consistencia -->
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí, enlazado a página principal de tareas -->
-  </nav>
-  <canvas id="particles"></canvas> <!-- Agregado para partículas que se mueven -->
-
-  <main class="container">
-
-    <section class="frase-celebre fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <blockquote>“El único modo de hacer un gran trabajo es amar lo que haces.” – Steve Jobs</blockquote>
-    </section>
-
-    <section class="fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <h2>Semana 1 - ¿Qué es GIT?</h2>
-      <p>GIT es un sistema de control de versiones que guarda el historial de cambios de un proyecto, permitiendo trabajar en equipo y retroceder a versiones anteriores.</p>
-    </section>
-
-    <button class="acordeon">Ver contenido completo</button>
-    <div class="panel">
-      <h3>Detalles y explicación</h3>
-      <p>
-        GIT guarda un historial de versiones llamado Snapshot o Commit, que permite almacenar solo los cambios realizados. Esto facilita trabajar sin conexión y sincronizar después con repositorios remotos.
-      </p>
-      <p>
-        Internamente, GIT maneja:
-      </p>
-      <ul>
-        <li><strong>Working Directory:</strong> Archivos editables del proyecto.</li>
-        <li><strong>Staging Area:</strong> Cambios seleccionados para guardar.</li>
-        <li><strong>Repositorio:</strong> Lugar donde se almacenan las versiones.</li>
-      </ul>
-      <h3>¿Qué es una rama (Branch)?</h3>
-      <p>
-        Una rama permite separar el desarrollo para probar ideas sin afectar la rama principal, pudiendo luego unir los cambios.
-      </p>
-
-      <h3>Ejemplo de código Java - Enunciado 1</h3>
-      <pre><code>
-package com.zonajava.enunciado1;
-
-import Vista.DescuentoCamisa;
-
-public class Enunciado1 {
-    public static void main(String[] args) {
-        DescuentoCamisa descuento = new DescuentoCamisa();
-        descuento.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>JFrame Form</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.JOptionPane;
-import javax.swing.*;
-
-public class DescuentoCamisa extends JFrame {
-
-    private JButton btnCalcular, btnNuevo, btnSalir;
-    private JTextField txtPrecio, txtCantidad;
-    private JTextArea txtSalida;
-
-    public DescuentoCamisa() {
-        initComponents();
-    }
-
-    private void initComponents() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Descuento de camisa");
-
-        btnCalcular = new JButton("Calcular");
-        btnNuevo = new JButton("Nuevo");
-        btnSalir = new JButton("Salir");
-        txtPrecio = new JTextField(10);
-        txtCantidad = new JTextField(10);
-        txtSalida = new JTextArea(8, 25);
-        txtSalida.setEditable(false);
-
-        JLabel lblTitulo = new JLabel("Descuento de camisa");
-        JLabel lblPrecio = new JLabel("Precio de la camisa");
-        JLabel lblCantidad = new JLabel("Cantidad");
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        panel.add(lblTitulo);
-        panel.add(Box.createVerticalStrut(10));
-
-        JPanel filaPrecio = new JPanel();
-        filaPrecio.add(lblPrecio);
-        filaPrecio.add(txtPrecio);
-        panel.add(filaPrecio);
-
-        JPanel filaCantidad = new JPanel();
-        filaCantidad.add(lblCantidad);
-        filaCantidad.add(txtCantidad);
-        panel.add(filaCantidad);
-
-        JPanel filaBotones = new JPanel();
-        filaBotones.add(btnCalcular);
-        filaBotones.add(btnNuevo);
-        filaBotones.add(btnSalir);
-        panel.add(filaBotones);
-
-        JScrollPane scrollSalida = new JScrollPane(txtSalida);
-        panel.add(scrollSalida);
-
-        add(panel);
-        pack();
-        setLocationRelativeTo(null);
-
-        // Listeners
-        btnCalcular.addActionListener(e -> calcularDescuento());
-        btnNuevo.addActionListener(e -> limpiarCampos());
-        btnSalir.addActionListener(e -> System.exit(0));
-    }
-
-    private void calcularDescuento() {
-        try {
-            float precio = Float.parseFloat(txtPrecio.getText().trim());
-            int cantidad = Integer.parseInt(txtCantidad.getText().trim());
-            if (precio <= 0 || cantidad <= 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese valores mayores a cero");
-                return;
-            }
-            float importe = precio * cantidad;
-            float descuento1 = importe * 0.07f;
-            float descuento2 = (importe - descuento1) * 0.07f;
-            float descuentoTotal = descuento1 + descuento2;
-            float importePagar = importe - descuentoTotal;
-
-            txtSalida.setText("Detalle de la compra:\n");
-            txtSalida.append("----------------------------\n");
-            txtSalida.append(String.format("Importe de la compra: %.2f\n", importe));
-            txtSalida.append(String.format("Primer descuento (7%%): %.2f\n", descuento1));
-            txtSalida.append(String.format("Segundo descuento (7%% sobre restante): %.2f\n", descuento2));
-            txtSalida.append(String.format("Descuento total: %.2f\n", descuentoTotal));
-            txtSalida.append(String.format("Importe a pagar: %.2f\n", importePagar));
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos");
-        }
-    }
-
-    private void limpiarCampos() {
-        txtPrecio.setText("");
-        txtCantidad.setText("");
-        txtSalida.setText("");
-        txtPrecio.requestFocus();
-    }
-}
-      </code></pre>
-
-      <!-- Puedes agregar más secciones acordeón para otros enunciados o contenido -->
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
     </div>
 
-    <!-- Botón de regresar agregado aquí (al inicio del main, centrado) -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-code"></i> Semana 1 - Fundamentos</h1>
+      <p>Introducción a las herramientas esenciales para el desarrollo de software: Apache Maven para gestión de proyectos y GIT para control de versiones.</p>
+    </section>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta GIT -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fab fa-git-alt"></i> Control de Versiones con GIT</h2>
+        <p>GIT es un sistema de control de versiones distribuido que permite gestionar el historial de cambios de un proyecto, facilitando el trabajo en equipo y el mantenimiento del código.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-info-circle"></i> ¿Qué es GIT?
+        </button>
+        <div class="panel">
+          <p>GIT guarda un historial de versiones llamado <strong>Snapshot o Commit</strong>, que permite almacenar solo los cambios realizados. Esto facilita trabajar sin conexión y sincronizar después con repositorios remotos.</p>
+          <ul>
+            <li><strong>Working Directory:</strong> Archivos editables del proyecto</li>
+            <li><strong>Staging Area:</strong> Cambios seleccionados para guardar</li>
+            <li><strong>Repositorio:</strong> Lugar donde se almacenan las versiones</li>
+          </ul>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-code-branch"></i> Ramas (Branches)
+        </button>
+        <div class="panel">
+          <p>Una rama permite separar el desarrollo para probar ideas sin afectar la rama principal, pudiendo luego unir los cambios mediante <strong>merge</strong>.</p>
+          <ul>
+            <li><strong>main/master:</strong> Rama principal del proyecto</li>
+            <li><strong>develop:</strong> Rama de desarrollo</li>
+            <li><strong>feature:</strong> Ramas para nuevas funcionalidades</li>
+            <li><strong>hotfix:</strong> Ramas para correcciones urgentes</li>
+          </ul>
+        </div>
+
+        <!-- Código resumido -->
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-terminal"></i> Comandos Básicos de GIT</h4>
+          </div>
+          <pre><code># Inicializar repositorio
+git init
+
+# Clonar repositorio existente
+git clone [url]
+
+# Agregar cambios al staging
+git add .
+
+# Crear commit
+git commit -m "mensaje"
+
+# Subir cambios al repositorio remoto
+git push origin main</code></pre>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana1" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Código Completo
+          </a>
+          <a href="../downloads/Manual de Como crear una cuenta en GIT-HUB.docx" class="btn descargar" download>
+            <i class="fas fa-download"></i> Descargar Manual
+          </a>
+        </div>
+
+        <div class="mensaje-descarga">
+          <p><i class="fas fa-gift"></i> ¡Descarga el manual completo para crear tu cuenta en GitHub!</p>
+        </div>
+      </section>
+
+      <!-- Tarjeta Apache Maven -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-cube"></i> Apache Maven</h2>
+        <p>Maven es una herramienta de gestión y construcción de proyectos que simplifica el proceso de build, dependency management y documentación.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-cog"></i> Características Principales
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Gestión de Dependencias:</strong> Descarga automática de librerías</li>
+            <li><strong>Construcción Uniforme:</strong> Mismo proceso para todos los proyectos</li>
+            <li><strong>Gestión del Ciclo de Vida:</strong> Compilación, testing, packaging</li>
+            <li><strong>Arquetipos:</strong> Plantillas para crear proyectos rápidamente</li>
+          </ul>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-file-code"></i> Estructura del POM.xml
+        </button>
+        <div class="panel">
+          <p>El archivo POM (Project Object Model) es el corazón de Maven, donde se define la configuración del proyecto.</p>
+          
+          <div class="codigo-resumido">
+            <pre><code>&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.miempresa&lt;/groupId&gt;
+  &lt;artifactId&gt;mi-proyecto&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+  
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.13.2&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-terminal"></i> Comandos Maven Esenciales
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <pre><code># Compilar el proyecto
+mvn compile
+
+# Ejecutar tests
+mvn test
+
+# Empaquetar la aplicación
+mvn package
+
+# Instalar en repositorio local
+mvn install
+
+# Crear proyecto desde arquetipo
+mvn archetype:generate</code></pre>
+          </div>
+        </div>
+
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana1" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Ejemplos Completos
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
-    
   </main>
 
   <script>
-    // Script para acordeón (original intacto)
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = 'Ver contenido completo';
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = 'Ocultar contenido';
-        }
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
     });
   </script>

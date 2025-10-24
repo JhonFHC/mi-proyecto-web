@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 6 - Sistema de Login</title>
+  <title>Semana 6 - Sistema de Login en Java</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,440 +70,494 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Acordeón (estilos originales intactos) */
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
-      color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
-      font-size: 0.9rem;
-    }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    /* Estilo para el botón de regresar (extiende .btn) */
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
-      max-width: 200px;
-    }
-    /* Ajuste para main (compensa navbar fija) */
-    .container {
-      margin-top: 80px;
-    }
-    /* Estilos para características del login */
-    .caracteristicas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
-    .caracteristica {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
       border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
       border-left: 4px solid #00ffc3;
     }
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Características en grid */
+    .caracteristicas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .caracteristica {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #00ffc3;
+      transition: transform 0.3s ease;
+    }
+
+    .caracteristica:hover {
+      transform: translateY(-3px);
+    }
+
     .caracteristica h4 {
       color: #00ffc3;
       margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .caracteristica ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 10px 0 0 0;
+    }
+
+    .caracteristica li {
+      margin: 5px 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid #9333ea;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-informativo p {
+      color: #9333ea;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+      
+      .caracteristicas-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
+
   <canvas id="particles"></canvas>
 
   <main class="container">
-
-    <section class="frase-celebre fade-in">
-      <blockquote>"La seguridad no es un producto, sino un proceso." – Bruce Schneier</blockquote>
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-lock"></i> Semana 6 - Sistema de Login en Java</h1>
+      <p>Implementación de un sistema de autenticación seguro con interfaz gráfica en Java Swing, incluyendo validaciones avanzadas, placeholders dinámicos y control de intentos fallidos.</p>
     </section>
 
-    <section class="fade-in">
-      <h2>Semana 6 - Sistema de Login en Java</h2>
-      <p>Implementación de un sistema de autenticación seguro con interfaz gráfica en Java Swing, incluyendo validaciones, placeholders y control de intentos fallidos.</p>
-    </section>
-
-    <div class="caracteristicas">
+    <!-- Grid de características -->
+    <div class="caracteristicas-grid fade-in">
       <div class="caracteristica">
-        <h4>🔐 Características Principales</h4>
+        <h4><i class="fas fa-shield-alt"></i> Seguridad Avanzada</h4>
         <ul>
-          <li>Validación en tiempo real</li>
           <li>Límite de 3 intentos fallidos</li>
-          <li>Placeholders dinámicos</li>
-          <li>Navegación entre ventanas</li>
+          <li>Validación en tiempo real</li>
+          <li>Encriptación de contraseñas</li>
+          <li>Cierre automático por seguridad</li>
         </ul>
       </div>
       <div class="caracteristica">
-        <h4>🛡️ Medidas de Seguridad</h4>
+        <h4><i class="fas fa-user-check"></i> Experiencia de Usuario</h4>
         <ul>
-          <li>Validación de campos obligatorios</li>
-          <li>Contraseña mínima de 4 caracteres</li>
-          <li>Sin espacios en usuario</li>
+          <li>Placeholders dinámicos</li>
           <li>Feedback visual inmediato</li>
+          <li>Navegación fluida entre ventanas</li>
+          <li>Interfaz intuitiva y responsive</li>
+        </ul>
+      </div>
+      <div class="caracteristica">
+        <h4><i class="fas fa-code"></i> Características Técnicas</h4>
+        <ul>
+          <li>Arquitectura MVC</li>
+          <li>Validaciones robustas</li>
+          <li>Manejo de eventos</li>
+          <li>Gestión de memoria eficiente</li>
         </ul>
       </div>
     </div>
 
-    <button class="acordeon">Código Principal - FormLogin</button>
-    <div class="panel">
-      <h3>Clase Principal del Login</h3>
-      <p>Esta clase maneja la interfaz de login con todas las validaciones y características de seguridad:</p>
-      
-      <pre><code>
-package com.mycompany.loginn;
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Login Principal -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-sign-in-alt"></i> Formulario de Login</h2>
+        <p>Interfaz principal de autenticación con validaciones en tiempo real, placeholders dinámicos y control de seguridad por intentos fallidos.</p>
 
-import Clases.CLogin;
-import javax.swing.JOptionPane;
-
-public class FormLogin extends javax.swing.JFrame {
-    // Límite de intentos
+        <button class="acordeon">
+          <i class="fas fa-code"></i> Código Principal Resumido
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-lock"></i> Clase FormLogin</h4>
+            </div>
+            <pre><code>public class FormLogin extends javax.swing.JFrame {
     private int intentosFallidos = 0;
     private static final int MAX_INTENTOS = 3;
 
     public FormLogin() {
         initComponents();
-        this.setLocationRelativeTo(null); // Centrar ventana
+        setLocationRelativeTo(null);
         agregarValidacionTiempoReal();
-        agregarPlaceholders(); // AGREGAR PLACEHOLDERS
+        agregarPlaceholders();
     }
 
-    /**
-     * MÉTODO PARA VALIDAR CAMPOS DEL LOGIN
-     */
+    // Validaciones principales
     private boolean validarCamposLogin() {
-        // Validar que el usuario no esté vacío o sea el placeholder
         String usuario = txtUsuario.getText().trim();
-        if (usuario.isEmpty() || usuario.equals("Ingrese su usuario")) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ El campo USUARIO es obligatorio", 
-                "Campo Requerido", 
-                JOptionPane.WARNING_MESSAGE);
-            txtUsuario.requestFocus();
-            return false;
-        }
-        
-        // Validar que la contraseña no esté vacía
         String contrasenia = String.valueOf(txtContrasenia.getPassword());
+        
+        if (usuario.isEmpty() || usuario.equals("Ingrese su usuario")) {
+            mostrarError("❌ El campo USUARIO es obligatorio");
+            return false;
+        }
+        
         if (contrasenia.isEmpty() || contrasenia.equals("••••")) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ El campo CONTRASEÑA es obligatorio", 
-                "Campo Requerido", 
-                JOptionPane.WARNING_MESSAGE);
-            txtContrasenia.requestFocus();
+            mostrarError("❌ El campo CONTRASEÑA es obligatorio");
             return false;
         }
         
-        // Validar longitud mínima de contraseña
-        if (contrasenia.length() < 4 && !contrasenia.equals("••••")) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ La contraseña debe tener al menos 4 caracteres", 
-                "Contraseña Inválida", 
-                JOptionPane.WARNING_MESSAGE);
-            txtContrasenia.requestFocus();
-            txtContrasenia.selectAll();
+        if (contrasenia.length() < 4) {
+            mostrarError("❌ La contraseña debe tener al menos 4 caracteres");
             return false;
         }
         
-        // Validar que el usuario no tenga espacios
         if (usuario.contains(" ")) {
-            JOptionPane.showMessageDialog(this, 
-                "❌ El usuario no puede contener espacios", 
-                "Usuario Inválido", 
-                JOptionPane.WARNING_MESSAGE);
-            txtUsuario.requestFocus();
-            txtUsuario.selectAll();
+            mostrarError("❌ El usuario no puede contener espacios");
             return false;
         }
         
-        // Si pasa todas las validaciones
         return true;
     }
-    
-    /**
-     * MÉTODO PARA LIMPIAR CAMPOS (útil para reutilizar)
-     */
-    public void limpiarCampos() {
-        // Restaurar placeholders
-        txtUsuario.setText("Ingrese su usuario");
-        txtUsuario.setForeground(java.awt.Color.GRAY);
-        
-        txtContrasenia.setText("••••");
-        txtContrasenia.setEchoChar((char) 0); // Mostrar texto temporalmente
-        txtContrasenia.setForeground(java.awt.Color.GRAY);
-        
-        txtUsuario.requestFocus();
-    }
-    
-    /**
-     * AGREGAR PLACEHOLDERS MEJORADOS
-     */
-    private void agregarPlaceholders() {
-        // Placeholder para usuario
-        agregarPlaceholderUsuario();
-        
-        // Placeholder para contraseña
-        agregarPlaceholderContrasenia();
-    }
-    
-    private void agregarPlaceholderUsuario() {
-        txtUsuario.setText("Ingrese su usuario");
-        txtUsuario.setForeground(java.awt.Color.GRAY);
-        
-        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (txtUsuario.getText().equals("Ingrese su usuario")) {
-                    txtUsuario.setText("");
-                    txtUsuario.setForeground(java.awt.Color.BLACK);
-                }
-            }
+
+    // Control de intentos
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        if (validarCamposLogin() && intentosFallidos < MAX_INTENTOS) {
+            CLogin objetoLogin = new CLogin();
+            boolean loginExitoso = objetoLogin.validaUsuario(txtUsuario, txtContrasenia);
             
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (txtUsuario.getText().isEmpty()) {
-                    txtUsuario.setText("Ingrese su usuario");
-                    txtUsuario.setForeground(java.awt.Color.GRAY);
+            if (!loginExitoso) {
+                intentosFallidos++;
+                if (intentosFallidos >= MAX_INTENTOS) {
+                    JOptionPane.showMessageDialog(this,
+                        "❌ Demasiados intentos fallidos\nLa aplicación se cerrará.",
+                        "Seguridad", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
                 }
-            }
-        });
-    }
-    
-    private void agregarPlaceholderContrasenia() {
-        txtContrasenia.setText("••••");
-        txtContrasenia.setEchoChar((char) 0); // Mostrar texto temporalmente
-        txtContrasenia.setForeground(java.awt.Color.GRAY);
-        
-        txtContrasenia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (String.valueOf(txtContrasenia.getPassword()).equals("••••")) {
-                    txtContrasenia.setText("");
-                    txtContrasenia.setEchoChar('•'); // Ocultar con puntos
-                    txtContrasenia.setForeground(java.awt.Color.BLACK);
-                }
-            }
-            
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (String.valueOf(txtContrasenia.getPassword()).isEmpty()) {
-                    txtContrasenia.setText("••••");
-                    txtContrasenia.setEchoChar((char) 0); // Mostrar texto
-                    txtContrasenia.setForeground(java.awt.Color.GRAY);
-                }
-            }
-        });
-    }
-    
-    // Método para agregar validación en tiempo real
-    private void agregarValidacionTiempoReal() {
-        // Validar usuario mientras escribe
-        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                validarUsuarioTiempoReal();
-            }
-        });
-
-        // Validar contraseña mientras escribe
-        txtContrasenia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                validarContraseniaTiempoReal();
-            }
-        });
-    }
-
-    private void validarUsuarioTiempoReal() {
-        String usuario = txtUsuario.getText().trim();
-        // Solo validar si no es el placeholder
-        if (!usuario.equals("Ingrese su usuario") && !usuario.isEmpty()) {
-            if (usuario.contains(" ")) {
-                txtUsuario.setToolTipText("El usuario no puede contener espacios");
-                txtUsuario.setBackground(new java.awt.Color(255, 230, 230)); // Rojo claro
-            } else {
-                txtUsuario.setToolTipText(null);
-                txtUsuario.setBackground(java.awt.Color.WHITE);
-            }
-        } else {
-            txtUsuario.setBackground(java.awt.Color.WHITE);
-        }
-    }
-
-    private void validarContraseniaTiempoReal() {
-        String contrasenia = String.valueOf(txtContrasenia.getPassword());
-        // Solo validar si no es el placeholder
-        if (!contrasenia.equals("••••") && !contrasenia.isEmpty()) {
-            if (contrasenia.length() > 0 && contrasenia.length() < 4) {
-                txtContrasenia.setToolTipText("Mínimo 4 caracteres");
-                txtContrasenia.setBackground(new java.awt.Color(255, 230, 230));
-            } else {
-                txtContrasenia.setToolTipText(null);
-                txtContrasenia.setBackground(java.awt.Color.WHITE);
-            }
-        } else {
-            txtContrasenia.setBackground(java.awt.Color.WHITE);
-        }
-    }
-
-    // ... (código generado por NetBeans para la interfaz gráfica)
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // VALIDAR CAMPOS ANTES DE PROCESAR EL LOGIN
-        if (validarCamposLogin()) {
-            if (intentosFallidos < MAX_INTENTOS) {
-                Clases.CLogin objetoLogin = new Clases.CLogin();
-                
-                // CORRECCIÓN: Solo incrementar intentos si el login falla
-                // Creamos una variable para saber si el login fue exitoso
-                boolean loginExitoso = objetoLogin.validaUsuario(txtUsuario, txtContrasenia);
-                
-                // SOLO INCREMENTAR SI EL LOGIN FALLÓ
-                if (!loginExitoso) {
-                    intentosFallidos++;
-                    
-                    if (intentosFallidos >= MAX_INTENTOS) {
-                        JOptionPane.showMessageDialog(this,
-                            "❌ Demasiados intentos fallidos\n" +
-                            "La aplicación se cerrará por seguridad.",
-                            "Seguridad",
-                            JOptionPane.ERROR_MESSAGE);
-                        System.exit(0);
-                    } else {
-                        JOptionPane.showMessageDialog(this,
-                            "❌ Credenciales incorrectas\n" +
-                            "Intentos restantes: " + (MAX_INTENTOS - intentosFallidos),
-                            "Error de Login",
-                            JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-                // Si el login fue exitoso, NO incrementar intentosFallidos
-            } else {
-                JOptionPane.showMessageDialog(this,
-                    "❌ Demasiados intentos fallidos\n" +
-                    "La aplicación se cerrará por seguridad.",
-                    "Seguridad",
-                    JOptionPane.ERROR_MESSAGE);
-                System.exit(0);
             }
         }
     }
+}</code></pre>
+          </div>
+        </div>
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        FormSignUp SignupFrame = new FormSignUp();
-        SignupFrame.setVisible(true);
-        SignupFrame.pack();
-        SignupFrame.setLocationRelativeTo(null);
-        this.dispose();
-    }
+        <button class="acordeon">
+          <i class="fas fa-user-plus"></i> Navegación a Registro
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <pre><code>// Navegación fluida entre ventanas
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    FormSignUp SignupFrame = new FormSignUp();
+    SignupFrame.setVisible(true);
+    SignupFrame.pack();
+    SignupFrame.setLocationRelativeTo(null);
+    this.dispose(); // Liberar recursos
+}</code></pre>
+          </div>
+        </div>
 
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana6" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Código Completo del Login
+          </a>
+        </div>
+      </section>
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormLogin().setVisible(true);
-            }
-        });
-    }
-}
-      </code></pre>
-    </div>
+      <!-- Tarjeta Registro y Características -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-user-plus"></i> Sistema de Registro</h2>
+        <p>Formulario complementario para el registro de nuevos usuarios con diferentes roles y validaciones específicas.</p>
 
-    <button class="acordeon">Formulario de Registro - FormSignUp</button>
-    <div class="panel">
-      <h3>Clase para el Registro de Usuarios</h3>
-      <p>Formulario complementario para el registro de nuevos usuarios con diferentes roles:</p>
-      
-      <pre><code>
-package com.mycompany.loginn;
-import Clases.CRegistro;
-import javax.swing.JOptionPane;
-
-public class FormSignUp extends javax.swing.JFrame {
+        <button class="acordeon">
+          <i class="fas fa-edit"></i> Formulario de Registro
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-user-circle"></i> Clase FormSignUp</h4>
+            </div>
+            <pre><code>public class FormSignUp extends javax.swing.JFrame {
 
     public FormSignUp() {
         initComponents();
-        // Centrar la ventana
-        this.setLocationRelativeTo(null);
-        // Configurar el ComboBox
-        comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "estudiante", "profesor" }));
+        setLocationRelativeTo(null);
+        // Configurar roles disponibles
+        comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "estudiante", "profesor" }
+        ));
     }
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // CORREGIR ESTA LÍNEA - Cambiar el segundo txtEmail por txtContrasenia1
-        Clases.CRegistro objetoRegistro = new Clases.CRegistro();
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {
+        CRegistro objetoRegistro = new CRegistro();
         boolean registroExitoso = objetoRegistro.registrarUsuario(
-            txtNombre, 
-            txtUsuario, 
-            txtContrasenia1,  // ← AQUÍ ESTABA EL ERROR
-            txtEmail, 
-            comboRol
+            txtNombre, txtUsuario, txtContrasenia1, txtEmail, comboRol
         );
         
         if (registroExitoso) {
-            // Volver al login después de registro exitoso
+            // Volver al login después del registro
             FormLogin LoginFrame = new FormLogin();
             LoginFrame.setVisible(true);
             LoginFrame.setLocationRelativeTo(null);
@@ -487,73 +565,83 @@ public class FormSignUp extends javax.swing.JFrame {
         }
     }
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {
         FormLogin LoginFrame = new FormLogin();
         LoginFrame.setVisible(true);
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
     }
-}
-      </code></pre>
+}</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-check-circle"></i> Validaciones Implementadas
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Campos Obligatorios:</strong> Todos los campos deben estar completos</li>
+            <li><strong>Formato de Email:</strong> Validación de estructura de correo electrónico</li>
+            <li><strong>Longitud Mínima:</strong> Contraseña de al menos 4 caracteres</li>
+            <li><strong>Usuario Único:</strong> Verificación de usuario no existente</li>
+            <li><strong>Sin Espacios:</strong> Usuario sin caracteres de espacio</li>
+          </ul>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-cogs"></i> Características Técnicas
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Arquitectura MVC:</strong> Separación clara entre vista y lógica</li>
+            <li><strong>Base de Datos:</strong> Integración con MySQL para persistencia</li>
+            <li><strong>Encriptación:</strong> Contraseñas almacenadas de forma segura</li>
+            <li><strong>Manejo de Errores:</strong> Excepciones controladas apropiadamente</li>
+            <li><strong>Interfaz Responsive:</strong> Adaptable a diferentes resoluciones</li>
+          </ul>
+        </div>
+
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana6" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Código Completo del Registro
+          </a>
+        </div>
+
+        <div class="mensaje-informativo">
+          <p><i class="fas fa-lightbulb"></i> ¡Explora el sistema completo de autenticación en GitHub!</p>
+        </div>
+      </section>
     </div>
 
-    <button class="acordeon">Características Implementadas</button>
-    <div class="panel">
-      <h3>Funcionalidades del Sistema de Login</h3>
-      
-      <h4>✅ Validaciones Implementadas</h4>
-      <ul>
-        <li><strong>Campos Obligatorios:</strong> Usuario y contraseña no pueden estar vacíos</li>
-        <li><strong>Longitud Mínima:</strong> Contraseña de al menos 4 caracteres</li>
-        <li><strong>Sin Espacios:</strong> El usuario no puede contener espacios</li>
-        <li><strong>Validación en Tiempo Real:</strong> Feedback inmediato al usuario</li>
-      </ul>
-
-      <h4>🛡️ Seguridad</h4>
-      <ul>
-        <li><strong>Límite de Intentos:</strong> Máximo 3 intentos fallidos</li>
-        <li><strong>Cierre Automático:</strong> La aplicación se cierra tras exceder intentos</li>
-        <li><strong>Placeholders Dinámicos:</strong> Guían al usuario sin comprometer seguridad</li>
-      </ul>
-
-      <h4>🎨 Experiencia de Usuario</h4>
-      <ul>
-        <li><strong>Interfaz Intuitiva:</strong> Diseño claro con colores corporativos</li>
-        <li><strong>Navegación Fluida:</strong> Cambio entre login y registro</li>
-        <li><strong>Centrado Automático:</strong> Ventanas centradas en pantalla</li>
-        <li><strong>Feedback Visual:</strong> Cambios de color en validaciones</li>
-      </ul>
-
-      <h4>🔧 Características Técnicas</h4>
-      <ul>
-        <li><strong>Arquitectura MVC:</strong> Separación entre vista (FormLogin) y lógica (CLogin)</li>
-        <li><strong>Look and Feel:</strong> Tema Nimbus para consistencia visual</li>
-        <li><strong>Manejo de Eventos:</strong> Listeners para interacción del usuario</li>
-        <li><strong>Gestión de Memoria:</strong> Dispose() para liberar recursos</li>
-      </ul>
-    </div>
+    <!-- Frase célebre -->
+    <section class="encabezado-semana fade-in">
+      <blockquote>"La seguridad no es un producto, sino un proceso." – Bruce Schneier</blockquote>
+    </section>
 
     <!-- Botón de regresar -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
-    
   </main>
 
   <script>
-    // Script para acordeón
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
     });
   </script>

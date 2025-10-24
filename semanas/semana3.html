@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 3 - Aplicación</title>
+  <title>Semana 3 - Programación Orientada a Objetos</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script defer src="../assets/interacciones.js"></script> <!-- Agregado para partículas -->
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,504 +70,536 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Acordeón (estilos originales intactos) */
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    /* Estilos específicos de semana3 (originales intactos) */
-    .fila-dos-columnas {
+
+    .codigo-header {
       display: flex;
-      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
       flex-wrap: wrap;
-      margin-bottom: 20px;
     }
-    .columna {
-      flex: 1 1 300px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
     }
-    .columna.izquierda {
-      max-width: 400px;
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
     }
-    .columna.derecha {
-      color: #ccc;
-      font-size: 0.95rem;
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
     }
-    /* Estilo para el botón de regresar (extiende .btn) */
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
       max-width: 200px;
     }
-    /* Ajuste para main (compensa navbar fija) */
-    .container {
-      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid #9333ea;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-informativo p {
+      color: #9333ea;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <!-- Logo Universidad (agregado con ruta ajustada para subcarpeta) -->
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a> <!-- Cambiado de "Casa" a "Inicio" para consistencia -->
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí, enlazado a página principal de tareas -->
-  </nav>
-  <canvas id="particles"></canvas> <!-- Agregado para partículas que se mueven -->
-
-  <main class="container">
-
-    <section class="frase-celebre fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <blockquote>"El arte es para dar una forma a nuestros sueños y hacerlos existir." – Miguel de Cervantes</blockquote>
-    </section>
-
-    <section class="fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <h2>Semana 3 - Aplicación</h2>
-      <p>En esta semana trabajaremos con aplicaciones Java que manejan ofertas de productos y transportes con interfaces gráficas.</p>
-    </section>
-
-    <button class="acordeon">Ver archivo informativo</button>
-    <div class="panel">
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Archivo Informativo</h3>
-          <ul>
-            <li><strong>Taller Aplicaciones - Semana3.docx</strong></li>
-          </ul>
-          <a href="../downloads/Taller Aplicaciones - Semana3.docx" class="btn" download>⬇️ Descargar Archivo</a>
-        </div>
-        <div class="columna derecha">
-          <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
-        </div>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
       </div>
     </div>
 
-    <button class="acordeon">Ver Enunciado 5 (Java Main Class y JFrame)</button>
-    <div class="panel">
-      <h3>Enunciado 5 - Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado1;
-import Vista.CFormulario;
-public class Enunciado1 {
-    public static void main(String[] args) {
-        CFormulario ventana = new CFormulario();
-        ventana.setVisible(true);
-    }
-}
-      </code></pre>
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
 
-      <h4>JFrame Form</h4>
-      <pre><code>
-package Vista;
-import Clases.COfertaProducto;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JOptionPane;
+  <canvas id="particles"></canvas>
 
-public class CFormulario extends javax.swing.JFrame {
-    COfertaProducto oferta = new COfertaProducto();
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-object-group"></i> Semana 3 - Programación Orientada a Objetos</h1>
+      <p>Descubre los principios fundamentales de la POO aplicados en Java: encapsulamiento, herencia, polimorfismo y abstracción a través de ejemplos prácticos.</p>
+    </section>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Fundamentos POO -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-cube"></i> Fundamentos de POO</h2>
+        <p>La Programación Orientada a Objetos organiza el código alrededor de objetos que combinan datos y comportamientos, facilitando la reutilización y mantenimiento del software.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-info-circle"></i> Los 4 Pilares de la POO
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Encapsulamiento:</strong> Ocultar los datos internos y exponer solo lo necesario</li>
+            <li><strong>Herencia:</strong> Crear nuevas clases basadas en clases existentes</li>
+            <li><strong>Polimorfismo:</strong> Mismo método, diferentes comportamientos</li>
+            <li><strong>Abstracción:</strong> Ocultar la complejidad y mostrar solo lo esencial</li>
+          </ul>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-code"></i> Estructura Básica de una Clase
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <pre><code>// Definición de una clase en Java
+public class Producto {
+    // Atributos (encapsulados)
+    private String nombre;
+    private double precio;
+    private int stock;
     
-    public CFormulario() {
-        initComponents();
-        formulario();
+    // Constructor
+    public Producto(String nombre, double precio, int stock) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
     }
-
-    private void formulario() {
-        setTitle("Oferta de Producto");
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setSize(new Dimension(400, 350));
-        getContentPane().setBackground(Color.white);
-
-        panelResultado.setVisible(false);
-        btnCalcular.setEnabled(false);
-
-        panelBotones.setVisible(true);
+    
+    // Métodos getter y setter
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    
+    public double getPrecio() { return precio; }
+    public void setPrecio(double precio) { this.precio = precio; }
+    
+    // Método de negocio
+    public double calcularTotal(int cantidad) {
+        return precio * cantidad;
     }
+}</code></pre>
+          </div>
+        </div>
 
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        try {
-            float precio = Float.parseFloat(txtPrecioDocena.getText().trim());
-            int cantidad = Integer.parseInt(txtCantidadDocenas.getText().trim());
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana3" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Ejemplos Completos
+          </a>
+        </div>
 
-            oferta.setPrecioDocena(precio);
-            oferta.setCantidadDocenas(cantidad);
+        <div class="mensaje-informativo">
+          <p><i class="fas fa-lightbulb"></i> ¡Explora los códigos completos con implementaciones POO en GitHub!</p>
+        </div>
+      </section>
 
-            float importeCompra = oferta.calcularImporteCompra();
-            float descuento = oferta.calcularDescuento();
-            float importePagar = oferta.calcularImportePagar();
-            int lapiceros = oferta.calcularLapiceros();
+      <!-- Tarjeta Ejemplos Prácticos -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-laptop-code"></i> Ejemplos Prácticos</h2>
+        <p>Implementación de POO en aplicaciones Java con interfaces gráficas para gestión de ofertas y cálculos comerciales.</p>
 
-            String resultado = """
-                    Importe de la compra: S/ %.2f
-                    Descuento aplicado: S/ %.2f
-                    Importe a pagar:     S/ %.2f
-                    Lapiceros de obsequio: %d
-                    """.formatted(importeCompra, descuento, importePagar, lapiceros);
-
-            txtResultado.setText(resultado);
-            panelResultado.setVisible(true);
-            setSize(new Dimension(400, 420));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos.");
-        }
-    }                                           
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        txtPrecioDocena.setText("");
-        txtCantidadDocenas.setText("");
-        txtResultado.setText("");
-        panelResultado.setVisible(false);
-        setSize(new Dimension(400, 350));
-        btnCalcular.setEnabled(false);
-    }                                        
-
-    private void btnSaliActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        int r = JOptionPane.showConfirmDialog(this, "¿Deseas salir?", "Salir", JOptionPane.YES_NO_OPTION);
-        if (r == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }                                       
-
-    private void validarCampos() {
-        String precio = txtPrecioDocena.getText().trim();
-        String cantidad = txtCantidadDocenas.getText().trim();
-
-        boolean habilitar = !precio.isEmpty() && !cantidad.isEmpty();
-
-        try {
-            Float.parseFloat(precio);
-            Integer.parseInt(cantidad);
-        } catch (NumberFormatException e) {
-            habilitar = false;
-        }
-
-        btnCalcular.setEnabled(habilitar);
-    }
-
-    private void txtPrecioDocenaKeyReleased(java.awt.event.KeyEvent evt) {                                            
-        validarCampos();  
-    }                                           
-
-    private void txtPrecioDocenaKeyTyped(java.awt.event.KeyEvent evt) {                                         
-        validarCampos();
-    }                                        
-
-    private void txtCantidadDocenasKeyPressed(java.awt.event.KeyEvent evt) {                                              
-        validarCampos();
-    }                                             
-
-    private void txtCantidadDocenasKeyReleased(java.awt.event.KeyEvent evt) {                                               
-        validarCampos();
-    }
-      </code></pre>
-
-      <h4>Java Class</h4>
-      <pre><code>
-package Clases;
-
-public class COfertaProducto {
+        <button class="acordeon">
+          <i class="fas fa-tag"></i> Oferta de Productos (Resumido)
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-shopping-bag"></i> Clase COfertaProducto</h4>
+            </div>
+            <pre><code>public class COfertaProducto {
+    // Atributos encapsulados
     private float precioDocena;
     private int cantidadDocenas;
-
-    public COfertaProducto() {}
-
-    public void setPrecioDocena(float precioDocena) {
-        this.precioDocena = precioDocena;
-    }
-
-    public void setCantidadDocenas(int cantidadDocenas) {
-        this.cantidadDocenas = cantidadDocenas;
-    }
-
+    
+    // Métodos de cálculo encapsulados
     public float calcularImporteCompra() {
         return precioDocena * cantidadDocenas;
     }
-
+    
     public float calcularDescuento() {
         float importe = calcularImporteCompra();
-        if (cantidadDocenas >= 10) {
-            return importe * 0.20f;
-        } else {
-            return importe * 0.10f;
-        }
+        return (cantidadDocenas >= 10) ? 
+            importe * 0.20f : importe * 0.10f;
     }
-
+    
     public float calcularImportePagar() {
         return calcularImporteCompra() - calcularDescuento();
     }
-
+    
     public int calcularLapiceros() {
-        float importePagar = calcularImportePagar();
-        if (importePagar >= 200) {
-            return cantidadDocenas * 2;
-        } else {
-            return 0;
-        }
-    }
-}
-      </code></pre>
-    </div>
-
-    <button class="acordeon">Ver Enunciado 6 (Java Main Class y JFrame)</button>
-    <div class="panel">
-      <h3>Enunciado 6 - Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado2;
-import Vista.CFormulario;
-
-public class Enunciado2 {
-
-    public static void main(String[] args) {
-        CFormulario venta = new CFormulario();
-        venta.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>JFrame Form</h4>
-      <pre><code>
-package Vista;
-import Clase.COfertaTransporte;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JOptionPane;
-
-public class CFormulario extends javax.swing.JFrame {
-    private final COfertaTransporte oferta = new COfertaTransporte();
-    private DefaultListCellRenderer listRenderer;
-    
-    public CFormulario() {
-        initComponents();
-        formulario();
-        inicializarElementos();
-    }
-
-    private void formulario() {
-        setTitle("Oferta de Transportes");
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setSize(new Dimension(400, 350));
-        getContentPane().setBackground(Color.white);
-
-        panelResultado.setVisible(false);
-        btnCalcular.setEnabled(false);
-        panelBotones.setVisible(true);
+        return (calcularImportePagar() >= 200) ? 
+            cantidadDocenas * 2 : 0;
     }
     
-    private void validarCampos() {
-        String turno = (String) comboTurno.getSelectedItem();
-        String cantidadStr = txtCantidadPasajes.getText().trim();
-
-        boolean habilitar = turno != null && !turno.isEmpty() && !cantidadStr.isEmpty();
-
-        try {
-            int cantidad = Integer.parseInt(cantidadStr);
-            if (cantidad <= 0) {
-                habilitar = false;
-            }
-        } catch (NumberFormatException e) {
-            habilitar = false;
-        }
-
-        btnCalcular.setEnabled(habilitar);
+    // Getters y Setters
+    public void setPrecioDocena(float precio) { 
+        this.precioDocena = precio; 
     }
-
-    
-    private void inicializarElementos(){
-        listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-        
-        comboTurno.setRenderer(listRenderer);
-        this.comboTurno.addItem("Seleccione");
-        this.comboTurno.addItem("Mañana");
-        this.comboTurno.addItem("Tarde");
-        this.comboTurno.addItem("Noche");
-        comboTurno.addItemListener(e -> validarCampos());
+    public void setCantidadDocenas(int cantidad) { 
+        this.cantidadDocenas = cantidad; 
     }
+}</code></pre>
+          </div>
+        </div>
 
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        try {
-            String turnoSeleccionado = (String) comboTurno.getSelectedItem();
-            if (turnoSeleccionado == null || turnoSeleccionado.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Seleccione un turno.");
-                return;
-            }
-
-            int cantidad = Integer.parseInt(txtCantidadPasajes.getText().trim());
-            if (cantidad <= 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida mayor que cero.");
-                return;
-            }
-
-            oferta.setTurno(turnoSeleccionado);
-            oferta.setCantidadPasajes(cantidad);
-
-            float importeCompra = oferta.calcularImporteCompra();
-            float descuento = oferta.calcularDescuento();
-            float importePagar = oferta.calcularImportePagar();
-            int caramelos = oferta.calcularCaramelos();
-
-            String resultado = String.format(
-                "Importe de la compra: S/. %.2f\n" +
-                "Descuento aplicado: S/. %.2f\n" +
-                "Importe a pagar:     S/. %.2f\n" +
-                "Caramelos de obsequio: %d\n",
-                importeCompra, descuento, importePagar, caramelos);
-
-            txtResultado.setText(resultado);
-            panelResultado.setVisible(true);
-            setSize(new Dimension(400, 420));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos.");
-        }
-    }                                           
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        comboTurno.setSelectedIndex(0);
-        txtCantidadPasajes.setText("");
-        txtResultado.setText("");
-        panelResultado.setVisible(false);
-        setSize(new Dimension(400, 350));
-        btnCalcular.setEnabled(false);
-    }                                        
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        int r = JOptionPane.showConfirmDialog(this, "¿Deseas salir?", "Salir", JOptionPane.YES_NO_OPTION);
-        if (r == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }
-
-    private void txtCantidadPasajesKeyReleased(java.awt.event.KeyEvent evt) {                                               
-        validarCampos();
-    }                                              
-
-    private void comboTurnoItemStateChanged(java.awt.event.ItemEvent evt) {                                            
-        validarCampos();
-    }
-      </code></pre>
-      
-      <h4>Java Class</h4>
-      <pre><code>
-package Clase;
-
-public class COfertaTransporte {
-    private String turno; // "Mañana" o "Noche"
+        <button class="acordeon">
+          <i class="fas fa-bus"></i> Oferta de Transportes (Resumido)
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-route"></i> Clase COfertaTransporte</h4>
+            </div>
+            <pre><code>public class COfertaTransporte {
+    // Atributos con encapsulamiento
+    private String turno;
     private int cantidadPasajes;
     private final float precioPasaje = 37.5f;
-
-    public void setTurno(String turno) {
-        this.turno = turno;
-    }
-
-    public void setCantidadPasajes(int cantidadPasajes) {
-        this.cantidadPasajes = cantidadPasajes;
-    }
-
+    
+    // Métodos de negocio
     public float calcularImporteCompra() {
         return precioPasaje * cantidadPasajes;
     }
-
+    
     public float calcularDescuento() {
         float importe = calcularImporteCompra();
-        float porcentajeDescuento = (cantidadPasajes >= 15) ? 0.08f : 0.05f;
-        return importe * porcentajeDescuento;
+        float porcentaje = (cantidadPasajes >= 15) ? 0.08f : 0.05f;
+        return importe * porcentaje;
     }
-
+    
     public float calcularImportePagar() {
         return calcularImporteCompra() - calcularDescuento();
     }
-
+    
     public int calcularCaramelos() {
-        float importePagar = calcularImportePagar();
-        if (importePagar > 200) {
-            return 2 * cantidadPasajes;
-        }
-        return 0;
+        return (calcularImportePagar() > 200) ? 
+            2 * cantidadPasajes : 0;
     }
-}
-      </code></pre>
-      
+    
+    // Getters y Setters
+    public void setTurno(String turno) { this.turno = turno; }
+    public void setCantidadPasajes(int cantidad) { 
+        this.cantidadPasajes = cantidad; 
+    }
+}</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-window-restore"></i> Interfaz Gráfica (Resumido)
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-desktop"></i> Clase CFormulario</h4>
+            </div>
+            <pre><code>public class CFormulario extends JFrame {
+    private COfertaProducto oferta = new COfertaProducto();
+    
+    private void btnCalcularActionPerformed() {
+        // Obtener datos de la interfaz
+        float precio = Float.parseFloat(txtPrecio.getText());
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        
+        // Usar el objeto POO
+        oferta.setPrecioDocena(precio);
+        oferta.setCantidadDocenas(cantidad);
+        
+        // Calcular resultados
+        float importeCompra = oferta.calcularImporteCompra();
+        float descuento = oferta.calcularDescuento();
+        float importePagar = oferta.calcularImportePagar();
+        int lapiceros = oferta.calcularLapiceros();
+        
+        // Mostrar resultados
+        mostrarResultados(importeCompra, descuento, 
+                         importePagar, lapiceros);
+    }
+    
+    private void validarCampos() {
+        // Validación encapsulada en la interfaz
+        boolean habilitar = !txtPrecio.getText().isEmpty() 
+                         && !txtCantidad.getText().isEmpty();
+        btnCalcular.setEnabled(habilitar);
+    }
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana3" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Código Completo
+          </a>
+        </div>
+      </section>
     </div>
-    <!-- Botón de regresar agregado aquí (al inicio del main, centrado) -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+
+    <!-- Frase célebre -->
+    <section class="encabezado-semana fade-in">
+      <blockquote>"El arte es para dar una forma a nuestros sueños y hacerlos existir." – Miguel de Cervantes</blockquote>
+    </section>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
   </main>
 
   <script>
-    // Script para acordeón
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
     });
   </script>

@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 2 - Repositorio y Código</title>
+  <title>Semana 2 - Métodos en Java</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script defer src="../assets/interacciones.js"></script> <!-- Agregado para partículas -->
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,401 +70,501 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Acordeón (estilos originales intactos) */
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    /* Estilos específicos de semana2 (originales intactos) */
-    .fila-dos-columnas {
+
+    .codigo-header {
       display: flex;
-      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
       flex-wrap: wrap;
-      margin-bottom: 20px;
     }
-    .columna {
-      flex: 1 1 300px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
     }
-    .columna.izquierda {
-      max-width: 400px;
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
     }
-    .columna.derecha {
-      color: #ccc;
-      font-size: 0.95rem;
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
     }
-    /* Estilo para el botón de regresar (extiende .btn) */
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
       max-width: 200px;
     }
-    /* Ajuste para main (compensa navbar fija) */
-    .container {
-      margin-top: 80px; /* Aproximado; ajusta si es necesario */
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Mensaje de descarga */
+    .mensaje-descarga {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid #3b82f6;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-descarga p {
+      color: #3b82f6;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <!-- Logo Universidad (agregado con ruta ajustada para subcarpeta) -->
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a> <!-- Cambiado de "Casa" a "Inicio" para consistencia -->
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- Agregado en el medio -->
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a> <!-- Activo aquí, enlazado a página principal de tareas -->
-  </nav>
-  <canvas id="particles"></canvas> <!-- Agregado para partículas que se mueven -->
-
-  <main class="container">
-
-    <section class="frase-celebre fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <blockquote>“La lógica te llevará del punto A al punto B. La imaginación te llevará a todas partes.” – Albert Einstein</blockquote>
-    </section>
-
-    <section class="fade-in"> <!-- Agregada clase fade-in para consistencia -->
-      <h2>Semana 2 - Repositorio y Código</h2>
-      <p>En esta semana aprenderás a crear repositorios en GitHub y a manejar código Java con interfaces gráficas.</p>
-    </section>
-
-    <button class="acordeon">Ver detalles del archivo informativo</button>
-    <div class="panel">
-      <div class="fila-dos-columnas">
-        <div class="columna izquierda">
-          <h3>Archivo Informativo</h3>
-          <ul>
-            <li><strong>Cómo crear un repositorio en GIT-HUB.docx</strong></li>
-          </ul>
-          <a href="../downloads/Como crear un repositorio en GIT-HUB.docx" class="btn" download>⬇️ Descargar Archivo</a>
-        </div>
-        <div class="columna derecha">
-          <p>Este documento explica paso a paso cómo crear y configurar un repositorio en GitHub para tus proyectos.</p>
-        </div>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
       </div>
     </div>
 
-    <button class="acordeon">Ver Enunciado 3 (Java Main Class y JFrame)</button>
-    <div class="panel">
-      <h3>Enunciado 3 - Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado3;
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
 
-import Vista.ImporteProducto;
+  <canvas id="particles"></canvas>
 
-public class Enunciado3 {
-    public static void main(String[] args) {
-        ImporteProducto ventana = new ImporteProducto();
-        ventana.setVisible(true);
-    }
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-cogs"></i> Semana 2 - Métodos en Java</h1>
+      <p>Aprende a estructurar tu código Java utilizando métodos para crear programas más organizados, mantenibles y reutilizables.</p>
+    </section>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Conceptos de Métodos -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-code"></i> Conceptos de Métodos</h2>
+        <p>Los métodos en Java son bloques de código que realizan una tarea específica y pueden ser reutilizados múltiples veces dentro de un programa.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-info-circle"></i> ¿Qué son los Métodos?
+        </button>
+        <div class="panel">
+          <p>Los métodos permiten dividir un programa complejo en partes más pequeñas y manejables, facilitando el mantenimiento y la depuración del código.</p>
+          <ul>
+            <li><strong>Métodos void:</strong> No retornan valor</li>
+            <li><strong>Métodos con retorno:</strong> Devuelven un valor específico</li>
+            <li><strong>Métodos con parámetros:</strong> Reciben datos de entrada</li>
+            <li><strong>Métodos estáticos:</strong> Pertenecen a la clase, no a instancias</li>
+          </ul>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-sitemap"></i> Estructura de un Método
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <pre><code>// Sintaxis básica de un método
+[modificador] tipo_retorno nombreMetodo([parámetros]) {
+    // Cuerpo del método
+    return valor; // solo si no es void
 }
-      </code></pre>
 
-      <h4>JFrame Form</h4>
-      <pre><code>
-package Vista;
+// Ejemplos:
+public void mostrarMensaje() {
+    System.out.println("Hola Mundo");
+}
 
-import javax.swing.*;
+public int sumar(int a, int b) {
+    return a + b;
+}
 
-public class ImporteProducto extends JFrame {
-    private JTextField txtPrecio, txtCantidad;
-    private JTextArea txtSalida;
-
-    public ImporteProducto() {
-        initComponents();
+private double calcularPromedio(double[] notas) {
+    double suma = 0;
+    for(double nota : notas) {
+        suma += nota;
     }
+    return suma / notas.length;
+}</code></pre>
+          </div>
+        </div>
 
-    private void initComponents() {
-        txtPrecio = new JTextField(10);
-        txtCantidad = new JTextField(10);
-        txtSalida = new JTextArea(8, 25);
-        txtSalida.setEditable(false);
-        JScrollPane scroll = new JScrollPane(txtSalida);
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana2" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Ejemplos Completos
+          </a>
+          <a href="../downloads/Como crear un repositorio en GIT-HUB.docx" class="btn descargar" download>
+            <i class="fas fa-download"></i> Descargar Guía
+          </a>
+        </div>
 
-        JButton btnCalcular = new JButton("Calcular");
-        JButton btnNuevo = new JButton("Nuevo");
-        JButton btnSalir = new JButton("Salir");
+        <div class="mensaje-descarga">
+          <p><i class="fas fa-file-word"></i> ¡Descarga la guía completa para crear repositorios en GitHub!</p>
+        </div>
+      </section>
 
-        btnCalcular.addActionListener(e -> calcular());
-        btnNuevo.addActionListener(e -> limpiar());
-        btnSalir.addActionListener(e -> System.exit(0));
+      <!-- Tarjeta Ejemplos Prácticos -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-laptop-code"></i> Ejemplos Prácticos</h2>
+        <p>Implementación de métodos en aplicaciones Java con interfaces gráficas para cálculos de sueldos y ventas.</p>
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Precio por docena"));
-        panel.add(txtPrecio);
-        panel.add(new JLabel("Cantidad de docenas"));
-        panel.add(txtCantidad);
-        panel.add(btnCalcular);
-        panel.add(btnNuevo);
-        panel.add(btnSalir);
-        panel.add(scroll);
-
-        add(panel);
-        pack();
-        setLocationRelativeTo(null);
-        setTitle("Venta de Productos");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private void calcular() {
-        try {
-            double precio = Double.parseDouble(txtPrecio.getText());
-            int cantidad = Integer.parseInt(txtCantidad.getText());
-
-            if (precio < 0 || cantidad < 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese valores positivos");
-                return;
-            }
-
-            double importe = precio * cantidad;
-            double descuento = (cantidad >= 10) ? 0.20 * importe : 0.10 * importe;
-            double total = importe - descuento;
-            int obsequio = (total >= 200) ? 2 * cantidad : 0;
-
-            txtSalida.setText("Resumen de compra:\n");
-            txtSalida.append(String.format("Importe: S/ %.2f\n", importe));
-            txtSalida.append(String.format("Descuento: S/ %.2f\n", descuento));
-            txtSalida.append(String.format("Total a pagar: S/ %.2f\n", total));
-            txtSalida.append("Lapiceros de obsequio: " + obsequio);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese valores válidos");
+        <button class="acordeon">
+          <i class="fas fa-calculator"></i> Cálculo de Sueldo (Resumido)
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-user-tie"></i> Clase SueldoEmpleado</h4>
+            </div>
+            <pre><code>public class SueldoEmpleado {
+    
+    // Métodos de cálculo
+    void calcularSueldoBasico() {
+        switch (categoria) {
+            case "A": tarifa = 45.0; break;
+            case "B": tarifa = 37.5; break;
         }
+        sueldoBasico = horasTrabajadas * tarifa;
     }
+    
+    void calcularBonificacion() {
+        bonificacion = (numHijos <= 3) ? 
+            numHijos * 40.5 : numHijos * 35.0;
+    }
+    
+    void calcularSueldoBruto() {
+        sueldoBruto = sueldoBasico + bonificacion;
+    }
+    
+    void mostrarResultados() {
+        txtSalida.setText("");
+        imprimir("Sueldo Básico: S/. " + sueldoBasico);
+        imprimir("Bonificación: S/. " + bonificacion);
+        // ... más resultados
+    }
+}</code></pre>
+          </div>
+        </div>
 
+        <button class="acordeon">
+          <i class="fas fa-shopping-cart"></i> Venta de Productos (Resumido)
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-store"></i> Clase ImporteProducto</h4>
+            </div>
+            <pre><code>public class ImporteProducto extends JFrame {
+    
+    private void calcular() {
+        double precio = Double.parseDouble(txtPrecio.getText());
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        
+        double importe = precio * cantidad;
+        double descuento = (cantidad >= 10) ? 
+            0.20 * importe : 0.10 * importe;
+        double total = importe - descuento;
+        int obsequio = (total >= 200) ? 2 * cantidad : 0;
+        
+        mostrarResumen(importe, descuento, total, obsequio);
+    }
+    
+    private void mostrarResumen(double importe, double descuento, 
+                              double total, int obsequio) {
+        txtSalida.setText("Resumen de compra:\\n");
+        txtSalida.append(String.format("Importe: S/ %.2f\\n", importe));
+        txtSalida.append(String.format("Descuento: S/ %.2f\\n", descuento));
+        txtSalida.append(String.format("Total: S/ %.2f\\n", total));
+        txtSalida.append("Obsequio: " + obsequio + " lapiceros");
+    }
+    
     private void limpiar() {
         txtPrecio.setText("");
         txtCantidad.setText("");
         txtSalida.setText("");
         txtPrecio.requestFocus();
     }
-}
-      </code></pre>
+}</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-lightbulb"></i> Buenas Prácticas
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Nombres descriptivos:</strong> Usar verbos que indiquen la acción</li>
+            <li><strong>Una sola responsabilidad:</strong> Cada método debe hacer una cosa</li>
+            <li><strong>Parámetros limitados:</strong> Evitar métodos con muchos parámetros</li>
+            <li><strong>Documentación:</strong> Comentar métodos complejos</li>
+            <li><strong>Reutilización:</strong> Crear métodos genéricos cuando sea posible</li>
+          </ul>
+        </div>
+
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana2" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Código Completo
+          </a>
+        </div>
+      </section>
     </div>
 
-    <button class="acordeon">Ver Enunciado 4 (Java Main Class y JFrame)</button>
-    <div class="panel">
-      <h3>Enunciado 4 - Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado2;
-import Vista.SueldoEmpleado;
+    <!-- Frase célebre -->
+    <section class="encabezado-semana fade-in">
+      <blockquote>“La lógica te llevará del punto A al punto B. La imaginación te llevará a todas partes.” – Albert Einstein</blockquote>
+    </section>
 
-public class Enunciado2 {
-
-    public static void main(String[] args) {
-        SueldoEmpleado sueldo = new SueldoEmpleado();
-        sueldo.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>JFrame Form</h4>
-      <pre><code>
-package Vista;
-import javax.swing.DefaultListCellRenderer;
-import java.awt.Color;
-import java.awt.Dimension;
-
-public class SueldoEmpleado extends javax.swing.JFrame {
-
-    private DefaultListCellRenderer listRenderer;
-    String categoria;
-    int horasTrabajadas, numHijos;
-    double tarifa, sueldoBasico, bonificacion, sueldoBruto, descuento, sueldoNeto;
-
-    public SueldoEmpleado() {
-        initComponents();
-        formulario();
-        inicializarElementos();
-    }
-
-    private void formulario() {
-        this.setTitle("Cálculo de Sueldo del Empleado");
-        this.setLocationRelativeTo(this);
-        this.setResizable(false);
-        this.setSize(new Dimension(500, 500));
-        this.getContentPane().setBackground(Color.WHITE);
-        this.panelDatos.setBackground(Color.WHITE);
-        this.panelCalcular.setBackground(Color.WHITE);
-    }
-
-    private void inicializarElementos() {
-        listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-        cboCategoria.setRenderer(listRenderer);
-        cboCategoria.addItem("Seleccione");
-        cboCategoria.addItem("A");
-        cboCategoria.addItem("B");
-        cboCategoria.requestFocus();
-    }
-
-    void ingresarDatos() {
-        categoria = cboCategoria.getSelectedItem().toString();
-        horasTrabajadas = Integer.parseInt(txtHoras.getText());
-        numHijos = Integer.parseInt(txtHijos.getText());
-    }
-
-    void calcularSueldoBasico() {
-        switch (categoria) {
-            case "A":
-                tarifa = 45.0;
-                break;
-            case "B":
-                tarifa = 37.5;
-                break;
-            default:
-                tarifa = 0;
-        }
-        sueldoBasico = horasTrabajadas * tarifa;
-    }
-
-    void calcularBonificacion() {
-        if (numHijos <= 3) {
-            bonificacion = numHijos * 40.5;
-        } else {
-            bonificacion = numHijos * 35.0;
-        }
-    }
-
-    void calcularSueldoBruto() {
-        sueldoBruto = sueldoBasico + bonificacion;
-    }
-
-    void calcularDescuento() {
-        if (sueldoBruto >= 3500) {
-            descuento = sueldoBruto * 0.135;
-        } else {
-            descuento = sueldoBruto * 0.10;
-        }
-    }
-
-    void calcularSueldoNeto() {
-        sueldoNeto = sueldoBruto - descuento;
-    }
-
-    void mostrarResultados() {
-        txtSalida.setText("");
-        imprimir("Sueldo Básico: S/. " + sueldoBasico);
-        imprimir("Bonificación: S/. " + bonificacion);
-        imprimir("Sueldo Bruto: S/. " + sueldoBruto);
-        imprimir("Descuento: S/. " + descuento);
-        imprimir("Sueldo Neto: S/. " + sueldoNeto);
-    }
-
-    void imprimir(String mensaje) {
-        txtSalida.append(mensaje + "\n");
-    }
-
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        ingresarDatos();
-        calcularSueldoBasico();
-        calcularBonificacion();
-        calcularSueldoBruto();
-        calcularDescuento();
-        calcularSueldoNeto();
-        mostrarResultados();
-    } 
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        txtHoras.setText("");
-        txtHijos.setText("");
-        txtSalida.setText("");
-        cboCategoria.setSelectedIndex(0);
-        cboCategoria.requestFocus();
-    } 
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        System.exit(0);
-    }
-      </code></pre>
-    </div>
-
-    <!-- Botón de regresar agregado aquí (al inicio del main, centrado) -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
-    
   </main>
+
   <script>
-    // Script para acordeón
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = 'Ver detalles del archivo informativo';
-          if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 3')) {
-            btn.textContent = 'Ver Enunciado 3 (Java Main Class y JFrame)';
-          } else if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 4')) {
-            btn.textContent = 'Ver Enunciado 4 (Java Main Class y JFrame)';
-          }
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 3')) {
-            btn.textContent = 'Ocultar Enunciado 3';
-          } else if(btn.nextElementSibling.querySelector('h3')?.textContent.includes('Enunciado 4')) {
-            btn.textContent = 'Ocultar Enunciado 4';
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
           } else {
-            btn.textContent = 'Ocultar contenido';
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
           }
-        }
+        });
       });
     });
   </script>

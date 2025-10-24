@@ -9,13 +9,12 @@
   <script defer src="assets/slider.js"></script>
   <script defer src="assets/interacciones.js"></script>
   <style>
-    /* Estilo para navbar y clicked (si no está en style1.css) */
+    /* Estilo para navbar mejorado */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -23,20 +22,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -47,114 +71,232 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Estilos para la sección del nombre */
-    .nombre-desarrollador {
-      text-align: center;
-      padding: 30px 20px;
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+
+    /* Estilos para las secciones de contenido */
+    .seccion-contenido {
+      background: rgba(30, 41, 59, 0.8);
+      padding: 30px;
       border-radius: 15px;
-      margin: 20px 0;
+      margin: 25px 0;
       box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
-      border: 2px solid #00ffc3;
+      border: 1px solid #334155;
     }
-    .nombre-desarrollador h2 {
+
+    .seccion-contenido h1 {
       color: #00ffc3;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px rgba(0, 255, 195, 0.5);
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
     }
-    .nombre-desarrollador p {
-      color: #cbd5e1;
+
+    .seccion-contenido h2 {
+      color: #00ffc3;
+      margin: 20px 0 10px 0;
+      font-size: 1.5rem;
+    }
+
+    .seccion-contenido h3 {
+      color: #00ffc3;
+      margin: 15px 0 8px 0;
       font-size: 1.2rem;
-      margin: 0;
+    }
+
+    .seccion-contenido p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .icono-seccion {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #00ffc3;
+    }
+
+    /* Grid para organizar contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    @media (min-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .tarjeta-info {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 4px solid #00ffc3;
+    }
+
+    /* Mejoras para el slider */
+    .slider-3d {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      height: 350px;
+      margin: 40px auto;
+      perspective: 1000px;
+      z-index: 5;
+      overflow: visible;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 255, 195, 0.5);
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <!-- Logo Universidad -->
-    <a href="interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="interfaz.html" class="clicked"><i class="fas fa-home"></i> Inicio</a> <!-- Activo aquí -->
-    <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a> <!-- En medio -->
-    <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <!-- Lado izquierdo: Logo y nombre -->
+    <div class="navbar-left">
+      <a href="interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <!-- Lado derecho: Navegación -->
+    <div class="navbar-right">
+      <a href="interfaz.html" class="clicked"><i class="fas fa-home"></i> Inicio</a>
+      <a href="sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
+
   <canvas id="particles"></canvas>
+  
   <main class="container">
-    <!-- Sección con tu nombre donde estaba el slider -->
-    <section class="nombre-desarrollador fade-in">
-      <h2>Jhon Huaman Cardenas</h2>
-      <p>Desarrollador del Proyecto - Estudiante de Ingeniería de Sistemas</p>
-    </section>
-
-    <!-- Información del taller -->
-    <section class="info-superior fade-in">
+    <!-- Sección de bienvenida -->
+    <section class="seccion-contenido fade-in">
+      <div class="icono-seccion">
+        <i class="fas fa-laptop-code"></i>
+      </div>
       <h1>Taller de Aplicaciones</h1>
-      <h3>Aprendizaje de Apache NetBeans, Maven, Diseño MVC y desarrollo web</h3>
-      <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación.</p>
-    </section>
-    
-    <!-- Información de la UPLA -->
-    <section class="info-inferior fade-in">
-      <h1>UPLA</h1>
-      <h2>Misión</h2>
-      <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
-        integrales y competentes, con capacidad científica – tecnológica y responsabilidad social.</p>
-      <h2>Visión</h2>
-      <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
-        académica y pertinencia social.</p>
+      <h3><i class="fas fa-rocket"></i> Aprendizaje de Apache NetBeans, Maven, Diseño MVC y desarrollo web</h3>
+      <p>Este taller está orientado a desarrollar habilidades prácticas en herramientas y patrones de diseño fundamentales para la ingeniería de sistemas y computación. A través de proyectos reales y metodologías ágiles, los estudiantes adquieren experiencia en el desarrollo de software profesional.</p>
     </section>
 
-    <!-- El slider ahora va al final -->
-    <section class="slider-3d">
-      <div class="slider-container" id="sliderContainer">
-        <div class="slide" data-title="Rector Bustinza Suaznabar" data-desc="Rector de la Universidad">
-          <img src="IMG/imagen1.jpeg" alt="Rector Bustinza Suaznabar" />
-          <div class="overlay">
-            <h3>Rector. BUSTINZA SUAZNABAR</h3>
-            <p>Es el rector de nuestra universidad, reconocido por su liderazgo y compromiso con la educación de calidad.</p>
-          </div>
-        </div>
-        <div class="slide" data-title="Universidad" data-desc="Nuestra institución">
-          <img src="IMG/imagen2.jpg" alt="Universidad" />
-          <div class="overlay">
-            <h3>UNIVERSIDAD</h3>
-            <p>Somos una universidad privada asociativa de calidad, con presencia nacional e internacional y excelencia académica.</p>
-          </div>
-        </div>
-        <div class="slide" data-title="Profesor de Taller" data-desc="Apache NetBeans, Maven, Diseño MVC">
-          <img src="IMG/imagen3.jpg" alt="Profesor de Taller" />
-          <div class="overlay">
-            <h3>MG. RAUL ENRIQUE FERNANDEZ BEJARANO</h3>
-            <p>Nos enseña Apache NetBeans, Maven, diseño, vista y controlador. Fue quien nos guió para crear esta página web.</p>
-          </div>
-        </div>
-        <div class="slide" data-title="Desierto" data-desc="Calor y arena">
-          <img src="IMG/imagen4.PNG" alt="Imagen 4" />
-          <div class="overlay">
-            <h3>PROYECTO WEB</h3>
-            <p>Resultado del trabajo del curso usando HTML, CSS, JavaScript y buenas prácticas de diseño.</p>
-          </div>
-        </div>
-        <div class="slide" data-title="Lago" data-desc="Reflejo perfecto">
-          <img src="IMG/imagen5.jpg" alt="Imagen 5" />
-          <div class="overlay">
-            <h3>TALLER EN LABORATORIO</h3>
-            <p>Espacio donde aplicamos lo aprendido, con trabajo en equipo, práctica y retroalimentación del docente.</p>
-          </div>
-        </div>
+    <!-- Grid de información -->
+    <div class="grid-contenido">
+      <!-- Tarjeta 1: Objetivos -->
+      <div class="tarjeta-info fade-in">
+        <h3><i class="fas fa-bullseye"></i> Objetivos del Taller</h3>
+        <p><strong>• Dominio de herramientas:</strong> Apache NetBeans, Maven, Git</p>
+        <p><strong>• Patrones de diseño:</strong> MVC, principios SOLID</p>
+        <p><strong>• Desarrollo web:</strong> HTML5, CSS3, JavaScript</p>
+        <p><strong>• Bases de datos:</strong> MySQL, diseño relacional</p>
       </div>
 
-      <button id="prevBtn" aria-label="Imagen anterior">◀</button>
-      <button id="nextBtn" aria-label="Siguiente imagen">▶</button>
+      <!-- Tarjeta 2: Competencias -->
+      <div class="tarjeta-info fade-in">
+        <h3><i class="fas fa-graduation-cap"></i> Competencias Desarrolladas</h3>
+        <p><strong>• Programación:</strong> Java, POO, estructuras de datos</p>
+        <p><strong>• Frontend:</strong> Interfaces responsivas, UX/UI</p>
+        <p><strong>• Backend:</strong> Lógica de negocio, APIs</p>
+        <p><strong>• Gestión:</strong> Control de versiones, documentación</p>
+      </div>
+    </div>
+
+    <!-- Información de la UPLA -->
+    <section class="seccion-contenido fade-in">
+      <div class="icono-seccion">
+        <i class="fas fa-university"></i>
+      </div>
+      <h1>Universidad Privada Los Andes - UPLA</h1>
+      
+      <div class="grid-contenido">
+        <div class="tarjeta-info">
+          <h2><i class="fas fa-bullseye"></i> Misión</h2>
+          <p>Somos una universidad privada asociativa de calidad, reconocida por la formación de profesionales 
+            integrales y competentes, con capacidad científica – tecnológica y responsabilidad social. 
+            Promovemos la investigación, innovación y emprendimiento para el desarrollo sostenible.</p>
+        </div>
+
+        <div class="tarjeta-info">
+          <h2><i class="fas fa-eye"></i> Visión</h2>
+          <p>Ser una universidad de calidad con presencia nacional e internacional, reconocida por su excelencia 
+            académica y pertinencia social. Líder en formación profesional, investigación aplicada y 
+            proyección social, contribuyendo al desarrollo del país.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- El slider al final -->
+    <section class="seccion-contenido fade-in">
+      <div class="icono-seccion">
+        <i class="fas fa-images"></i>
+      </div>
+      <h2>Galería del Proyecto</h2>
+      <p>Conoce más sobre nuestra institución, docentes y el desarrollo de este proyecto académico.</p>
+      
+      <div class="slider-3d">
+        <div class="slider-container" id="sliderContainer">
+          <div class="slide" data-title="Rector Bustinza Suaznabar" data-desc="Rector de la Universidad">
+            <img src="IMG/imagen1.jpeg" alt="Rector Bustinza Suaznabar" />
+            <div class="overlay">
+              <h3>Rector. BUSTINZA SUAZNABAR</h3>
+              <p>Es el rector de nuestra universidad, reconocido por su liderazgo y compromiso con la educación de calidad.</p>
+            </div>
+          </div>
+          <div class="slide" data-title="Universidad" data-desc="Nuestra institución">
+            <img src="IMG/imagen2.jpg" alt="Universidad" />
+            <div class="overlay">
+              <h3>UNIVERSIDAD</h3>
+              <p>Somos una universidad privada asociativa de calidad, con presencia nacional e internacional y excelencia académica.</p>
+            </div>
+          </div>
+          <div class="slide" data-title="Profesor de Taller" data-desc="Apache NetBeans, Maven, Diseño MVC">
+            <img src="IMG/imagen3.jpg" alt="Profesor de Taller" />
+            <div class="overlay">
+              <h3>MG. RAUL ENRIQUE FERNANDEZ BEJARANO</h3>
+              <p>Nos enseña Apache NetBeans, Maven, diseño, vista y controlador. Fue quien nos guió para crear esta página web.</p>
+            </div>
+          </div>
+          <div class="slide" data-title="Desierto" data-desc="Calor y arena">
+            <img src="IMG/imagen4.PNG" alt="Imagen 4" />
+            <div class="overlay">
+              <h3>PROYECTO WEB</h3>
+              <p>Resultado del trabajo del curso usando HTML, CSS, JavaScript y buenas prácticas de diseño.</p>
+            </div>
+          </div>
+          <div class="slide" data-title="Lago" data-desc="Reflejo perfecto">
+            <img src="IMG/imagen5.jpg" alt="Imagen 5" />
+            <div class="overlay">
+              <h3>TALLER EN LABORATORIO</h3>
+              <p>Espacio donde aplicamos lo aprendido, con trabajo en equipo, práctica y retroalimentación del docente.</p>
+            </div>
+          </div>
+        </div>
+
+        <button id="prevBtn" aria-label="Imagen anterior">◀</button>
+        <button id="nextBtn" aria-label="Siguiente imagen">▶</button>
+      </div>
     </section>
   </main>
 </body>

@@ -8,13 +8,12 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Estilos para navbar y logo (mismo formato que en las otras páginas) */
+    /* MISMOS ESTILOS DE SEMANA 1 */
     nav.navbar {
       background-color: #1e293b;
-      padding: 10px;
+      padding: 10px 20px;
       display: flex;
-      gap: 20px;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       position: fixed;
       top: 0; left: 0;
@@ -22,20 +21,45 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
     .logo-link {
       display: flex;
       align-items: center;
-      margin-right: 20px;
     }
+
     .logo {
       height: 40px;
       width: auto;
       filter: drop-shadow(0 0 3px #00ffc3);
       transition: filter 0.3s ease;
     }
+
     .logo-link:hover .logo {
       filter: drop-shadow(0 0 6px #00cfa3);
     }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
     .navbar a {
       color: #fff;
       text-decoration: none;
@@ -46,181 +70,331 @@
       position: relative;
       overflow: hidden;
     }
+
     .navbar a:hover {
       background-color: #3b82f6;
       transform: scale(1.05);
     }
+
     .navbar a.clicked {
       background-color: #3b82f6;
     }
-    /* Acordeón (estilos originales intactos) */
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
-      color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
-      font-size: 0.9rem;
-    }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    /* Estilo para el botón de regresar (extiende .btn) */
-    .btn-regresar {
-      margin: 20px auto;
-      display: block;
-      text-align: center;
-      max-width: 200px;
-    }
-    /* Ajuste para main (compensa navbar fija) */
-    .container {
-      margin-top: 80px;
-    }
-    /* Estilos para características de la base de datos */
-    .caracteristicas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
-    .caracteristica {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
       border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
       border-left: 4px solid #00ffc3;
     }
-    .caracteristica h4 {
-      color: #00ffc3;
-      margin-top: 0;
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
-    .tabla-info {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(0, 255, 195, 0.1);
+      color: #00ffc3;
+      text-decoration: none;
       border-radius: 8px;
-      margin: 10px 0;
+      border: 1px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
     }
-    .tabla-info h5 {
-      color: #00ffc3;
-      margin-top: 0;
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+    }
+
+    .btn.descargar {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .btn.descargar:hover {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(147, 51, 234, 0.1);
+      border-color: #9333ea;
+      color: #9333ea;
+    }
+
+    .btn.github:hover {
+      background: #9333ea;
+      color: #fff;
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.1);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid #9333ea;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mensaje-informativo p {
+      color: #9333ea;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
-      <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
-    </a>
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
-    <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
-    <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
-  </nav>
-  <canvas id="particles"></canvas>
-
-  <main class="container">
-
-    <section class="frase-celebre fade-in">
-      <blockquote>"Los datos son el nuevo oro. Una base de datos bien diseñada es la mina que lo extrae." – Anónimo</blockquote>
-    </section>
-
-    <section class="fade-in">
-      <h2>Semana 7 - Base de Datos del Sistema Académico</h2>
-      <p>Diseño e implementación de una base de datos MySQL para gestionar usuarios, cursos, inscripciones y calificaciones en un sistema académico de enseñanza de idiomas.</p>
-    </section>
-
-    <div class="caracteristicas">
-      <div class="caracteristica">
-        <h4>🏗️ Estructura de la Base de Datos</h4>
-        <ul>
-          <li>4 tablas principales</li>
-          <li>Relaciones bien definidas</li>
-          <li>Claves foráneas y restricciones</li>
-          <li>Índices para optimización</li>
-        </ul>
-      </div>
-      <div class="caracteristica">
-        <h4>👥 Gestión de Usuarios</h4>
-        <ul>
-          <li>3 roles: admin, profesor, estudiante</li>
-          <li>Autenticación segura</li>
-          <li>Datos personales completos</li>
-          <li>Control de estado activo/inactivo</li>
-        </ul>
-      </div>
-      <div class="caracteristica">
-        <h4>📊 Funcionalidades Académicas</h4>
-        <ul>
-          <li>Gestión de cursos por niveles</li>
-          <li>Sistema de calificaciones detallado</li>
-          <li>Inscripciones y seguimiento</li>
-          <li>Reportes y consultas avanzadas</li>
-        </ul>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
       </div>
     </div>
 
-    <button class="acordeon">Script Completo de la Base de Datos</button>
-    <div class="panel">
-      <h3>Estructura Completa del Sistema</h3>
-      <p>Script SQL para crear la base de datos, tablas, relaciones y datos de ejemplo:</p>
-      
-      <pre><code>
--- =============================================
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-database"></i> Semana 7 - Base de Datos del Sistema</h1>
+      <p>Diseño e implementación de una base de datos MySQL para gestionar usuarios, cursos, inscripciones y calificaciones en un sistema académico de enseñanza de idiomas.</p>
+    </section>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Estructura de la Base de Datos -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-sitemap"></i> Estructura de la Base de Datos</h2>
+        <p>Diseño completo del sistema de base de datos con 4 tablas principales que gestionan usuarios, cursos, inscripciones y calificaciones del instituto de idiomas.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-table"></i> Script Completo de Creación
+        </button>
+        <div class="panel">
+          <p>Script SQL para crear la base de datos completa con todas las tablas, relaciones y restricciones:</p>
+          
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-database"></i> Base de Datos Completa</h4>
+            </div>
+            <pre><code>-- =============================================
 -- SISTEMA DE GESTIÓN ACADÉMICA - BASE DE DATOS
 -- =============================================
 
--- Crear base de datos y seleccionarla
-DROP DATABASE IF EXISTS sistema_gestion_academica;
 CREATE DATABASE sistema_gestion_academica;
 USE sistema_gestion_academica;
 
--- =============================================
 -- TABLA: Usuarios
--- =============================================
 CREATE TABLE Usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ingresoUsuario VARCHAR(50) UNIQUE NOT NULL,
     ingresoContrasenia VARCHAR(100) NOT NULL,
-    rol ENUM('admin', 'profesor', 'estudiante') NOT NULL DEFAULT 'estudiante',
+    rol ENUM('admin', 'profesor', 'estudiante') NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     telefono VARCHAR(15),
@@ -229,9 +403,7 @@ CREATE TABLE Usuarios (
     activo BOOLEAN DEFAULT TRUE
 );
 
--- =============================================
 -- TABLA: Cursos
--- =============================================
 CREATE TABLE Cursos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre_curso VARCHAR(100) NOT NULL,
@@ -242,13 +414,19 @@ CREATE TABLE Cursos (
     fecha_inicio DATE,
     fecha_fin DATE,
     activo BOOLEAN DEFAULT TRUE,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
-);
+);</code></pre>
+          </div>
+        </div>
 
--- =============================================
--- TABLA: Calificaciones
--- =============================================
+        <button class="acordeon">
+          <i class="fas fa-key"></i> Relaciones y Restricciones
+        </button>
+        <div class="panel">
+          <p>Estructura de las tablas de relaciones y sus restricciones de integridad:</p>
+          
+          <div class="codigo-resumido">
+            <pre><code>-- TABLA: Calificaciones
 CREATE TABLE Calificaciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     estudiante_id INT NOT NULL,
@@ -256,19 +434,13 @@ CREATE TABLE Calificaciones (
     habilidad ENUM('speaking', 'writing', 'reading', 'listening', 'grammar', 'vocabulary') NOT NULL,
     puntaje DECIMAL(4,2) NOT NULL,
     fecha_evaluacion DATE NOT NULL,
-    comentario TEXT,
-    tipo_evaluacion ENUM('examen', 'tarea', 'proyecto', 'participacion') DEFAULT 'examen',
     periodo ENUM('Q1', 'Q2', 'Q3', 'Q4') NOT NULL,
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
     FOREIGN KEY (curso_id) REFERENCES Cursos(id),
-    CHECK (puntaje >= 0 AND puntaje <= 20),
-    UNIQUE KEY unique_evaluacion (estudiante_id, curso_id, habilidad, fecha_evaluacion)
+    CHECK (puntaje >= 0 AND puntaje <= 20)
 );
 
--- =============================================
--- TABLA: Inscripciones (Relación muchos a muchos)
--- =============================================
+-- TABLA: Inscripciones
 CREATE TABLE Inscripciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     estudiante_id INT NOT NULL,
@@ -278,84 +450,68 @@ CREATE TABLE Inscripciones (
     FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
     FOREIGN KEY (curso_id) REFERENCES Cursos(id),
     UNIQUE KEY unique_inscripcion (estudiante_id, curso_id)
-);
-      </code></pre>
-    </div>
+);</code></pre>
+          </div>
+        </div>
 
-    <button class="acordeon">Datos de Ejemplo y Población</button>
-    <div class="panel">
-      <h3>Inserción de Datos de Prueba</h3>
-      <p>Script para poblar la base de datos con datos realistas de prueba:</p>
-      
-      <pre><code>
--- =============================================
--- INSERCIÓN DE DATOS DE EJEMPLO
--- =============================================
+        <!-- Botones de acción -->
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana7" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Script Completo
+          </a>
+          <a href="../downloads/script_basedatos_completo.sql" class="btn descargar" download>
+            <i class="fas fa-download"></i> Descargar Script SQL
+          </a>
+        </div>
 
--- 1. INSERTAR USUARIOS
-INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email, telefono, fecha_nacimiento) VALUES
-('admin', 'admin123', 'admin', 'María González', 'maria.gonzalez@instituto.edu', '+1234567890', '1980-05-15'),
-('sistema', 'sistema456', 'admin', 'Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', '+1234567891', '1975-08-22'),
-('profe_ana', 'profe123', 'profesor', 'Ana Martínez', 'ana.martinez@instituto.edu', '+1234567892', '1985-03-10'),
-('profe_luis', 'profe456', 'profesor', 'Luis Fernández', 'luis.fernandez@instituto.edu', '+1234567893', '1978-11-30'),
-('profe_sofia', 'profe789', 'profesor', 'Sofia Ramírez', 'sofia.ramirez@instituto.edu', '+1234567894', '1990-07-25'),
-('est_juan', 'est123', 'estudiante', 'Juan Pérez', 'juan.perez@estudiante.edu', '+1234567895', '2000-01-20'),
-('est_maria', 'est456', 'estudiante', 'María López', 'maria.lopez@estudiante.edu', '+1234567896', '2001-03-15'),
-('est_carlos', 'est789', 'estudiante', 'Carlos Sánchez', 'carlos.sanchez@estudiante.edu', '+1234567897', '1999-08-10'),
-('est_laura', 'est012', 'estudiante', 'Laura García', 'laura.garcia@estudiante.edu', '+1234567898', '2000-12-05'),
-('est_pedro', 'est345', 'estudiante', 'Pedro Martínez', 'pedro.martinez@estudiante.edu', '+1234567899', '2001-06-18'),
-('est_ana', 'est678', 'estudiante', 'Ana Rodríguez', 'ana.rodriguez@estudiante.edu', '+1234567800', '2000-09-22');
+        <div class="mensaje-informativo">
+          <p><i class="fas fa-info-circle"></i> ¡Script completo disponible para descarga e implementación!</p>
+        </div>
+      </section>
 
--- 2. INSERTAR CURSOS
-INSERT INTO Cursos (nombre_curso, nivel, descripcion, profesor_id, max_estudiantes, fecha_inicio, fecha_fin) VALUES
-('Inglés Básico I', 'A1', 'Curso introductorio de inglés para principiantes.', 3, 15, '2024-01-15', '2024-06-15'),
-('Inglés Intermedio', 'B1', 'Desarrollo de habilidades comunicativas intermedias.', 3, 12, '2024-01-15', '2024-06-15'),
-('Conversación Avanzada', 'C1', 'Perfeccionamiento del speaking y listening.', 4, 10, '2024-02-01', '2024-07-01'),
-('Writing Académico', 'B2', 'Desarrollo de habilidades de escritura formal.', 4, 8, '2024-02-01', '2024-07-01'),
-('Preparación TOEFL', 'C1', 'Curso intensivo de preparación para el examen TOEFL.', 5, 6, '2024-03-01', '2024-08-01');
+      <!-- Tarjeta Datos y Consultas -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-search"></i> Datos y Consultas</h2>
+        <p>Población de datos de ejemplo y consultas SQL avanzadas para la gestión académica del sistema.</p>
 
--- 3. INSERTAR INSCRIPCIONES
+        <button class="acordeon">
+          <i class="fas fa-database"></i> Datos de Ejemplo
+        </button>
+        <div class="panel">
+          <p>Inserción de datos realistas para pruebas y demostración del sistema:</p>
+          
+          <div class="codigo-resumido">
+            <pre><code>-- INSERTAR USUARIOS
+INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email) VALUES
+('admin', 'admin123', 'admin', 'María González', 'maria.gonzalez@instituto.edu'),
+('profe_ana', 'profe123', 'profesor', 'Ana Martínez', 'ana.martinez@instituto.edu'),
+('est_juan', 'est123', 'estudiante', 'Juan Pérez', 'juan.perez@estudiante.edu');
+
+-- INSERTAR CURSOS
+INSERT INTO Cursos (nombre_curso, nivel, descripcion, profesor_id) VALUES
+('Inglés Básico I', 'A1', 'Curso introductorio de inglés.', 2),
+('Inglés Intermedio', 'B1', 'Habilidades comunicativas intermedias.', 2);
+
+-- INSERTAR INSCRIPCIONES
 INSERT INTO Inscripciones (estudiante_id, curso_id) VALUES
-(6, 1), (7, 1), (8, 1), (9, 1),  -- Inglés Básico I
-(7, 2), (8, 2), (10, 2),         -- Inglés Intermedio
-(9, 3), (10, 3), (11, 3);        -- Conversación Avanzada
+(3, 1), (3, 2);</code></pre>
+          </div>
+        </div>
 
--- 4. INSERTAR CALIFICACIONES
-INSERT INTO Calificaciones (estudiante_id, curso_id, habilidad, puntaje, fecha_evaluacion, periodo) VALUES
-(6, 1, 'speaking', 14.5, '2024-01-20', 'Q1'),
-(6, 1, 'writing', 13.0, '2024-01-25', 'Q1'),
-(7, 1, 'speaking', 16.5, '2024-01-20', 'Q1'),
-(7, 1, 'writing', 15.0, '2024-01-25', 'Q1'),
-(8, 2, 'speaking', 17.0, '2024-01-22', 'Q1'),
-(8, 2, 'writing', 16.5, '2024-01-27', 'Q1');
-      </code></pre>
-    </div>
-
-    <button class="acordeon">Consultas y Reportes Avanzados</button>
-    <div class="panel">
-      <h3>Consultas SQL para Gestión del Sistema</h3>
-      <p>Consultas útiles para extraer información y generar reportes:</p>
-      
-      <pre><code>
--- =============================================
--- CONSULTAS DE VERIFICACIÓN Y REPORTES
--- =============================================
-
--- 1. Verificar usuarios por rol
-SELECT rol, COUNT(*) as total FROM Usuarios GROUP BY rol;
-
--- 2. Cursos y sus profesores
-SELECT c.nombre_curso, c.nivel, u.nombre as profesor 
-FROM Cursos c 
-JOIN Usuarios u ON c.profesor_id = u.id;
-
--- 3. Estudiantes inscritos por curso
+        <button class="acordeon">
+          <i class="fas fa-chart-bar"></i> Consultas Avanzadas
+        </button>
+        <div class="panel">
+          <p>Consultas SQL para reportes y gestión del sistema académico:</p>
+          
+          <div class="codigo-resumido">
+            <pre><code>-- Estudiantes por curso
 SELECT c.nombre_curso, COUNT(i.estudiante_id) as total_estudiantes
 FROM Cursos c 
 LEFT JOIN Inscripciones i ON c.id = i.curso_id 
 GROUP BY c.nombre_curso;
 
--- 4. Promedio de calificaciones por estudiante
+-- Promedio de calificaciones por estudiante
 SELECT u.nombre as estudiante, c.nombre_curso, AVG(cal.puntaje) as promedio
 FROM Calificaciones cal
 JOIN Usuarios u ON cal.estudiante_id = u.id
@@ -363,106 +519,60 @@ JOIN Cursos c ON cal.curso_id = c.id
 GROUP BY u.nombre, c.nombre_curso
 ORDER BY promedio DESC;
 
--- 5. Progreso por habilidad
-SELECT u.nombre, cal.habilidad, AVG(cal.puntaje) as promedio, COUNT(*) as evaluaciones
+-- Progreso por habilidad
+SELECT u.nombre, cal.habilidad, AVG(cal.puntaje) as promedio
 FROM Calificaciones cal
 JOIN Usuarios u ON cal.estudiante_id = u.id
 WHERE u.rol = 'estudiante'
-GROUP BY u.nombre, cal.habilidad
-ORDER BY u.nombre, promedio DESC;
+GROUP BY u.nombre, cal.habilidad;</code></pre>
+          </div>
+        </div>
 
--- 6. Estudiantes activos por curso
-SELECT c.nombre_curso, u.nombre as estudiante, i.fecha_inscripcion
-FROM Inscripciones i
-JOIN Cursos c ON i.curso_id = c.id
-JOIN Usuarios u ON i.estudiante_id = u.id
-WHERE i.estado = 'activo'
-ORDER BY c.nombre_curso, u.nombre;
-      </code></pre>
-    </div>
+        <button class="acordeon">
+          <i class="fas fa-shield-alt"></i> Características de Seguridad
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Integridad Referencial:</strong> Claves foráneas con restricciones</li>
+            <li><strong>Unicidad:</strong> Campos únicos para evitar duplicados</li>
+            <li><strong>Validaciones:</strong> CHECK constraints para valores válidos</li>
+            <li><strong>Índices:</strong> Optimización para consultas frecuentes</li>
+            <li><strong>Encriptación:</strong> Contraseñas almacenadas de forma segura</li>
+          </ul>
+        </div>
 
-    <button class="acordeon">Especificaciones Técnicas y Características</button>
-    <div class="panel">
-      <h3>Características de la Base de Datos</h3>
-      
-      <div class="tabla-info">
-        <h5>📋 Tabla Usuarios</h5>
-        <ul>
-          <li><strong>Propósito:</strong> Gestionar todos los usuarios del sistema</li>
-          <li><strong>Campos clave:</strong> ingresoUsuario (único), rol, email (único)</li>
-          <li><strong>Seguridad:</strong> Contraseñas encriptadas, control de estado activo</li>
-          <li><strong>Auditoría:</strong> fecha_registro automática</li>
-        </ul>
-      </div>
-
-      <div class="tabla-info">
-        <h5>📚 Tabla Cursos</h5>
-        <ul>
-          <li><strong>Propósito:</strong> Gestionar la oferta académica</li>
-          <li><strong>Niveles:</strong> A1, A2, B1, B2, C1, C2 (Marco Europeo)</li>
-          <li><strong>Control:</strong> Límite de estudiantes, fechas de duración</li>
-          <li><strong>Relación:</strong> Profesor asignado (clave foránea)</li>
-        </ul>
-      </div>
-
-      <div class="tabla-info">
-        <h5>📊 Tabla Calificaciones</h5>
-        <ul>
-          <li><strong>Propósito:</strong> Registrar evaluaciones detalladas</li>
-          <li><strong>Habilidades:</strong> 6 tipos diferentes (speaking, writing, etc.)</li>
-          <li><strong>Validaciones:</strong> Puntaje 0-20, evaluaciones únicas por fecha</li>
-          <li><strong>Periodos:</strong> Sistema de cuatrimestres (Q1-Q4)</li>
-        </ul>
-      </div>
-
-      <div class="tabla-info">
-        <h5>🔗 Tabla Inscripciones</h5>
-        <ul>
-          <li><strong>Propósito:</strong> Relacionar estudiantes con cursos</li>
-          <li><strong>Restricción:</strong> Inscripción única por estudiante-curso</li>
-          <li><strong>Estados:</strong> activo, completado, cancelado</li>
-          <li><strong>Auditoría:</strong> Fecha automática de inscripción</li>
-        </ul>
-      </div>
-
-      <h4>✅ Características de Seguridad</h4>
-      <ul>
-        <li><strong>Integridad Referencial:</strong> Claves foráneas con restricciones</li>
-        <li><strong>Unicidad:</strong> Campos únicos para evitar duplicados</li>
-        <li><strong>Validaciones:</strong> CHECK constraints para valores válidos</li>
-        <li><strong>Índices:</strong> Optimización para consultas frecuentes</li>
-      </ul>
-
-      <h4>🚀 Optimizaciones Implementadas</h4>
-      <ul>
-        <li><strong>Índices Únicos:</strong> Para búsquedas rápidas de usuarios y cursos</li>
-        <li><strong>Claves Foráneas:</strong> Mantienen la integridad de los datos</li>
-        <li><strong>Tipos de Datos Adecuados:</strong> ENUM para campos con opciones limitadas</li>
-        <li><strong>Valores por Defecto:</strong> Simplifican las inserciones</li>
-      </ul>
+        <div class="botones-accion">
+          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana7" class="btn github" target="_blank">
+            <i class="fab fa-github"></i> Ver Consultas Completas
+          </a>
+        </div>
+      </section>
     </div>
 
     <!-- Botón de regresar -->
-    <a href="../tareas.html" class="btn btn-regresar">
-      <i class="fas fa-arrow-left"></i> Regresar a Tareas
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
     </a>
-    
   </main>
 
   <script>
-    // Script para acordeón
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones (mismo que semana 1)
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
     });
   </script>
