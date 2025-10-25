@@ -239,7 +239,7 @@
       margin: 0;
     }
 
-    /* Botones mejorados */
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -251,75 +251,149 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
     }
 
     .btn.descargar {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.15);
       border-color: #3b82f6;
       color: #3b82f6;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .btn.descargar:hover {
       background: #3b82f6;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
     .btn.github:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje informativo */
     .mensaje-informativo {
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid #9333ea;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-informativo p {
-      color: #9333ea;
+      color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -418,15 +492,8 @@ public class Producto {
           </div>
         </div>
 
-        <!-- Botones de acción -->
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana3" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Ejemplos Completos
-          </a>
-        </div>
-
         <div class="mensaje-informativo">
-          <p><i class="fas fa-lightbulb"></i> ¡Explora los códigos completos con implementaciones POO en GitHub!</p>
+          <p><i class="fas fa-lightbulb"></i> ¡Explora los códigos completos con implementaciones POO en la sección de Ejemplos Prácticos!</p>
         </div>
       </section>
 
@@ -435,15 +502,24 @@ public class Producto {
         <h2><i class="fas fa-laptop-code"></i> Ejemplos Prácticos</h2>
         <p>Implementación de POO en aplicaciones Java con interfaces gráficas para gestión de ofertas y cálculos comerciales.</p>
 
+        <!-- Único acordeón que contiene todo el problema resuelto -->
         <button class="acordeon">
-          <i class="fas fa-tag"></i> Oferta de Productos (Resumido)
+          <i class="fas fa-lightbulb"></i> Problema Resuelto en Clase
         </button>
         <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-shopping-bag"></i> Clase COfertaProducto</h4>
-            </div>
-            <pre><code>public class COfertaProducto {
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Problema</h4>
+            <p>Durante la clase, se desarrollaron aplicaciones Java con interfaz gráfica para resolver problemas prácticos de gestión de ofertas comerciales. El desafío consistía en aplicar los principios de POO (encapsulamiento, herencia, polimorfismo) para crear sistemas modulares y mantenibles que gestionen ofertas de productos y servicios de transporte.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Solución Implementada</h4>
+            <p>La solución incluyó la creación de clases especializadas con encapsulamiento adecuado, implementación de métodos de negocio específicos, y desarrollo de interfaces gráficas que interactúan con los objetos POO de manera eficiente.</p>
+            
+            <!-- Ejemplo 1: Oferta de Productos -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-shopping-bag"></i> Oferta de Productos - Clase COfertaProducto</h4>
+              </div>
+              <pre><code>public class COfertaProducto {
     // Atributos encapsulados
     private float precioDocena;
     private int cantidadDocenas;
@@ -476,18 +552,14 @@ public class Producto {
         this.cantidadDocenas = cantidad; 
     }
 }</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-bus"></i> Oferta de Transportes (Resumido)
-        </button>
-        <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-route"></i> Clase COfertaTransporte</h4>
             </div>
-            <pre><code>public class COfertaTransporte {
+
+            <!-- Ejemplo 2: Oferta de Transportes -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-route"></i> Oferta de Transportes - Clase COfertaTransporte</h4>
+              </div>
+              <pre><code>public class COfertaTransporte {
     // Atributos con encapsulamiento
     private String turno;
     private int cantidadPasajes;
@@ -519,18 +591,14 @@ public class Producto {
         this.cantidadPasajes = cantidad; 
     }
 }</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-window-restore"></i> Interfaz Gráfica (Resumido)
-        </button>
-        <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-desktop"></i> Clase CFormulario</h4>
             </div>
-            <pre><code>public class CFormulario extends JFrame {
+
+            <!-- Ejemplo 3: Interfaz Gráfica -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-desktop"></i> Interfaz Gráfica - Clase CFormulario</h4>
+              </div>
+              <pre><code>public class CFormulario extends JFrame {
     private COfertaProducto oferta = new COfertaProducto();
     
     private void btnCalcularActionPerformed() {
@@ -560,13 +628,24 @@ public class Producto {
         btnCalcular.setEnabled(habilitar);
     }
 }</code></pre>
+            </div>
           </div>
-        </div>
-
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana3" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Código Completo
-          </a>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="../downloads/Semana03_Actividad_2025.pdf" class="btn descargar" download="Problema_Semana3_POO.pdf">
+              <i class="fas fa-file-pdf"></i> Descargar Problema (PDF)
+            </a>
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana3" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Solución Completa
+            </a>
+          </div>
+          
+          <div class="mensaje-informativo">
+            <p><i class="fas fa-info-circle"></i> Descarga el PDF con el problema planteado y visita GitHub para ver la solución implementada.</p>
+          </div>
         </div>
       </section>
     </div>
@@ -599,6 +678,15 @@ public class Producto {
             panel.style.maxHeight = panel.scrollHeight + 'px';
             panel.classList.add('active');
           }
+        });
+      });
+      
+      // Simular descarga de PDF (para demostración)
+      document.querySelectorAll('.btn.descargar').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // En un entorno real, esto descargaría el archivo
+          console.log('Iniciando descarga del PDF...');
+          // No prevenimos el comportamiento por defecto para permitir la descarga real
         });
       });
     });

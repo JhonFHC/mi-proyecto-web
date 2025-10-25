@@ -239,7 +239,7 @@
       margin: 0;
     }
 
-    /* Botones mejorados */
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -251,75 +251,149 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
     }
 
     .btn.descargar {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.15);
       border-color: #3b82f6;
       color: #3b82f6;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .btn.descargar:hover {
       background: #3b82f6;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
     .btn.github:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje de descarga */
     .mensaje-descarga {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #3b82f6;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-descarga p {
       color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -420,9 +494,6 @@ git push origin main</code></pre>
 
         <!-- Botones de acción -->
         <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana1" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Código Completo
-          </a>
           <a href="../downloads/Manual de Como crear una cuenta en GIT-HUB.docx" class="btn descargar" download>
             <i class="fas fa-download"></i> Descargar Manual
           </a>
@@ -496,10 +567,51 @@ mvn archetype:generate</code></pre>
           </div>
         </div>
 
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana1" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Ejemplos Completos
-          </a>
+        <!-- Nueva sección: Problema resuelto en clase -->
+        <button class="acordeon">
+          <i class="fas fa-lightbulb"></i> Problema Resuelto en Clase
+        </button>
+        <div class="panel">
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Problema</h4>
+            <p>Durante la clase, se presentó un problema relacionado con la configuración de dependencias en Maven y la gestión de versiones de librerías. El problema consistía en resolver conflictos entre diferentes versiones de dependencias transitivas y optimizar la estructura del archivo POM.xml para un proyecto Java.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Solución Implementada</h4>
+            <p>La solución incluyó el uso de la etiqueta &lt;dependencyManagement&gt; para centralizar la gestión de versiones, la exclusión de dependencias conflictivas mediante &lt;exclusions&gt;, y la implementación de plugins específicos para optimizar el proceso de build.</p>
+            
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-code"></i> Fragmento de la Solución</h4>
+              </div>
+              <pre><code>&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+      &lt;version&gt;2.7.0&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;</code></pre>
+            </div>
+          </div>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="/downloads/Semana01_Actividad_2025.pdf" class="btn descargar" download="Problema_Semana1_Maven.pdf">
+              <i class="fas fa-file-pdf"></i> Descargar Problema (PDF)
+            </a>
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana1" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Solución Completa
+            </a>
+          </div>
+          
+          <div class="mensaje-descarga">
+            <p><i class="fas fa-info-circle"></i> Descarga el PDF con el problema planteado y visita GitHub para ver la solución implementada.</p>
+          </div>
         </div>
       </section>
     </div>
@@ -527,6 +639,15 @@ mvn archetype:generate</code></pre>
             panel.style.maxHeight = panel.scrollHeight + 'px';
             panel.classList.add('active');
           }
+        });
+      });
+      
+      // Simular descarga de PDF (para demostración)
+      document.querySelectorAll('.btn.descargar').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // En un entorno real, esto descargaría el archivo
+          console.log('Iniciando descarga del PDF...');
+          // No prevenimos el comportamiento por defecto para permitir la descarga real
         });
       });
     });

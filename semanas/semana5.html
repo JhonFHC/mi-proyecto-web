@@ -270,7 +270,35 @@
       line-height: 1.5;
     }
 
-    /* Botones mejorados */
+    /* Códigos resumidos */
+    .codigo-resumido {
+      background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -282,53 +310,123 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje informativo */
     .mensaje-informativo {
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid #9333ea;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-informativo p {
-      color: #9333ea;
+      color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -457,75 +555,123 @@
         </div>
       </section>
 
-      <!-- Tarjeta Arquitectura y Tecnologías -->
+      <!-- Tarjeta Implementación y Código -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-sitemap"></i> Arquitectura Planeada</h2>
-        <p>Estructura técnica y tecnologías seleccionadas para el desarrollo del sistema de autenticación.</p>
+        <h2><i class="fas fa-laptop-code"></i> Implementación FrontEnd</h2>
+        <p>Desarrollo de las interfaces gráficas del sistema de login utilizando Java Swing con arquitectura MVC.</p>
 
+        <!-- Único acordeón que contiene todo el problema resuelto -->
         <button class="acordeon">
-          <i class="fas fa-layer-group"></i> Stack Tecnológico
+          <i class="fas fa-lightbulb"></i> Código FrontEnd Implementado
         </button>
         <div class="panel">
-          <div class="lista-caracteristicas">
-            <h4><i class="fas fa-window-restore"></i> Frontend</h4>
-            <ul>
-              <li><strong>Java Swing:</strong> Para interfaces gráficas desktop</li>
-              <li><strong>Java AWT:</strong> Componentes de UI nativos</li>
-              <li><strong>Look and Feel:</strong> Tema Nimbus para consistencia visual</li>
-              <li><strong>Event Listeners:</strong> Manejo de interacciones del usuario</li>
-            </ul>
-          </div>
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Desarrollo</h4>
+            <p>Se implementaron las interfaces gráficas principales del sistema de login utilizando Java Swing. El sistema incluye formularios de login, registro y menú principal, siguiendo los principios de la arquitectura MVC y aplicando buenas prácticas de desarrollo.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Características Implementadas</h4>
+            <p>Las interfaces desarrolladas incluyen validaciones de entrada, navegación entre formularios, manejo de eventos de usuario y una estructura modular que facilita el mantenimiento y escalabilidad del sistema.</p>
+            
+            <!-- Código FormLogin -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-sign-in-alt"></i> FormLogin.java - Formulario Principal de Login</h4>
+              </div>
+              <pre><code>package com.mycompany.loginn;
 
-          <div class="lista-caracteristicas">
-            <h4><i class="fas fa-server"></i> Backend & Base de Datos</h4>
-            <ul>
-              <li><strong>Java SE:</strong> Lógica de negocio y validaciones</li>
-              <li><strong>MySQL:</strong> Almacenamiento persistente de usuarios</li>
-              <li><strong>JDBC:</strong> Conexión a base de datos</li>
-              <li><strong>Encriptación:</strong> Algoritmos seguros para contraseñas</li>
-            </ul>
-          </div>
+import Clases.CLogin;
 
-          <div class="lista-caracteristicas">
-            <h4><i class="fas fa-cubes"></i> Patrones de Diseño</h4>
-            <ul>
-              <li><strong>MVC (Modelo-Vista-Controlador):</strong> Separación de responsabilidades</li>
-              <li><strong>Singleton:</strong> Para gestión de conexiones a BD</li>
-              <li><strong>Observer:</strong> Para actualizaciones en tiempo real</li>
-              <li><strong>Factory:</strong> Creación de objetos de usuario</li>
-            </ul>
-          </div>
-        </div>
+public class FormLogin extends javax.swing.JFrame {
+    public FormLogin() {
+        initComponents();
+    }
 
-        <button class="acordeon">
-          <i class="fas fa-database"></i> Estructura de Datos
-        </button>
-        <div class="panel">
-          <div class="lista-caracteristicas">
-            <h4><i class="fas fa-table"></i> Tabla de Usuarios</h4>
-            <ul>
-              <li><strong>id:</strong> Identificador único auto-incrementable</li>
-              <li><strong>username:</strong> Nombre de usuario único</li>
-              <li><strong>password:</strong> Contraseña encriptada</li>
-              <li><strong>email:</strong> Correo electrónico único</li>
-              <li><strong>rol:</strong> Tipo de usuario (estudiante/profesor)</li>
-              <li><strong>fecha_registro:</strong> Timestamp de creación</li>
-              <li><strong>activo:</strong> Estado de la cuenta</li>
-            </ul>
-          </div>
-        </div>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Validación de usuario
+        Clases.CLogin objetoLogin = new Clases.CLogin();
+        objetoLogin.validaUsuario(txtUsuario, txtContrasenia);
+    }
 
-        <button class="acordeon">
-          <i class="fas fa-exclamation-triangle"></i> Consideraciones de Seguridad
-        </button>
-        <div class="panel">
-          <ul>
-            <li><strong>Hash de contraseñas:</strong> Uso de BCrypt o similar</li>
-            <li><strong>Prevención SQL Injection:</strong> Prepared Statements</li>
-            <li><strong>Validación de entrada:</strong> Sanitización de datos</li>
-            <li><strong>Logs de seguridad:</strong> Registro de intentos fallidos</li>
-            <li><strong>Timeout de sesión:</strong> Cierre automático por inactividad</li>
-          </ul>
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Navegación a formulario de registro
+        FormSignUp SignupFrame = new FormSignUp();
+        SignupFrame.setVisible(true);
+        SignupFrame.pack();
+        SignupFrame.setLocationRelativeTo(null);
+        this.dispose();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Código FormSignUp -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-user-plus"></i> FormSignUp.java - Formulario de Registro</h4>
+              </div>
+              <pre><code>package com.mycompany.loginn;
+
+public class FormSignUp extends javax.swing.JFrame {
+    public FormSignUp() {
+        initComponents();
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Navegación de regreso al login
+        FormLogin LoginFrame = new FormLogin();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null);
+        this.dispose();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Código FormMenuPrincipal -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-home"></i> FormMenuPrincipal.java - Menú Principal</h4>
+              </div>
+              <pre><code>package com.mycompany.loginn;
+
+public class FormMenuPrincipal extends javax.swing.JFrame {
+    public FormMenuPrincipal() {
+        initComponents();
+        // Configuración de menús y interfaz principal
+    }
+}</code></pre>
+            </div>
+
+            <!-- Código Principal -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-play-circle"></i> Loginn.java - Clase Principal</h4>
+              </div>
+              <pre><code>package com.mycompany.loginn;
+
+public class Loginn {
+    public static void main(String[] args) {
+        // Inicialización de la aplicación
+        FormLogin LoginFrame = new FormLogin();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null);
+    }
+}</code></pre>
+            </div>
+          </div>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana5" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Código Completo
+            </a>
+          </div>
+          
+          <div class="mensaje-informativo">
+            <p><i class="fas fa-info-circle"></i> ¡Visita GitHub para explorar el código completo del sistema de login con todas las implementaciones!</p>
+          </div>
         </div>
 
         <div class="mensaje-informativo">

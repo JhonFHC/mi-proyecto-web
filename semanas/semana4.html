@@ -269,7 +269,7 @@
       font-size: 0.9rem;
     }
 
-    /* Botones mejorados */
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -281,64 +281,123 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
     }
 
-    .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
-    .btn.github:hover {
+    .btn.solucion:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje informativo */
     .mensaje-informativo {
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid #9333ea;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-informativo p {
-      color: #9333ea;
+      color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -473,15 +532,24 @@ public class Main {
         <h2><i class="fas fa-laptop-code"></i> Implementación Práctica</h2>
         <p>Ejemplos de implementación MVC en aplicaciones Java con login, conversión de unidades y cálculo de figuras geométricas.</p>
 
+        <!-- Único acordeón que contiene todo el problema resuelto -->
         <button class="acordeon">
-          <i class="fas fa-shapes"></i> Sistema de Figuras (Resumido)
+          <i class="fas fa-lightbulb"></i> Problema Resuelto en Clase
         </button>
         <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-square"></i> Controlador de Figuras</h4>
-            </div>
-            <pre><code>public class FiguraControlador {
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Problema</h4>
+            <p>Durante la clase, se desarrollaron aplicaciones Java implementando el patrón MVC para resolver problemas prácticos de gestión de usuarios, conversión de unidades y cálculos geométricos. El desafío consistía en separar correctamente las responsabilidades entre Modelo, Vista y Controlador, manteniendo un código modular y mantenible.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Solución Implementada</h4>
+            <p>La solución incluyó la creación de arquitecturas MVC completas con separación clara de responsabilidades, implementación de controladores especializados para cada funcionalidad, y desarrollo de vistas que interactúan eficientemente con los modelos a través de los controladores.</p>
+            
+            <!-- Ejemplo 1: Sistema de Figuras -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-square"></i> Sistema de Figuras - Controlador</h4>
+              </div>
+              <pre><code>public class FiguraControlador {
     private Figura modelo;
     private final CuadradoVista vista;
 
@@ -512,18 +580,14 @@ public class Main {
         vista.mostrarResultados(area, perimetro);
     }
 }</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-ruler-combined"></i> Sistema de Conversión (Resumido)
-        </button>
-        <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-exchange-alt"></i> Controlador de Conversión</h4>
             </div>
-            <pre><code>public class ConversionControlador {
+
+            <!-- Ejemplo 2: Sistema de Conversión -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-exchange-alt"></i> Sistema de Conversión - Controlador</h4>
+              </div>
+              <pre><code>public class ConversionControlador {
     private ConversionVista vista;
     private Usuario usuario;
 
@@ -566,18 +630,14 @@ public class Main {
         };
     }
 }</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-user-lock"></i> Sistema de Login (Resumido)
-        </button>
-        <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-sign-in-alt"></i> Controlador de Login</h4>
             </div>
-            <pre><code>public class LoginControlador {
+
+            <!-- Ejemplo 3: Sistema de Login -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-sign-in-alt"></i> Sistema de Login - Controlador</h4>
+              </div>
+              <pre><code>public class LoginControlador {
     private final LoginVista loginVista;
     private final List<Usuario> usuarios;
 
@@ -607,18 +667,21 @@ public class Main {
         }
     }
 }</code></pre>
+            </div>
           </div>
-        </div>
-
-        <!-- Botones de acción -->
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana4" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Implementación Completa
-          </a>
-        </div>
-
-        <div class="mensaje-informativo">
-          <p><i class="fas fa-lightbulb"></i> ¡Explora la implementación completa del patrón MVC en GitHub!</p>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana4" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Solución Completa
+            </a>
+          </div>
+          
+          <div class="mensaje-informativo">
+            <p><i class="fas fa-info-circle"></i> ¡Visita GitHub para explorar la implementación completa del patrón MVC con todos los ejemplos!</p>
+          </div>
         </div>
       </section>
     </div>

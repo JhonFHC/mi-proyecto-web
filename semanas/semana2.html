@@ -239,7 +239,7 @@
       margin: 0;
     }
 
-    /* Botones mejorados */
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -251,75 +251,149 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
     }
 
     .btn.descargar {
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.15);
       border-color: #3b82f6;
       color: #3b82f6;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .btn.descargar:hover {
       background: #3b82f6;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
     .btn.github:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje de descarga */
     .mensaje-descarga {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #3b82f6;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-descarga p {
       color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -417,9 +491,6 @@ private double calcularPromedio(double[] notas) {
 
         <!-- Botones de acción -->
         <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana2" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Ejemplos Completos
-          </a>
           <a href="../downloads/Como crear un repositorio en GIT-HUB.docx" class="btn descargar" download>
             <i class="fas fa-download"></i> Descargar Guía
           </a>
@@ -435,15 +506,24 @@ private double calcularPromedio(double[] notas) {
         <h2><i class="fas fa-laptop-code"></i> Ejemplos Prácticos</h2>
         <p>Implementación de métodos en aplicaciones Java con interfaces gráficas para cálculos de sueldos y ventas.</p>
 
+        <!-- Único acordeón que contiene todo el problema resuelto -->
         <button class="acordeon">
-          <i class="fas fa-calculator"></i> Cálculo de Sueldo (Resumido)
+          <i class="fas fa-lightbulb"></i> Problema Resuelto en Clase
         </button>
         <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-user-tie"></i> Clase SueldoEmpleado</h4>
-            </div>
-            <pre><code>public class SueldoEmpleado {
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Problema</h4>
+            <p>Durante la clase, se desarrollaron aplicaciones Java con interfaz gráfica para resolver problemas prácticos de cálculo de sueldos y ventas. El desafío consistía en implementar métodos especializados para cada funcionalidad, mantener una estructura modular y garantizar la validación de datos de entrada.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Solución Implementada</h4>
+            <p>La solución incluyó la creación de métodos específicos para cada cálculo, separación de responsabilidades, implementación de validaciones de entrada y creación de interfaces de usuario intuitivas usando Java Swing.</p>
+            
+            <!-- Ejemplo 1: Cálculo de Sueldo -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-user-tie"></i> Cálculo de Sueldo - Clase SueldoEmpleado</h4>
+              </div>
+              <pre><code>public class SueldoEmpleado {
     
     // Métodos de cálculo
     void calcularSueldoBasico() {
@@ -470,18 +550,14 @@ private double calcularPromedio(double[] notas) {
         // ... más resultados
     }
 }</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-shopping-cart"></i> Venta de Productos (Resumido)
-        </button>
-        <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-store"></i> Clase ImporteProducto</h4>
             </div>
-            <pre><code>public class ImporteProducto extends JFrame {
+
+            <!-- Ejemplo 2: Venta de Productos -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-store"></i> Venta de Productos - Clase ImporteProducto</h4>
+              </div>
+              <pre><code>public class ImporteProducto extends JFrame {
     
     private void calcular() {
         double precio = Double.parseDouble(txtPrecio.getText());
@@ -512,33 +588,61 @@ private double calcularPromedio(double[] notas) {
         txtPrecio.requestFocus();
     }
 }</code></pre>
+            </div>
+
+            <!-- Validaciones y métodos auxiliares -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-code"></i> Métodos de Validación y Utilidades</h4>
+              </div>
+              <pre><code>// Método para validar entrada numérica
+private boolean validarEntrada(String texto) {
+    try {
+        Double.parseDouble(texto);
+        return true;
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Error: Ingrese un valor numérico válido", 
+            "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
+
+// Método para calcular descuentos progresivos
+private double calcularDescuento(double importe, int cantidad) {
+    if (cantidad >= 15) {
+        return importe * 0.25;
+    } else if (cantidad >= 10) {
+        return importe * 0.20;
+    } else {
+        return importe * 0.10;
+    }
+}</code></pre>
+            </div>
           </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-lightbulb"></i> Buenas Prácticas
-        </button>
-        <div class="panel">
-          <ul>
-            <li><strong>Nombres descriptivos:</strong> Usar verbos que indiquen la acción</li>
-            <li><strong>Una sola responsabilidad:</strong> Cada método debe hacer una cosa</li>
-            <li><strong>Parámetros limitados:</strong> Evitar métodos con muchos parámetros</li>
-            <li><strong>Documentación:</strong> Comentar métodos complejos</li>
-            <li><strong>Reutilización:</strong> Crear métodos genéricos cuando sea posible</li>
-          </ul>
-        </div>
-
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana2" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Código Completo
-          </a>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="../downloads/Semana02_Actividad_2025.pdf" class="btn descargar" download="Problema_Semana2_MetodosJava.pdf">
+              <i class="fas fa-file-pdf"></i> Descargar Problema (PDF)
+            </a>
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana2" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Solución Completa
+            </a>
+          </div>
+          
+          <div class="mensaje-descarga">
+            <p><i class="fas fa-info-circle"></i> Descarga el PDF con el problema planteado y visita GitHub para ver la solución implementada.</p>
+          </div>
         </div>
       </section>
     </div>
 
     <!-- Frase célebre -->
     <section class="encabezado-semana fade-in">
-      <blockquote>“La lógica te llevará del punto A al punto B. La imaginación te llevará a todas partes.” – Albert Einstein</blockquote>
+      <blockquote>"La lógica te llevará del punto A al punto B. La imaginación te llevará a todas partes." – Albert Einstein</blockquote>
     </section>
 
     <!-- Botón de regresar -->
@@ -564,6 +668,15 @@ private double calcularPromedio(double[] notas) {
             panel.style.maxHeight = panel.scrollHeight + 'px';
             panel.classList.add('active');
           }
+        });
+      });
+      
+      // Simular descarga de PDF (para demostración)
+      document.querySelectorAll('.btn.descargar').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // En un entorno real, esto descargaría el archivo
+          console.log('Iniciando descarga del PDF...');
+          // No prevenimos el comportamiento por defecto para permitir la descarga real
         });
       });
     });
