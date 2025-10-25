@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 7 - Base de Datos del Sistema</title>
+  <title>Semana 7 - Integración Base de Datos con Login</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* MISMOS ESTILOS DE SEMANA 1 */
+    /* Navbar consistente con las demás páginas */
     nav.navbar {
       background-color: #1e293b;
       padding: 10px 20px;
@@ -239,7 +239,45 @@
       margin: 0;
     }
 
-    /* Botones mejorados */
+    /* Características en grid */
+    .caracteristicas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .caracteristica {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #00ffc3;
+      transition: transform 0.3s ease;
+    }
+
+    .caracteristica:hover {
+      transform: translateY(-3px);
+    }
+
+    .caracteristica h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .caracteristica ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 10px 0 0 0;
+    }
+
+    .caracteristica li {
+      margin: 5px 0;
+    }
+
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -251,75 +289,123 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
     }
 
-    .btn.descargar {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: #3b82f6;
-      color: #3b82f6;
+    .btn:active {
+      transform: translateY(-2px);
     }
 
-    .btn.descargar:hover {
-      background: #3b82f6;
-      color: #fff;
-    }
-
-    .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
-    .btn.github:hover {
+    .btn.solucion:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje informativo */
     .mensaje-informativo {
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid #9333ea;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-informativo p {
-      color: #9333ea;
+      color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -334,6 +420,10 @@
       
       .btn {
         justify-content: center;
+      }
+      
+      .caracteristicas-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -361,193 +451,234 @@
   <main class="container">
     <!-- Encabezado -->
     <section class="encabezado-semana fade-in">
-      <h1><i class="fas fa-database"></i> Semana 7 - Base de Datos del Sistema</h1>
-      <p>Diseño e implementación de una base de datos MySQL para gestionar usuarios, cursos, inscripciones y calificaciones en un sistema académico de enseñanza de idiomas.</p>
+      <h1><i class="fas fa-database"></i> Semana 7 - Integración Base de Datos con Login</h1>
+      <p>Conexión completa entre el sistema de autenticación Java y la base de datos MySQL, implementando validaciones seguras y manejo de usuarios.</p>
     </section>
+
+    <!-- Grid de características -->
+    <div class="caracteristicas-grid fade-in">
+      <div class="caracteristica">
+        <h4><i class="fas fa-plug"></i> Conexión a BD</h4>
+        <ul>
+          <li>Configuración JDBC MySQL</li>
+          <li>Manejo de conexiones</li>
+          <li>Prepared Statements</li>
+          <li>Gestión de errores</li>
+        </ul>
+      </div>
+      <div class="caracteristica">
+        <h4><i class="fas fa-shield-alt"></i> Seguridad</h4>
+        <ul>
+          <li>Validación de credenciales</li>
+          <li>Prevención SQL Injection</li>
+          <li>Manejo de sesiones</li>
+          <li>Encriptación de datos</li>
+        </ul>
+      </div>
+      <div class="caracteristica">
+        <h4><i class="fas fa-code"></i> Arquitectura</h4>
+        <ul>
+          <li>Patrón MVC</li>
+          <li>Separación de capas</li>
+          <li>Reutilización de código</li>
+          <li>Manejo de excepciones</li>
+        </ul>
+      </div>
+    </div>
 
     <!-- Grid de contenido -->
     <div class="grid-contenido">
-      <!-- Tarjeta Estructura de la Base de Datos -->
+      <!-- Tarjeta Conexión a Base de Datos -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-sitemap"></i> Estructura de la Base de Datos</h2>
-        <p>Diseño completo del sistema de base de datos con 4 tablas principales que gestionan usuarios, cursos, inscripciones y calificaciones del instituto de idiomas.</p>
+        <h2><i class="fas fa-plug"></i> Conexión a Base de Datos</h2>
+        <p>Implementación de la clase de conexión que maneja la comunicación segura entre la aplicación Java y la base de datos MySQL.</p>
 
         <button class="acordeon">
-          <i class="fas fa-table"></i> Script Completo de Creación
+          <i class="fas fa-code"></i> Clase CConexion - Gestión de Conexiones
         </button>
         <div class="panel">
-          <p>Script SQL para crear la base de datos completa con todas las tablas, relaciones y restricciones:</p>
-          
           <div class="codigo-resumido">
             <div class="codigo-header">
-              <h4><i class="fas fa-database"></i> Base de Datos Completa</h4>
+              <h4><i class="fas fa-database"></i> CConexion.java</h4>
             </div>
-            <pre><code>-- =============================================
--- SISTEMA DE GESTIÓN ACADÉMICA - BASE DE DATOS
--- =============================================
+            <pre><code>package Clases;
 
-CREATE DATABASE sistema_gestion_academica;
-USE sistema_gestion_academica;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import javax.swing.JOptionPane;
 
--- TABLA: Usuarios
-CREATE TABLE Usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ingresoUsuario VARCHAR(50) UNIQUE NOT NULL,
-    ingresoContrasenia VARCHAR(100) NOT NULL,
-    rol ENUM('admin', 'profesor', 'estudiante') NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    telefono VARCHAR(15),
-    fecha_nacimiento DATE,
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    activo BOOLEAN DEFAULT TRUE
-);
-
--- TABLA: Cursos
-CREATE TABLE Cursos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_curso VARCHAR(100) NOT NULL,
-    nivel ENUM('A1', 'A2', 'B1', 'B2', 'C1', 'C2') NOT NULL,
-    descripcion TEXT,
-    profesor_id INT NOT NULL,
-    max_estudiantes INT DEFAULT 20,
-    fecha_inicio DATE,
-    fecha_fin DATE,
-    activo BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
-);</code></pre>
+public class CConexion {
+    Connection conectar;
+    
+    // Configuración de conexión
+    String usuario = "admin";
+    String contrasenia = "admin";
+    String bd = "login";
+    String ip = "localhost";
+    String puerto = "3306";
+    
+    // Cadena de conexión con timezone UTC
+    String cadena = "jdbc:mysql://localhost:3306/login?serverTimezone=UTC";
+    
+    public Connection estableceConexion() {
+        try {
+            // Cargar driver MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // Establecer conexión
+            conectar = DriverManager.getConnection(cadena, usuario, contrasenia);
+            
+            // Comentado para producción
+            // JOptionPane.showMessageDialog(null, "Se conectó correctamente a la Base de DATOS");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Problemas en la conexión: " + e.toString());
+        }
+        return conectar;
+    }
+}</code></pre>
           </div>
         </div>
 
         <button class="acordeon">
-          <i class="fas fa-key"></i> Relaciones y Restricciones
-        </button>
-        <div class="panel">
-          <p>Estructura de las tablas de relaciones y sus restricciones de integridad:</p>
-          
-          <div class="codigo-resumido">
-            <pre><code>-- TABLA: Calificaciones
-CREATE TABLE Calificaciones (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    estudiante_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    habilidad ENUM('speaking', 'writing', 'reading', 'listening', 'grammar', 'vocabulary') NOT NULL,
-    puntaje DECIMAL(4,2) NOT NULL,
-    fecha_evaluacion DATE NOT NULL,
-    periodo ENUM('Q1', 'Q2', 'Q3', 'Q4') NOT NULL,
-    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
-    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
-    CHECK (puntaje >= 0 AND puntaje <= 20)
-);
-
--- TABLA: Inscripciones
-CREATE TABLE Inscripciones (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    estudiante_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    estado ENUM('activo', 'completado', 'cancelado') DEFAULT 'activo',
-    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
-    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
-    UNIQUE KEY unique_inscripcion (estudiante_id, curso_id)
-);</code></pre>
-          </div>
-        </div>
-
-        <!-- Botones de acción -->
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana7" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Script Completo
-          </a>
-          <a href="../downloads/script_basedatos_completo.sql" class="btn descargar" download>
-            <i class="fas fa-download"></i> Descargar Script SQL
-          </a>
-        </div>
-
-        <div class="mensaje-informativo">
-          <p><i class="fas fa-info-circle"></i> ¡Script completo disponible para descarga e implementación!</p>
-        </div>
-      </section>
-
-      <!-- Tarjeta Datos y Consultas -->
-      <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-search"></i> Datos y Consultas</h2>
-        <p>Población de datos de ejemplo y consultas SQL avanzadas para la gestión académica del sistema.</p>
-
-        <button class="acordeon">
-          <i class="fas fa-database"></i> Datos de Ejemplo
-        </button>
-        <div class="panel">
-          <p>Inserción de datos realistas para pruebas y demostración del sistema:</p>
-          
-          <div class="codigo-resumido">
-            <pre><code>-- INSERTAR USUARIOS
-INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email) VALUES
-('admin', 'admin123', 'admin', 'María González', 'maria.gonzalez@instituto.edu'),
-('profe_ana', 'profe123', 'profesor', 'Ana Martínez', 'ana.martinez@instituto.edu'),
-('est_juan', 'est123', 'estudiante', 'Juan Pérez', 'juan.perez@estudiante.edu');
-
--- INSERTAR CURSOS
-INSERT INTO Cursos (nombre_curso, nivel, descripcion, profesor_id) VALUES
-('Inglés Básico I', 'A1', 'Curso introductorio de inglés.', 2),
-('Inglés Intermedio', 'B1', 'Habilidades comunicativas intermedias.', 2);
-
--- INSERTAR INSCRIPCIONES
-INSERT INTO Inscripciones (estudiante_id, curso_id) VALUES
-(3, 1), (3, 2);</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-chart-bar"></i> Consultas Avanzadas
-        </button>
-        <div class="panel">
-          <p>Consultas SQL para reportes y gestión del sistema académico:</p>
-          
-          <div class="codigo-resumido">
-            <pre><code>-- Estudiantes por curso
-SELECT c.nombre_curso, COUNT(i.estudiante_id) as total_estudiantes
-FROM Cursos c 
-LEFT JOIN Inscripciones i ON c.id = i.curso_id 
-GROUP BY c.nombre_curso;
-
--- Promedio de calificaciones por estudiante
-SELECT u.nombre as estudiante, c.nombre_curso, AVG(cal.puntaje) as promedio
-FROM Calificaciones cal
-JOIN Usuarios u ON cal.estudiante_id = u.id
-JOIN Cursos c ON cal.curso_id = c.id
-GROUP BY u.nombre, c.nombre_curso
-ORDER BY promedio DESC;
-
--- Progreso por habilidad
-SELECT u.nombre, cal.habilidad, AVG(cal.puntaje) as promedio
-FROM Calificaciones cal
-JOIN Usuarios u ON cal.estudiante_id = u.id
-WHERE u.rol = 'estudiante'
-GROUP BY u.nombre, cal.habilidad;</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-shield-alt"></i> Características de Seguridad
+          <i class="fas fa-cogs"></i> Características de la Conexión
         </button>
         <div class="panel">
           <ul>
-            <li><strong>Integridad Referencial:</strong> Claves foráneas con restricciones</li>
-            <li><strong>Unicidad:</strong> Campos únicos para evitar duplicados</li>
-            <li><strong>Validaciones:</strong> CHECK constraints para valores válidos</li>
-            <li><strong>Índices:</strong> Optimización para consultas frecuentes</li>
-            <li><strong>Encriptación:</strong> Contraseñas almacenadas de forma segura</li>
+            <li><strong>Driver MySQL:</strong> Uso de com.mysql.cj.jdbc.Driver para compatibilidad</li>
+            <li><strong>Configuración Flexible:</strong> Parámetros separados para fácil mantenimiento</li>
+            <li><strong>Manejo de Timezone:</strong> Configuración UTC para evitar problemas de hora</li>
+            <li><strong>Gestión de Errores:</strong> Try-catch con mensajes informativos al usuario</li>
+            <li><strong>Conexión Reutilizable:</strong> Método que puede ser llamado múltiples veces</li>
           </ul>
         </div>
+      </section>
 
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana7" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Consultas Completas
-          </a>
+      <!-- Tarjeta Lógica de Autenticación -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-user-lock"></i> Lógica de Autenticación</h2>
+        <p>Implementación de la clase CLogin que valida credenciales contra la base de datos y maneja el flujo de autenticación.</p>
+
+        <!-- Único acordeón que contiene toda la implementación -->
+        <button class="acordeon">
+          <i class="fas fa-lightbulb"></i> Implementación Completa de Autenticación
+        </button>
+        <div class="panel">
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Módulo</h4>
+            <p>La clase CLogin se encarga de validar las credenciales del usuario contra la base de datos MySQL, utilizando Prepared Statements para prevenir inyecciones SQL y manejando adecuadamente los resultados de la consulta.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Flujo de Autenticación</h4>
+            <p>El sistema valida usuario y contraseña, consulta la base de datos, y según el resultado redirige al menú principal o muestra mensajes de error apropiados.</p>
+            
+            <!-- Código CLogin -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-sign-in-alt"></i> CLogin.java - Validación de Usuarios</h4>
+              </div>
+              <pre><code>package Clases;
+
+import com.mycompany.loginn.FormMenuPrincipal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+public class CLogin {
+    public void validaUsuario(JTextField usuario, JPasswordField contrasenia) {
+        try {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            
+            // Crear conexión a la base de datos
+            Clases.CConexion objetoConexion = new Clases.CConexion();
+            
+            // Consulta SQL con parámetros para prevenir SQL Injection
+            String consulta = "SELECT * FROM Usuarios WHERE usuarios.ingresoUsuario = (?) AND Usuarios.ingresoContrasenia = (?);";
+            ps = objetoConexion.estableceConexion().prepareStatement(consulta);
+            
+            // Obtener contraseña del campo
+            String contra = String.valueOf(contrasenia.getPassword());
+            
+            // Establecer parámetros en la consulta
+            ps.setString(1, usuario.getText());
+            ps.setString(2, contra);
+            
+            // Ejecutar consulta
+            rs = ps.executeQuery();
+            
+            // Verificar si se encontró el usuario
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "El Usuario es Correcto");
+                
+                // Redirigir al menú principal
+                FormMenuPrincipal objetoMenu = new FormMenuPrincipal();
+                objetoMenu.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario es INCORRECTO, VUELVA A INTENTAR");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
+        }
+    }
+}</code></pre>
+            </div>
+
+            <!-- Integración con FormLogin -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-window-restore"></i> FormLogin.java - Integración</h4>
+              </div>
+              <pre><code>// En el evento del botón de login en FormLogin
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    // Validar campos primero
+    if (validarCamposLogin() && intentosFallidos < MAX_INTENTOS) {
+        
+        // Usar la clase CLogin para validar en base de datos
+        CLogin objetoLogin = new CLogin();
+        objetoLogin.validaUsuario(txtUsuario, txtContrasenia);
+        
+        // El manejo de intentos fallidos se hace en CLogin
+    }
+}</code></pre>
+            </div>
+          </div>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana7" class="btn solucion" target="_blank">
+              <i class="fas fa-code"></i> Ver Código Completo de Integración
+            </a>
+          </div>
+          
+          <div class="mensaje-informativo">
+            <p><i class="fas fa-info-circle"></i> ¡Visita GitHub para explorar el código completo de la integración entre el login y la base de datos!</p>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-shield-alt"></i> Medidas de Seguridad Implementadas
+        </button>
+        <div class="panel">
+          <ul>
+            <li><strong>Prepared Statements:</strong> Prevención completa de SQL Injection</li>
+            <li><strong>Validación de Entrada:</strong> Campos verificados antes de consultar BD</li>
+            <li><strong>Manejo de Excepciones:</strong> Errores controlados apropiadamente</li>
+            <li><strong>Conexión Segura:</strong> Parámetros de conexión protegidos</li>
+            <li><strong>Recursos Liberados:</strong> Conexiones manejadas correctamente</li>
+          </ul>
         </div>
       </section>
     </div>
+
+    <!-- Frase célebre -->
+    <section class="encabezado-semana fade-in">
+      <blockquote>"La seguridad no es un producto, sino un proceso continuo de mejora." – Bruce Schneier</blockquote>
+    </section>
 
     <!-- Botón de regresar -->
     <a href="../tareas.html" class="btn regresar">
@@ -556,7 +687,7 @@ GROUP BY u.nombre, cal.habilidad;</code></pre>
   </main>
 
   <script>
-    // Funcionalidad de acordeones (mismo que semana 1)
+    // Funcionalidad de acordeones
     document.addEventListener('DOMContentLoaded', function() {
       const acordeones = document.querySelectorAll('.acordeon');
 

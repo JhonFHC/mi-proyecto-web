@@ -304,24 +304,92 @@
   </main>
 
   <script>
-    // Datos de las semanas actualizados
+    // Datos de las semanas actualizados con nombres de archivo corregidos
     const semanas = [
-      { titulo: "Apache Maven", estado: "completado" },
-      { titulo: "Métodos", estado: "completado" },
-      { titulo: "Programación Orientada a Objetos", estado: "completado" },
-      { titulo: "Arquitectura: Modelo - Vista - Controlador", estado: "completado" },
-      { titulo: "Planificación del Sistema de Login", estado: "completado" },
-      { titulo: "Sistema de Login", estado: "completado" },
-      { titulo: "Base de datos de mi Aplicativo", estado: "completado" },
-      { titulo: "Aplicativo completo", estado: "completado" },
-      { titulo: "Introducción a JavaScript", estado: "pendiente" },
-      { titulo: "Variables, Tipos de Datos y Operadores", estado: "pendiente" },
-      { titulo: "Estructuras de Control y Funciones", estado: "pendiente" },
-      { titulo: "DOM y Manipulación de Elementos", estado: "pendiente" },
-      { titulo: "Eventos en JavaScript", estado: "pendiente" },
-      { titulo: "Arreglos y Objetos en JavaScript", estado: "pendiente" },
-      { titulo: "Proyecto Final – Maquetación Web", estado: "pendiente" },
-      { titulo: "Presentación de Proyectos y Evaluación", estado: "pendiente" }
+      { 
+        titulo: "Apache Maven", 
+        estado: "completado",
+        tieneDescarga: true,
+        archivoDescarga: "/downloads/Taller_Aplicaciones_Semana1.docx"
+      },
+      { 
+        titulo: "Métodos", 
+        estado: "completado",
+        tieneDescarga: true,
+        archivoDescarga: "/downloads/Taller_Aplicaciones_Semana2.docx"
+      },
+      { 
+        titulo: "Programación Orientada a Objetos", 
+        estado: "completado",
+        tieneDescarga: true,
+        archivoDescarga: "/downloads/Taller_Aplicaciones_Semana3.docx"
+      },
+      { 
+        titulo: "Arquitectura: Modelo - Vista - Controlador", 
+        estado: "completado",
+        tieneDescarga: true,
+        archivoDescarga: "/downloads/Taller_Aplicaciones_Semana4.docx"
+      },
+      { 
+        titulo: "Planificación del Sistema de Login", 
+        estado: "completado",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Base de Datos del Sistema Académico", 
+        estado: "completado",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Integración Base de Datos con Login", 
+        estado: "completado",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Proyecto Integrado Completo", 
+        estado: "completado",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Introducción a JavaScript", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Proyecto Integrado Completo", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Estructuras de Control y Funciones", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "DOM y Manipulación de Elementos", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Eventos en JavaScript", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Arreglos y Objetos en JavaScript", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Proyecto Final – Maquetación Web", 
+        estado: "pendiente",
+        tieneDescarga: false
+      },
+      { 
+        titulo: "Presentación de Proyectos y Evaluación", 
+        estado: "pendiente",
+        tieneDescarga: false
+      }
     ];
 
     // Generar dinámicamente el contenido
@@ -331,10 +399,12 @@
       const numero = i + 1;
       const estado = semana.estado;
       const titulo = semana.titulo;
+      const tieneDescarga = semana.tieneDescarga;
+      const archivoDescarga = semana.archivoDescarga;
 
       // Construir URL de GitHub
       let githubUrl = "https://github.com/JhonFHC/mi-proyecto-web";
-      if (numero >= 1 && numero <= 4 || numero === 7 || numero === 8) {
+      if (numero >= 1 && numero <= 8) {
         githubUrl += `/tree/main/semanas/Semana${numero}`;
       } else {
         githubUrl += "/tree/main";
@@ -358,6 +428,13 @@
           break;
       }
 
+      // Generar botón de descarga solo si tiene descarga
+      const botonDescarga = tieneDescarga 
+        ? `<a href="${archivoDescarga}" class="btn descargar" download>
+             <i class="fas fa-download"></i> Descargar
+           </a>`
+        : '';
+
       const semanaHTML = `
         <div class="semana ${badgeClass}">
           <button class="acordeon">
@@ -370,9 +447,7 @@
               <a href="semanas/semana${numero}.html" class="btn">
                 <i class="fas fa-book-open"></i> Ver Contenido
               </a>
-              ${numero <= 3 ? `<a href="downloads/Taller Aplicaciones - Semana${numero}.docx" class="btn descargar" download>
-                <i class="fas fa-download"></i> Descargar
-              </a>` : ''}
+              ${botonDescarga}
               <a href="${githubUrl}" class="btn github" target="_blank">
                 <i class="fab fa-github"></i> Ver en GitHub
               </a>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 6 - Sistema de Login en Java</title>
+  <title>Semana 6 - Base de Datos del Sistema Académico</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
@@ -277,7 +277,7 @@
       margin: 5px 0;
     }
 
-    /* Botones mejorados */
+    /* Botones mejorados - MÁS LLAMATIVOS */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -289,64 +289,123 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: rgba(0, 255, 195, 0.1);
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
       color: #00ffc3;
       text-decoration: none;
-      border-radius: 8px;
-      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
       transition: all 0.3s ease;
       font-weight: bold;
       font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: #00ffc3;
       color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 255, 195, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
     }
 
-    .btn.github {
-      background: rgba(147, 51, 234, 0.1);
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
       border-color: #9333ea;
       color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
-    .btn.github:hover {
+    .btn.solucion:hover {
       background: #9333ea;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
     }
 
     .btn.regresar {
-      background: rgba(107, 114, 128, 0.1);
+      background: rgba(107, 114, 128, 0.15);
       border-color: #6b7280;
       color: #6b7280;
       margin: 30px auto;
       display: flex;
       justify-content: center;
       max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
     }
 
     .btn.regresar:hover {
       background: #6b7280;
       color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
     /* Mensaje informativo */
     .mensaje-informativo {
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid #9333ea;
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
       border-radius: 10px;
       padding: 20px;
       margin: 20px 0;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
 
     .mensaje-informativo p {
-      color: #9333ea;
+      color: #3b82f6;
       margin: 0;
       font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
     }
 
     /* Responsive */
@@ -392,230 +451,236 @@
   <main class="container">
     <!-- Encabezado -->
     <section class="encabezado-semana fade-in">
-      <h1><i class="fas fa-lock"></i> Semana 6 - Sistema de Login en Java</h1>
-      <p>Implementación de un sistema de autenticación seguro con interfaz gráfica en Java Swing, incluyendo validaciones avanzadas, placeholders dinámicos y control de intentos fallidos.</p>
+      <h1><i class="fas fa-database"></i> Semana 6 - Base de Datos del Sistema Académico</h1>
+      <p>Diseño e implementación de una base de datos MySQL para un sistema de gestión académica completo, incluyendo usuarios, cursos, calificaciones y relaciones complejas.</p>
     </section>
 
     <!-- Grid de características -->
     <div class="caracteristicas-grid fade-in">
       <div class="caracteristica">
-        <h4><i class="fas fa-shield-alt"></i> Seguridad Avanzada</h4>
+        <h4><i class="fas fa-table"></i> Estructura de Tablas</h4>
         <ul>
-          <li>Límite de 3 intentos fallidos</li>
-          <li>Validación en tiempo real</li>
-          <li>Encriptación de contraseñas</li>
-          <li>Cierre automático por seguridad</li>
+          <li>Tabla Usuarios con roles</li>
+          <li>Tabla Cursos con niveles</li>
+          <li>Tabla Calificaciones detalladas</li>
+          <li>Tabla Inscripciones relacional</li>
         </ul>
       </div>
       <div class="caracteristica">
-        <h4><i class="fas fa-user-check"></i> Experiencia de Usuario</h4>
+        <h4><i class="fas fa-shield-alt"></i> Integridad de Datos</h4>
         <ul>
-          <li>Placeholders dinámicos</li>
-          <li>Feedback visual inmediato</li>
-          <li>Navegación fluida entre ventanas</li>
-          <li>Interfaz intuitiva y responsive</li>
+          <li>Claves primarias y foráneas</li>
+          <li>Restricciones CHECK</li>
+          <li>Validaciones de dominio</li>
+          <li>Unicidad garantizada</li>
         </ul>
       </div>
       <div class="caracteristica">
-        <h4><i class="fas fa-code"></i> Características Técnicas</h4>
+        <h4><i class="fas fa-chart-line"></i> Datos de Ejemplo</h4>
         <ul>
-          <li>Arquitectura MVC</li>
-          <li>Validaciones robustas</li>
-          <li>Manejo de eventos</li>
-          <li>Gestión de memoria eficiente</li>
+          <li>Usuarios por roles</li>
+          <li>Cursos con profesores</li>
+          <li>Inscripciones activas</li>
+          <li>Calificaciones históricas</li>
         </ul>
       </div>
     </div>
 
     <!-- Grid de contenido -->
     <div class="grid-contenido">
-      <!-- Tarjeta Login Principal -->
+      <!-- Tarjeta Estructura de la Base de Datos -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-sign-in-alt"></i> Formulario de Login</h2>
-        <p>Interfaz principal de autenticación con validaciones en tiempo real, placeholders dinámicos y control de seguridad por intentos fallidos.</p>
+        <h2><i class="fas fa-sitemap"></i> Estructura de la Base de Datos</h2>
+        <p>Diseño completo del esquema de base de datos con tablas normalizadas, relaciones y restricciones para garantizar la integridad de los datos.</p>
 
         <button class="acordeon">
-          <i class="fas fa-code"></i> Código Principal Resumido
+          <i class="fas fa-code"></i> Script de Creación de Base de Datos
         </button>
         <div class="panel">
           <div class="codigo-resumido">
             <div class="codigo-header">
-              <h4><i class="fas fa-lock"></i> Clase FormLogin</h4>
+              <h4><i class="fas fa-database"></i> Creación de Base de Datos y Tablas</h4>
             </div>
-            <pre><code>public class FormLogin extends javax.swing.JFrame {
-    private int intentosFallidos = 0;
-    private static final int MAX_INTENTOS = 3;
+            <pre><code>-- =============================================
+-- SISTEMA DE GESTIÓN ACADÉMICA - BASE DE DATOS
+-- =============================================
 
-    public FormLogin() {
-        initComponents();
-        setLocationRelativeTo(null);
-        agregarValidacionTiempoReal();
-        agregarPlaceholders();
-    }
+-- Crear base de datos y seleccionarla
+DROP DATABASE IF EXISTS sistema_gestion_academica;
+CREATE DATABASE sistema_gestion_academica;
+USE sistema_gestion_academica;
 
-    // Validaciones principales
-    private boolean validarCamposLogin() {
-        String usuario = txtUsuario.getText().trim();
-        String contrasenia = String.valueOf(txtContrasenia.getPassword());
-        
-        if (usuario.isEmpty() || usuario.equals("Ingrese su usuario")) {
-            mostrarError("❌ El campo USUARIO es obligatorio");
-            return false;
-        }
-        
-        if (contrasenia.isEmpty() || contrasenia.equals("••••")) {
-            mostrarError("❌ El campo CONTRASEÑA es obligatorio");
-            return false;
-        }
-        
-        if (contrasenia.length() < 4) {
-            mostrarError("❌ La contraseña debe tener al menos 4 caracteres");
-            return false;
-        }
-        
-        if (usuario.contains(" ")) {
-            mostrarError("❌ El usuario no puede contener espacios");
-            return false;
-        }
-        
-        return true;
-    }
+-- =============================================
+-- TABLA: Usuarios
+-- =============================================
+CREATE TABLE Usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ingresoUsuario VARCHAR(50) UNIQUE NOT NULL,
+    ingresoContrasenia VARCHAR(100) NOT NULL,
+    rol ENUM('admin', 'profesor', 'estudiante') NOT NULL DEFAULT 'estudiante',
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefono VARCHAR(15),
+    fecha_nacimiento DATE,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    activo BOOLEAN DEFAULT TRUE
+);
 
-    // Control de intentos
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (validarCamposLogin() && intentosFallidos < MAX_INTENTOS) {
-            CLogin objetoLogin = new CLogin();
-            boolean loginExitoso = objetoLogin.validaUsuario(txtUsuario, txtContrasenia);
-            
-            if (!loginExitoso) {
-                intentosFallidos++;
-                if (intentosFallidos >= MAX_INTENTOS) {
-                    JOptionPane.showMessageDialog(this,
-                        "❌ Demasiados intentos fallidos\nLa aplicación se cerrará.",
-                        "Seguridad", JOptionPane.ERROR_MESSAGE);
-                    System.exit(0);
-                }
-            }
-        }
-    }
-}</code></pre>
+-- =============================================
+-- TABLA: Cursos
+-- =============================================
+CREATE TABLE Cursos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_curso VARCHAR(100) NOT NULL,
+    nivel ENUM('A1', 'A2', 'B1', 'B2', 'C1', 'C2') NOT NULL,
+    descripcion TEXT,
+    profesor_id INT NOT NULL,
+    max_estudiantes INT DEFAULT 20,
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    activo BOOLEAN DEFAULT TRUE,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (profesor_id) REFERENCES Usuarios(id)
+);</code></pre>
           </div>
         </div>
 
         <button class="acordeon">
-          <i class="fas fa-user-plus"></i> Navegación a Registro
+          <i class="fas fa-link"></i> Tablas Relacionales
         </button>
         <div class="panel">
           <div class="codigo-resumido">
-            <pre><code>// Navegación fluida entre ventanas
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-    FormSignUp SignupFrame = new FormSignUp();
-    SignupFrame.setVisible(true);
-    SignupFrame.pack();
-    SignupFrame.setLocationRelativeTo(null);
-    this.dispose(); // Liberar recursos
-}</code></pre>
-          </div>
-        </div>
+            <div class="codigo-header">
+              <h4><i class="fas fa-project-diagram"></i> Tablas de Relaciones y Calificaciones</h4>
+            </div>
+            <pre><code>-- =============================================
+-- TABLA: Calificaciones
+-- =============================================
+CREATE TABLE Calificaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    estudiante_id INT NOT NULL,
+    curso_id INT NOT NULL,
+    habilidad ENUM('speaking', 'writing', 'reading', 'listening', 'grammar', 'vocabulary') NOT NULL,
+    puntaje DECIMAL(4,2) NOT NULL,
+    fecha_evaluacion DATE NOT NULL,
+    comentario TEXT,
+    tipo_evaluacion ENUM('examen', 'tarea', 'proyecto', 'participacion') DEFAULT 'examen',
+    periodo ENUM('Q1', 'Q2', 'Q3', 'Q4') NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
+    CHECK (puntaje >= 0 AND puntaje <= 20),
+    UNIQUE KEY unique_evaluacion (estudiante_id, curso_id, habilidad, fecha_evaluacion)
+);
 
-        <!-- Botones de acción -->
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana6" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Código Completo del Login
-          </a>
+-- =============================================
+-- TABLA: Inscripciones (Relación muchos a muchos)
+-- =============================================
+CREATE TABLE Inscripciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    estudiante_id INT NOT NULL,
+    curso_id INT NOT NULL,
+    fecha_inscripcion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado ENUM('activo', 'completado', 'cancelado') DEFAULT 'activo',
+    FOREIGN KEY (estudiante_id) REFERENCES Usuarios(id),
+    FOREIGN KEY (curso_id) REFERENCES Cursos(id),
+    UNIQUE KEY unique_inscripcion (estudiante_id, curso_id)
+);</code></pre>
+          </div>
         </div>
       </section>
 
-      <!-- Tarjeta Registro y Características -->
+      <!-- Tarjeta Datos y Consultas -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-user-plus"></i> Sistema de Registro</h2>
-        <p>Formulario complementario para el registro de nuevos usuarios con diferentes roles y validaciones específicas.</p>
+        <h2><i class="fas fa-server"></i> Datos de Ejemplo y Consultas</h2>
+        <p>Inserción de datos de prueba y consultas SQL para verificar el funcionamiento del sistema académico.</p>
 
+        <!-- Único acordeón que contiene todo el problema resuelto -->
         <button class="acordeon">
-          <i class="fas fa-edit"></i> Formulario de Registro
+          <i class="fas fa-lightbulb"></i> Datos de Ejemplo y Consultas
         </button>
         <div class="panel">
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-user-circle"></i> Clase FormSignUp</h4>
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-question-circle"></i> Descripción del Dataset</h4>
+            <p>Se han insertado datos de ejemplo completos que incluyen usuarios con diferentes roles (admin, profesor, estudiante), cursos organizados por niveles, inscripciones de estudiantes y calificaciones detalladas por habilidades específicas.</p>
+            
+            <h4><i class="fas fa-check-circle"></i> Datos Insertados</h4>
+            <p>El dataset incluye información realista para pruebas y demostración del sistema, con relaciones completas entre todas las tablas y datos que permiten realizar consultas complejas.</p>
+            
+            <!-- Inserción de Usuarios -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-users"></i> Inserción de Usuarios</h4>
+              </div>
+              <pre><code>-- Administradores
+INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email, telefono, fecha_nacimiento) VALUES
+('admin', 'admin123', 'admin', 'María González', 'maria.gonzalez@instituto.edu', '+1234567890', '1980-05-15'),
+('sistema', 'sistema456', 'admin', 'Carlos Rodríguez', 'carlos.rodriguez@instituto.edu', '+1234567891', '1975-08-22');
+
+-- Profesores
+INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email, telefono, fecha_nacimiento) VALUES
+('profe_ana', 'profe123', 'profesor', 'Ana Martínez', 'ana.martinez@instituto.edu', '+1234567892', '1985-03-10'),
+('profe_luis', 'profe456', 'profesor', 'Luis Fernández', 'luis.fernandez@instituto.edu', '+1234567893', '1978-11-30');
+
+-- Estudiantes
+INSERT INTO Usuarios (ingresoUsuario, ingresoContrasenia, rol, nombre, email, telefono, fecha_nacimiento) VALUES
+('est_juan', 'est123', 'estudiante', 'Juan Pérez', 'juan.perez@estudiante.edu', '+1234567895', '2000-01-20'),
+('est_maria', 'est456', 'estudiante', 'María López', 'maria.lopez@estudiante.edu', '+1234567896', '2001-03-15');</code></pre>
             </div>
-            <pre><code>public class FormSignUp extends javax.swing.JFrame {
 
-    public FormSignUp() {
-        initComponents();
-        setLocationRelativeTo(null);
-        // Configurar roles disponibles
-        comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(
-            new String[] { "estudiante", "profesor" }
-        ));
-    }
+            <!-- Inserción de Cursos -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-book"></i> Inserción de Cursos</h4>
+              </div>
+              <pre><code>INSERT INTO Cursos (nombre_curso, nivel, descripcion, profesor_id, max_estudiantes, fecha_inicio, fecha_fin) VALUES
+('Inglés Básico I', 'A1', 'Curso introductorio de inglés para principiantes. Enfoque en vocabulario esencial y conversación básica.', 3, 15, '2024-01-15', '2024-06-15'),
+('Inglés Intermedio', 'B1', 'Desarrollo de habilidades comunicativas intermedias. Gramática y conversación fluida.', 3, 12, '2024-01-15', '2024-06-15'),
+('Conversación Avanzada', 'C1', 'Perfeccionamiento del speaking y listening. Enfoque en fluidez y pronunciación.', 4, 10, '2024-02-01', '2024-07-01');</code></pre>
+            </div>
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {
-        CRegistro objetoRegistro = new CRegistro();
-        boolean registroExitoso = objetoRegistro.registrarUsuario(
-            txtNombre, txtUsuario, txtContrasenia1, txtEmail, comboRol
-        );
-        
-        if (registroExitoso) {
-            // Volver al login después del registro
-            FormLogin LoginFrame = new FormLogin();
-            LoginFrame.setVisible(true);
-            LoginFrame.setLocationRelativeTo(null);
-            this.dispose();
-        }
-    }
+            <!-- Consultas de Verificación -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-search"></i> Consultas de Verificación</h4>
+              </div>
+              <pre><code>-- Verificar usuarios por rol
+SELECT rol, COUNT(*) as total FROM Usuarios GROUP BY rol;
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {
-        FormLogin LoginFrame = new FormLogin();
-        LoginFrame.setVisible(true);
-        LoginFrame.setLocationRelativeTo(null);
-        this.dispose();
-    }
-}</code></pre>
+-- Verificar cursos y profesores
+SELECT c.nombre_curso, c.nivel, u.nombre as profesor 
+FROM Cursos c 
+JOIN Usuarios u ON c.profesor_id = u.id;
+
+-- Verificar calificaciones promedio por estudiante
+SELECT u.nombre as estudiante, c.nombre_curso, AVG(cal.puntaje) as promedio
+FROM Calificaciones cal
+JOIN Usuarios u ON cal.estudiante_id = u.id
+JOIN Cursos c ON cal.curso_id = c.id
+GROUP BY u.nombre, c.nombre_curso
+ORDER BY promedio DESC;</code></pre>
+            </div>
           </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-check-circle"></i> Validaciones Implementadas
-        </button>
-        <div class="panel">
-          <ul>
-            <li><strong>Campos Obligatorios:</strong> Todos los campos deben estar completos</li>
-            <li><strong>Formato de Email:</strong> Validación de estructura de correo electrónico</li>
-            <li><strong>Longitud Mínima:</strong> Contraseña de al menos 4 caracteres</li>
-            <li><strong>Usuario Único:</strong> Verificación de usuario no existente</li>
-            <li><strong>Sin Espacios:</strong> Usuario sin caracteres de espacio</li>
-          </ul>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-cogs"></i> Características Técnicas
-        </button>
-        <div class="panel">
-          <ul>
-            <li><strong>Arquitectura MVC:</strong> Separación clara entre vista y lógica</li>
-            <li><strong>Base de Datos:</strong> Integración con MySQL para persistencia</li>
-            <li><strong>Encriptación:</strong> Contraseñas almacenadas de forma segura</li>
-            <li><strong>Manejo de Errores:</strong> Excepciones controladas apropiadamente</li>
-            <li><strong>Interfaz Responsive:</strong> Adaptable a diferentes resoluciones</li>
-          </ul>
-        </div>
-
-        <div class="botones-accion">
-          <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana6" class="btn github" target="_blank">
-            <i class="fab fa-github"></i> Ver Código Completo del Registro
-          </a>
-        </div>
-
-        <div class="mensaje-informativo">
-          <p><i class="fas fa-lightbulb"></i> ¡Explora el sistema completo de autenticación en GitHub!</p>
+          
+          <hr class="separador">
+          
+          <!-- Sección de recursos -->
+          <div class="botones-accion">
+            <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana6" class="btn solucion" target="_blank">
+              <i class="fas fa-database"></i> Ver Base de Datos Completa
+            </a>
+          </div>
+          
+          <div class="mensaje-informativo">
+            <p><i class="fas fa-info-circle"></i> ¡Visita GitHub para explorar el script completo de la base de datos con todas las tablas, datos y consultas!</p>
+          </div>
         </div>
       </section>
     </div>
 
     <!-- Frase célebre -->
     <section class="encabezado-semana fade-in">
-      <blockquote>"La seguridad no es un producto, sino un proceso." – Bruce Schneier</blockquote>
+      <blockquote>"Los datos son el nuevo petróleo, pero la base de datos es el motor que lo procesa." – Anónimo</blockquote>
     </section>
 
     <!-- Botón de regresar -->
