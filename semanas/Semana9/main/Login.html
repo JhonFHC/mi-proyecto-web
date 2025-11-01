@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Tesis</title>
+    <style>
+        /* Variables CSS para colores y efectos */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cbc;
+            --accent-color: #ff7e5f;
+            --dark-color: #2c3e50;
+            --light-color: #f5f7fa;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado con partículas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        /* Contenedor principal */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tarjetas de formulario */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        /* Formularios */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background: #ff6b4a;
+        }
+
+        .link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .link:hover {
+            color: var(--secondary-color);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        /* Paneles de roles */
+        .panel {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .panel-title {
+            color: var(--dark-color);
+            font-size: 24px;
+        }
+
+        .logout-btn {
+            background: var(--danger-color);
+            padding: 8px 15px;
+            width: auto;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .dashboard-card {
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 20px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Selector de rol en registro */
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .role-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .role-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(74, 111, 165, 0.1);
+        }
+
+        .role-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                max-width: 100%;
+            }
+            
+            .panel {
+                padding: 20px;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo animado con partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Página de Login -->
+        <div class="card" id="login-card">
+            <div class="card-header">
+                <h2>Iniciar Sesión</h2>
+            </div>
+            <div class="card-body">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Correo Electrónico</label>
+                        <input type="email" id="login-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="Tu contraseña" required>
+                    </div>
+                    <button type="submit" class="btn">Iniciar Sesión</button>
+                </form>
+                <div class="text-center mt-20">
+                    <p>¿No tienes una cuenta? <a href="#" class="link" id="show-register">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Registro -->
+        <div class="card" id="register-card" style="display: none;">
+            <div class="card-header">
+                <h2>Crear Cuenta</h2>
+            </div>
+            <div class="card-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Nombre Completo</label>
+                        <input type="text" id="register-name" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Correo Electrónico</label>
+                        <input type="email" id="register-email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Contraseña</label>
+                        <input type="password" id="register-password" placeholder="Crea una contraseña segura" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Selecciona tu rol</label>
+                        <div class="role-selector">
+                            <div class="role-option" data-role="student">
+                                <div class="role-icon">🎓</div>
+                                <div>Estudiante</div>
+                            </div>
+                            <div class="role-option" data-role="teacher">
+                                <div class="role-icon">👨‍🏫</div>
+                                <div>Profesor</div>
+                            </div>
+                            <div class="role-option" data-role="admin">
+                                <div class="role-icon">⚙️</div>
+                                <div>Administrador</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="register-role" required>
+                    </div>
+                    <button type="submit" class="btn btn-accent">Crear Cuenta</button>
+                </form>
+                <div class="text-center mt-20">
+                    <p>¿Ya tienes una cuenta? <a href="#" class="link" id="show-login">Inicia sesión aquí</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Estudiante -->
+        <div class="panel" id="student-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Panel del Estudiante</h2>
+                <button class="btn logout-btn" id="logout-student">Cerrar Sesión</button>
+            </div>
+            <div class="user-info">
+                <div class="avatar">E</div>
+                <div>
+                    <h3 id="student-name">Nombre del Estudiante</h3>
+                    <p>Estudiante</p>
+                </div>
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <h3>Subir Tesis</h3>
+                    <p>Envía tu trabajo de investigación para evaluación</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Mis Tesis</h3>
+                    <p>Revisa el estado de tus tesis enviadas</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Calificaciones</h3>
+                    <p>Consulta las evaluaciones de tus trabajos</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Recursos</h3>
+                    <p>Accede a materiales y guías de apoyo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Profesor -->
+        <div class="panel" id="teacher-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Panel del Profesor</h2>
+                <button class="btn logout-btn" id="logout-teacher">Cerrar Sesión</button>
+            </div>
+            <div class="user-info">
+                <div class="avatar">P</div>
+                <div>
+                    <h3 id="teacher-name">Nombre del Profesor</h3>
+                    <p>Profesor</p>
+                </div>
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <h3>Evaluar Tesis</h3>
+                    <p>Revisa y califica los trabajos de los estudiantes</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Tesis Pendientes</h3>
+                    <p>Gestiona las tesis que requieren evaluación</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Historial</h3>
+                    <p>Consulta evaluaciones anteriores</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Comentarios</h3>
+                    <p>Proporciona retroalimentación a estudiantes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Administrador -->
+        <div class="panel" id="admin-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Panel de Administración</h2>
+                <button class="btn logout-btn" id="logout-admin">Cerrar Sesión</button>
+            </div>
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div>
+                    <h3 id="admin-name">Nombre del Administrador</h3>
+                    <p>Administrador</p>
+                </div>
+            </div>
+            <div class="dashboard">
+                <div class="dashboard-card">
+                    <h3>Gestión de Usuarios</h3>
+                    <p>Crear, editar y eliminar usuarios del sistema</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Configuración</h3>
+                    <p>Personaliza la plataforma y sus parámetros</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Reportes</h3>
+                    <p>Genera informes del uso del sistema</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Mantenimiento</h3>
+                    <p>Gestiona backups y actualizaciones</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crear partículas para el fondo animado
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 60 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posición aleatoria
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animación con delay aleatorio
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Navegación entre login y registro
+        document.getElementById('show-register').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-card').style.display = 'none';
+            document.getElementById('register-card').style.display = 'block';
+        });
+
+        document.getElementById('show-login').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('register-card').style.display = 'none';
+            document.getElementById('login-card').style.display = 'block';
+        });
+
+        // Selección de rol en registro
+        const roleOptions = document.querySelectorAll('.role-option');
+        const roleInput = document.getElementById('register-role');
+        
+        roleOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                roleOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                roleInput.value = this.getAttribute('data-role');
+            });
+        });
+
+        // Manejo del formulario de login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // En una aplicación real, aquí validarías las credenciales con el servidor
+            // Por ahora, simulamos un login exitoso con rol de estudiante
+            const email = document.getElementById('login-email').value;
+            
+            // Simulación: determinamos el rol basado en el email
+            let role = 'student';
+            if (email.includes('profesor')) role = 'teacher';
+            if (email.includes('admin')) role = 'admin';
+            
+            // Mostrar el panel correspondiente
+            showPanel(role, email.split('@')[0]);
+        });
+
+        // Manejo del formulario de registro
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const role = document.getElementById('register-role').value;
+            
+            if (!role) {
+                alert('Por favor selecciona un rol');
+                return;
+            }
+            
+            // En una aplicación real, aquí enviarías los datos al servidor
+            // Por ahora, simulamos un registro exitoso
+            showPanel(role, name);
+        });
+
+        // Función para mostrar el panel según el rol
+        function showPanel(role, name) {
+            // Ocultar todas las tarjetas y paneles
+            document.getElementById('login-card').style.display = 'none';
+            document.getElementById('register-card').style.display = 'none';
+            
+            // Mostrar el panel correspondiente
+            const panelId = `${role}-panel`;
+            document.getElementById(panelId).classList.add('active');
+            
+            // Actualizar el nombre en el panel
+            const nameElement = document.getElementById(`${role}-name`);
+            if (nameElement) {
+                nameElement.textContent = name;
+            }
+        }
+
+        // Botones de cierre de sesión
+        document.getElementById('logout-student').addEventListener('click', function() {
+            document.getElementById('student-panel').classList.remove('active');
+            document.getElementById('login-card').style.display = 'block';
+        });
+
+        document.getElementById('logout-teacher').addEventListener('click', function() {
+            document.getElementById('teacher-panel').classList.remove('active');
+            document.getElementById('login-card').style.display = 'block';
+        });
+
+        document.getElementById('logout-admin').addEventListener('click', function() {
+            document.getElementById('admin-panel').classList.remove('active');
+            document.getElementById('login-card').style.display = 'block';
+        });
+
+        // Inicializar la aplicación
+        window.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+</body>
+</html>

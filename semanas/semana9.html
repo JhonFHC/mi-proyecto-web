@@ -2,655 +2,927 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Semana 4 – Aplicaciones / Enunciados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 9 - Web Application (NetBeans, Maven)</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Acordeón */
+    /* MISMOS ESTILOS DE SEMANA 1 */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
     }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    .fila-dos-columnas {
+
+    .codigo-header {
       display: flex;
-      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados - MÁS LLAMATIVOS */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
       flex-wrap: wrap;
-      margin-bottom: 20px;
     }
-    .columna {
-      flex: 1 1 300px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
     }
-    .columna.izquierda {
-      max-width: 400px;
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
     }
-    .columna.derecha {
-      color: #ccc;
-      font-size: 0.95rem;
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen (nuevo para semana 9) */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .mensaje-informativo p {
+      color: #3b82f6;
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
     }
   </style>
+</head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="../tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
 
+  <canvas id="particles"></canvas>
+
   <main class="container">
-    <section class="frase-celebre">
-      <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-rocket"></i> Semana 9 - Web Application (NetBeans, Maven)</h1>
+      <p>Desarrollo de aplicaciones web con NetBeans y Maven - Implementación de sistema de login con roles y librerías CSS.</p>
     </section>
 
-    <section>
-      <h2>Semana 4 – Enunciados y Aplicaciones</h2>
-      <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">🔐</div>
+        <h4>Sistema de Login</h4>
+        <p>Autenticación con roles: Estudiante, Profesor y Administrador</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">🚪</div>
+        <h4>Ventanas por Rol</h4>
+        <p>Interfaces personalizadas según el tipo de usuario</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📚</div>
+        <h4>Librerías CSS</h4>
+        <p>4 librerías modernas para diseño web profesional</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">⚙️</div>
+        <h4>NetBeans & Maven</h4>
+        <p>Configuración y gestión de proyectos web</p>
+      </div>
+    </div>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Sistema de Login -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-sign-in-alt"></i> 1. Ventana de Ingreso Login con Roles</h2>
+        <p>Implementación de un sistema de autenticación con tres tipos de usuarios: Estudiante, Profesor y Administrador.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-user-shield"></i> Implementación del Sistema de Login
+        </button>
+        <div class="panel">
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-check-circle"></i> Características del Sistema</h4>
+            <p>El sistema de login implementado incluye validación de credenciales, manejo de sesiones y redirección según el rol del usuario.</p>
+            
+            <h4><i class="fas fa-code"></i> Estructura de Roles</h4>
+            <ul>
+              <li><strong>Estudiante:</strong> Acceso a recursos educativos y gestión personal</li>
+              <li><strong>Profesor:</strong> Herramientas de evaluación y gestión académica</li>
+              <li><strong>Administrador:</strong> Control total del sistema y gestión de usuarios</li>
+            </ul>
+
+            <!-- Código de Implementación -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-code"></i> Implementación Java - Clase Login</h4>
+              </div>
+              <pre><code>public class LoginController {
+    public boolean autenticarUsuario(String email, String password) {
+        // Validación de credenciales en base de datos
+        Usuario usuario = usuarioDAO.buscarPorEmail(email);
+        
+        if (usuario != null && 
+            BCrypt.checkpw(password, usuario.getPassword())) {
+            
+            // Establecer sesión según rol
+            HttpSession session = request.getSession();
+            session.setAttribute("rol", usuario.getRol());
+            session.setAttribute("nombre", usuario.getNombre());
+            
+            return true;
+        }
+        return false;
+    }
+    
+    public void redirigirSegunRol(HttpServletResponse response, String rol) 
+            throws IOException {
+        switch(rol) {
+            case "ESTUDIANTE":
+                response.sendRedirect("estudiante.jsp");
+                break;
+            case "PROFESOR":
+                response.sendRedirect("profesor.jsp");
+                break;
+            case "ADMIN":
+                response.sendRedirect("admin.jsp");
+                break;
+        }
+    }
+}</code></pre>
+            </div>
+
+            <!-- Formulario HTML -->
+            <div class="codigo-resumido">
+              <div class="codigo-header">
+                <h4><i class="fas fa-file-code"></i> Formulario de Login - JSP</h4>
+              </div>
+              <pre><code>&lt;form action="login" method="post" class="login-form"&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label for="email"&gt;Correo Electrónico&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" required&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="form-group"&gt;
+        &lt;label for="password"&gt;Contraseña&lt;/label&gt;
+        &lt;input type="password" id="password" name="password" required&gt;
+    &lt;/div&gt;
+    
+    &lt;button type="submit" class="btn btn-primary"&gt;
+        Iniciar Sesión
+    &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta Ventanas por Rol -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-desktop"></i> 2. Ventana para Cada Rol</h2>
+        <p>Interfaces personalizadas según el tipo de usuario con funcionalidades específicas para cada rol.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-user-graduate"></i> Panel de Estudiante
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Estudiante</h4>
+          <ul>
+            <li>Gestión de perfil académico</li>
+            <li>Consulta de calificaciones</li>
+            <li>Subida de tareas y proyectos</li>
+            <li>Visualización de horarios</li>
+            <li>Acceso a materiales de estudio</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> JSP - Panel Estudiante</h4>
+            </div>
+            <pre><code>&lt;div class="student-dashboard"&gt;
+    &lt;div class="welcome-section"&gt;
+        &lt;h2&gt;Bienvenido, ${sessionScope.nombre}&lt;/h2&gt;
+        &lt;p&gt;Rol: Estudiante&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="quick-actions"&gt;
+        &lt;div class="action-card" onclick="location.href='mis-cursos'"&gt;
+            &lt;i class="fas fa-book"&gt;&lt;/i&gt;
+            &lt;span&gt;Mis Cursos&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="action-card" onclick="location.href='calificaciones'"&gt;
+            &lt;i class="fas fa-chart-bar"&gt;&lt;/i&gt;
+            &lt;span&gt;Calificaciones&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-chalkboard-teacher"></i> Panel de Profesor
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Profesor</h4>
+          <ul>
+            <li>Gestión de cursos asignados</li>
+            <li>Calificación de estudiantes</li>
+            <li>Publicación de materiales</li>
+            <li>Control de asistencia</li>
+            <li>Generación de reportes</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> Servlet - Gestión de Cursos</h4>
+            </div>
+            <pre><code>@WebServlet("/profesor/cursos")
+public class GestionCursosServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, 
+                         HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        String profesorEmail = (String) request.getSession()
+                                .getAttribute("email");
+        List&lt;Curso&gt; cursos = cursoDAO.obtenerCursosPorProfesor(profesorEmail);
+        
+        request.setAttribute("cursos", cursos);
+        request.getRequestDispatcher("/profesor/cursos.jsp")
+               .forward(request, response);
+    }
+}</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-user-cog"></i> Panel de Administrador
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Administrador</h4>
+          <ul>
+            <li>Gestión completa de usuarios</li>
+            <li>Configuración del sistema</li>
+            <li>Generación de reportes globales</li>
+            <li>Backup y mantenimiento</li>
+            <li>Control de auditoría</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> JSP - Panel Administrador</h4>
+            </div>
+            <pre><code>&lt;div class="admin-panel"&gt;
+    &lt;div class="stats-overview"&gt;
+        &lt;div class="stat-card"&gt;
+            &lt;h3&gt;${totalUsuarios}&lt;/h3&gt;
+            &lt;p&gt;Usuarios Totales&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="stat-card"&gt;
+            &lt;h3&gt;${totalCursos}&lt;/h3&gt;
+            &lt;p&gt;Cursos Activos&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="admin-actions"&gt;
+        &lt;button onclick="gestionarUsuarios()" class="btn btn-warning"&gt;
+            Gestionar Usuarios
+        &lt;/button&gt;
+        &lt;button onclick="verReportes()" class="btn btn-info"&gt;
+            Ver Reportes
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Librerías CSS -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-palette"></i> 3. Librerías CSS para Desarrollo Web</h2>
+      <p>Exploración de 4 librerías CSS modernas que facilitan el desarrollo de interfaces web profesionales.</p>
+
+      <button class="acordeon">
+        <i class="fab fa-bootstrap"></i> Bootstrap 5
+      </button>
+      <div class="panel">
+        <h4>Características Principales</h4>
+        <ul>
+          <li><strong>Sistema de grid responsive:</strong> 12 columnas adaptable</li>
+          <li><strong>Componentes predefinidos:</strong> Navbars, cards, modals</li>
+          <li><strong>Utilidades CSS:</strong> Margin, padding, colors, flexbox</li>
+          <li><strong>JavaScript integrado:</strong> Componentes interactivos</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> Implementación en Maven</h4>
+          </div>
+          <pre><code>&lt;!-- En pom.xml --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.webjars&lt;/groupId&gt;
+    &lt;groupId&gt;bootstrap&lt;/groupId&gt;
+    &lt;version&gt;5.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- En JSP --&gt;
+&lt;link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" 
+      rel="stylesheet"&gt;
+&lt;script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+
+      <button class="acordeon">
+        <i class="fab fa-css3-alt"></i> Tailwind CSS
+      </button>
+      <div class="panel">
+        <h4>Ventajas de Tailwind CSS</h4>
+        <ul>
+          <li><strong>Enfoque utility-first:</strong> Clases CSS reutilizables</li>
+          <li><strong>Altamente personalizable:</strong> Configuración extensiva</li>
+          <li><strong>Responsive por diseño:</strong> Breakpoints integrados</li>
+          <li><strong>Performance optimizado:</strong> Purga de CSS no usado</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> Ejemplo de Uso</h4>
+          </div>
+          <pre><code>&lt;div class="max-w-md mx-auto bg-white rounded-xl 
+            shadow-md overflow-hidden md:max-w-2xl"&gt;
+    &lt;div class="md:flex"&gt;
+        &lt;div class="p-8"&gt;
+            &lt;div class="uppercase tracking-wide 
+                        text-sm text-indigo-500 
+                        font-semibold"&gt;
+                Sistema de Login
+            &lt;/div&gt;
+            &lt;p class="mt-2 text-gray-500"&gt;
+                Bienvenido al panel de control
+            &lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <button class="acordeon">
+        <i class="fas fa-gem"></i> Materialize CSS
+      </button>
+      <div class="panel">
+        <h4>Características de Material Design</h4>
+        <ul>
+          <li><strong>Diseño Material:</strong> Según especificaciones de Google</li>
+          <li><strong>Componentes animados:</strong> Transiciones fluidas</li>
+          <li><strong>Responsive:</strong> Adaptable a todos los dispositivos</li>
+          <li><strong>Fácil implementación:</strong> Clases intuitivas</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> Card con Materialize</h4>
+          </div>
+          <pre><code>&lt;div class="card"&gt;
+    &lt;div class="card-image"&gt;
+        &lt;img src="images/sample.jpg"&gt;
+        &lt;span class="card-title"&gt;Título de la Card&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="card-content"&gt;
+        &lt;p&gt;Contenido de la tarjeta con información relevante.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="card-action"&gt;
+        &lt;a href="#"&gt;Enlace de acción&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <button class="acordeon">
+        <i class="fas fa-leaf"></i> Bulma CSS
+      </button>
+      <div class="panel">
+        <h4>Ventajas de Bulma</h4>
+        <ul>
+          <li><strong>Basado en Flexbox:</strong> Layouts modernos y simples</li>
+          <li><strong>Sin JavaScript:</strong> Framework puramente CSS</li>
+          <li><strong>Modular:</strong> Importa solo lo que necesitas</li>
+          <li><strong>Comunidad activa:</strong> Extensiones y temas disponibles</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> Navbar con Bulma</h4>
+          </div>
+          <pre><code>&lt;nav class="navbar is-primary" role="navigation"&gt;
+    &lt;div class="navbar-brand"&gt;
+        &lt;a class="navbar-item" href="/"&gt;
+            &lt;strong&gt;Sistema Académico&lt;/strong&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="navbar-menu"&gt;
+        &lt;div class="navbar-start"&gt;
+            &lt;a class="navbar-item" href="/cursos"&gt;
+                Cursos
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+      </div>
     </section>
 
-    <!-- Acordeón para Enunciado 1 -->
-    <button class="acordeon">Ver Enunciado 1 (Main + Lógica / Vista)</button>
-    <div class="panel">
-      <h3>Enunciado 1 – Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado01;
-
-import Controlador.FiguraControlador;
-import Vista.CuadradoVista;
-
-public class Enunciado01 {
-    public static void main(String[] args) {
-        CuadradoVista vista = new CuadradoVista();
-        FiguraControlador controlador = new FiguraControlador(vista);
-        vista.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – FiguraControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.*;
-import Vista.CuadradoVista;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class FiguraControlador {
-    private Figura modelo;
-    private final CuadradoVista vista;
-
-    public FiguraControlador(CuadradoVista vista) {
-        this.vista = vista;
-
-        this.vista.agregarCalcularListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                calcular();
-            }
-        });
-
-        this.vista.agregarNuevoListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.limpiarCampos();
-            }
-        });
-
-        this.vista.agregarSairListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-    }
-
-    public void calcular() {
-        double lado = vista.obtenerLado();
-        String figura = vista.getFiguraSeleccionada();
-
-        switch (figura) {
-            case "cuadrado":
-                modelo = new Cuadrado(lado);
-                break;
-            case "circulo":
-                modelo = new Circulo(lado);
-                break;
-            case "triangulo":
-                modelo = new Triangulo(lado);
-                break;
-            default:
-                vista.mostrarResultados(0, 0);
-                return;
-        }
-
-        double area = modelo.calcularArea();
-        double perimetro = modelo.calcularPerimetro();
-        vista.mostrarResultados(area, perimetro);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – CuadradoVista</h4>
-      <pre><code>
-package Vista;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-public class CuadradoVista extends javax.swing.JFrame {
-    // Botones figura
-    private String figuraSeleccionada;
-    private PanelDibujo panelFigura;
-
-    public CuadradoVista() {
-        initComponents();
-        formulario();
-        this.setTitle("Área y Perímetro de Figuras");
-        setLocationRelativeTo(null); // Centra la ventana
-
-        btnCalcular.setEnabled(false);
-        btnNuevo.setEnabled(false);
-
-        btnSalir.addActionListener(e -> System.exit(0));
-
-        btnCuadrado.addActionListener(e -> seleccionarFigura("cuadrado"));
-        btnCirculo.addActionListener(e -> seleccionarFigura("circulo"));
-        btnTriangulo.addActionListener(e -> seleccionarFigura("triangulo"));
-
-        txtLado.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habilitarBotones();
-            }
-
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char key = evt.getKeyChar();
-                if (!Character.isDigit(key) && key != '.') {
-                    evt.consume();
-                }
-            }
-        });
-
-        btnNuevo.addActionListener(e -> limpiarCampos());
-
-        btnCalcular.addActionListener(e -> {
-            double lado = obtenerLado();
-            if (lado <= 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese un valor válido mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            double area = 0, perimetro = 0;
-            switch (figuraSeleccionada) {
-                case "cuadrado":
-                    area = lado * lado;
-                    perimetro = 4 * lado;
-                    break;
-                case "circulo":
-                    area = Math.PI * lado * lado;
-                    perimetro = 2 * Math.PI * lado;
-                    break;
-                case "triangulo":
-                    double altura = Math.sqrt(3) * lado / 2;
-                    area = (lado * altura) / 2;
-                    perimetro = 3 * lado;
-                    break;
-            }
-            mostrarResultados(area, perimetro);
-        });
-    }
-
-    // ... continúa con los métodos obtenerLado, limpiarCampos, etc.
-}
-      </code></pre>
-    </div>
-
-    <!-- Acordeón para Enunciado 2 -->
-    <button class="acordeon">Ver Enunciado 2 (Login / Conversión)</button>
-    <div class="panel">
-      <h3>Enunciado 2 – Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado02;
-
-import Controlador.LoginControlador;
-import Modelo.Usuario;
-import Vista.LoginVista;
-
-import javax.swing.*;
-import java.util.List;
-/**
- *
- * @author La Zona Vip
- */
-public class Enunciado02 {
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            List<Usuario> usuarios = List.of(
-                new Usuario("alumno1", "pass1", "ALUMNO"),
-                new Usuario("profesor1", "pass2", "PROFESOR")
-            );
-
-            LoginVista login = new LoginVista();
-            LoginControlador controlador = new LoginControlador(login, usuarios);
-            login.setVisible(true);
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – ConversionControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.*;
-import Vista.ConversionVista;
-import Vista.LoginVista;
-
-import java.util.List;
-
-public class ConversionControlador {
-    private ConversionVista vista;
-    private Usuario usuario;
-    private List<Usuario> usuarios;
-
-    public ConversionControlador(ConversionVista vista, Usuario usuario, List<Usuario> usuarios) {
-        this.vista = vista;
-        this.usuario = usuario;
-        this.usuarios = usuarios;
-
-        vista.setRol(usuario.getRol());
-
-        vista.agregarCalcularListener(e -> calcular());
-        vista.agregarGuardarSalirListener(e -> guardarYSalir());
-        vista.agregarEliminarListener(e -> eliminarTodo());
-
-        if ("PROFESOR".equalsIgnoreCase(usuario.getRol())) {
-            mostrarConversionesGuardadas();
-        }
-    }
-
-    private void calcular() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            vista.setResultado(valor + " " + origen + " = " + resultado + " " + destino);
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Por favor, ingrese un número válido.");
-        }
-    }
-
-    private double convertir(double valor, String origen, String destino) {
-        double valorEnMetros = switch (origen) {
-            case "cm" -> valor / 100;
-            case "mm" -> valor / 1000;
-            case "km" -> valor * 1000;
-            default -> valor;
-        };
-
-        return switch (destino) {
-            case "cm" -> valorEnMetros * 100;
-            case "mm" -> valorEnMetros * 1000;
-            case "km" -> valorEnMetros / 1000;
-            default -> valorEnMetros;
-        };
-    }
-
-    private void guardarYSalir() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            RepositorioConversiones.guardar(new Conversion(valor, origen, destino, resultado));
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Error al guardar: valor no numérico.");
-        }
-
-        volverAlLogin();
-    }
-
-    private void eliminarTodo() {
-        RepositorioConversiones.limpiarConversiones();
-        vista.setResultado("Conversiones eliminadas.");
-    }
-
-    private void mostrarConversionesGuardadas() {
-        StringBuilder sb = new StringBuilder();
-        for (Conversion c : RepositorioConversiones.obtenerConversiones()) {
-            sb.append(c.toString()).append("\n");
-        }
-        vista.mostrarConversiones(sb.toString());
-    }
-
-    private void volverAlLogin() {
-        vista.dispose();
-        LoginVista loginVista = new LoginVista();
-        new LoginControlador(loginVista, usuarios);
-        loginVista.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – LoginControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.Usuario;
-import Vista.LoginVista;
-import Vista.ConversionVista;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-public class LoginControlador {
-    private final LoginVista loginVista;
-    private final List<Usuario> usuarios;
-
-    public LoginControlador(LoginVista vista, List<Usuario> usuarios) {
-        this.loginVista = vista;
-        this.usuarios = usuarios;
-
-        this.loginVista.agregarLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login();
-            }
-        });
-    }
-
-    private void login() {
-        String usuario = loginVista.getUsuario();
-        String password = loginVista.getPassword();
-
-        Usuario userEncontrado = usuarios.stream()
-                .filter(u -> u.getUsername().equals(usuario) && u.getPassword().equals(password))
-                .findFirst()
-                .orElse(null);
-
-        if (userEncontrado == null) {
-            loginVista.setMensaje("Usuario o contraseña incorrectos.");
-        } else {
-            loginVista.setMensaje("Bienvenido " + userEncontrado.getUsername());
-            abrirConversionVista(userEncontrado);
-        }
-    }
-
-    private void abrirConversionVista(Usuario usuario) {
-        SwingUtilities.invokeLater(() -> {
-            ConversionVista conversionVista = new ConversionVista();
-            ConversionControlador conversionControlador = new ConversionControlador(conversionVista, usuario, usuarios);
-            conversionVista.setRol(usuario.getRol());
-            conversionVista.setVisible(true);
-            loginVista.dispose();
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Conversion</h4>
-      <pre><code>
-package Modelo;
-
-public class Conversion {
-    private double valor;
-    private String unidadOrigen;
-    private String unidadDestino;
-    private double resultado;
-
-    public Conversion(double valor, String unidadOrigen, String unidadDestino, double resultado) {
-        this.valor = valor;
-        this.unidadOrigen = unidadOrigen;
-        this.unidadDestino = unidadDestino;
-        this.resultado = resultado;
-    }
-
-    @Override
-    public String toString() {
-        return valor + " " + unidadOrigen + " = " + resultado + " " + unidadDestino;
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – RepositorioConversiones</h4>
-      <pre><code>
-package Modelo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RepositorioConversiones {
-    public static List<Conversion> conversiones = new ArrayList<>();
-
-    public static void guardar(Conversion c) {
-        conversiones.add(c);
-    }
-
-    public static List<Conversion> obtenerConversiones() {
-        return conversiones;
-    }
-
-    public static void limpiarConversiones() {
-        conversiones.clear();
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Usuario</h4>
-      <pre><code>
-package Modelo;
-
-public class Usuario {
-    private String username;
-    private String password;
-    private String rol; // "ALUMNO" o "PROFESOR"
-
-    public Usuario(String username, String password, String rol) {
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-}
-      </code></pre>
-    </div>
-
-    <!-- Acordeón para Vista Login -->
-    <button class="acordeon">Ver Vista – ConversionVista / LoginVista</button>
-    <div class="panel">
-      <h4>Vista – ConversionVista</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-public class ConversionVista extends JFrame {
-    // Aquí irían tus atributos y componentes Swing…
-    public ConversionVista() {
-        initComponents();
-        inicializarElementos();
-
-        btnCalcular.addActionListener(e -> {
-            // …
-        });
-    }
-
-    public String getValor() {
-        return txtValor.getText().trim();
-    }
-    public String getUnidadOrigen() {
-        return (String) cmbOrigen.getSelectedItem();
-    }
-    public String getUnidadDestino() {
-        return (String) cmbDestino.getSelectedItem();
-    }
-    public void setResultado(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void setRol(String rol) {
-        lblRol.setText("Rol: " + rol);
-        if ("PROFESOR".equalsIgnoreCase(rol)) {
-            txtValor.setEditable(false);
-            btnCalcular.setEnabled(false);
-            btnGuardarSalir.setVisible(false);
-        } else {
-            txtValor.setEditable(true);
-            btnCalcular.setEnabled(true);
-            btnGuardarSalir.setVisible(true);
-        }
-    }
-    public void agregarCalcularListener(ActionListener listener) {
-        btnCalcular.addActionListener(listener);
-    }
-    public void inicializarElementos() {
-        DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-
-        cmbOrigen.setRenderer(listRenderer);
-        cmbDestino.setRenderer(listRenderer);
-
-        cmbOrigen.removeAllItems();
-        cmbDestino.removeAllItems();
-
-        String[] unidades = {"m", "cm", "mm", "km"};
-        for (String unidad : unidades) {
-            cmbOrigen.addItem(unidad);
-            cmbDestino.addItem(unidad);
-        }
-
-        cmbOrigen.setSelectedIndex(0);
-        cmbDestino.setSelectedIndex(1);
-    }
-    public void mostrarConversiones(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void agregarGuardarSalirListener(ActionListener listener) {
-        btnGuardarSalir.addActionListener(listener);
-    }
-    public void agregarEliminarListener(ActionListener listener) {
-        btnEliminarTodo.addActionListener(listener);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – LoginVista</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-public class LoginVista extends javax.swing.JFrame {
-    public LoginVista() {
-        initComponents();
-
-        btnLogin.addActionListener(e -> {
-            // …
-        });
-    }
-    public String getUsuario() {
-        return txtUsuario.getText().trim();
-    }
-    public String getPassword() {
-        return new String(txtPassword.getPassword());
-    }
-    public void setMensaje(String mensaje) {
-        lblMensaje.setText(mensaje);
-    }
-    public void agregarLoginListener(ActionListener listener) {
-        btnLogin.addActionListener(listener);
-    }
-}
-      </code></pre>
-    </div>
+    <!-- Configuración NetBeans y Maven -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-cogs"></i> Configuración NetBeans y Maven</h2>
+      <p>Configuración del entorno de desarrollo para proyectos web con NetBeans y gestión de dependencias con Maven.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-project-diagram"></i> Estructura de Proyecto Maven
+      </button>
+      <div class="panel">
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-folder"></i> Estructura del Proyecto</h4>
+          </div>
+          <pre><code>sistema-academico/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/empresa/sistema/
+│       │       ├── controllers/
+│       │       ├── models/
+│       │       ├── dao/
+│       │       └── filters/
+│       ├── webapp/
+│       │   ├── WEB-INF/
+│       │   ├── css/
+│       │   ├── js/
+│       │   ├── estudiante/
+│       │   ├── profesor/
+│       │   └── admin/
+│       └── resources/
+├── target/
+└── pom.xml</code></pre>
+        </div>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> Configuración pom.xml</h4>
+          </div>
+          <pre><code>&lt;project&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;com.empresa&lt;/groupId&gt;
+    &lt;artifactId&gt;sistema-academico&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    
+    &lt;dependencies&gt;
+        &lt;!-- Servlet API --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- JSTL --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+            &lt;version&gt;1.2&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- MySQL Connector --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;8.0.33&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
   </main>
 
   <script>
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
       });
-      // Inicializar con “Ver …” si no tiene
-      if (!btn.textContent.startsWith('Ver')) {
-        btn.textContent = 'Ver ' + btn.textContent;
-      }
     });
   </script>
 </body>
