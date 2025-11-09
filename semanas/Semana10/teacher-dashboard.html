@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Panel de Profesor - Sistema de Evaluación de Tesis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+</head>
+<body class="teacher-dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo">
+                    <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 0L24.5 8V16L12.5 20L0.5 16V8L12.5 0Z" fill="white" />
+                        <path d="M12.5 6L18.5 10V14L12.5 18L6.5 14V10L12.5 6Z" fill="#2563EB" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>EvalTesis</h1>
+                    <p>Panel de Profesor</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 0L16 6V12L8 18L0 12V6L8 0Z" fill="#374151" />
+                        <path d="M8 4L12 6V10L8 12L4 10V6L8 4Z" fill="white" />
+                    </svg>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar"></div>
+                    <span>Dra. María García</span>
+                    <button class="logout-btn" onclick="window.location.href='index.html'">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="container">
+                <h2>Bienvenida, Dra. García</h2>
+                <p>Gestiona tus evaluaciones de tesis y asignaciones</p>
+            </div>
+        </section>
+
+        <!-- Stats Overview -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card info">
+                        <div class="stat-header">
+                            <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 0L17.5 6V18L9 24L0.5 18V6L9 0Z" fill="#1D4ED8" />
+                                <path d="M9 8L13 10V14L9 16L5 14V10L9 8Z" fill="white" />
+                            </svg>
+                        </div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-detail">Total Asignadas</div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L22 8V16L12 22L2 16V8L12 2Z" fill="#CA8A04" />
+                                <path d="M12 6L16 8V12L12 14L8 12V8L12 6Z" fill="white" />
+                            </svg>
+                        </div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-detail">Pendientes de Revisión</div>
+                    </div>
+                    
+                    <div class="stat-card orange">
+                        <div class="stat-header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L22 8V16L12 22L2 16V8L12 2Z" fill="#EA580C" />
+                                <path d="M12 6L16 8V12L12 14L8 12V8L12 6Z" fill="white" />
+                            </svg>
+                        </div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-detail">En Evaluación</div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <svg width="21" height="24" viewBox="0 0 21 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.5 0L20.5 6V18L10.5 24L0.5 18V6L10.5 0Z" fill="#16A34A" />
+                                <path d="M10.5 8L14.5 10V14L10.5 16L6.5 14V10L10.5 8Z" fill="white" />
+                            </svg>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-detail">Completadas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assignments Section -->
+        <section class="assignments-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Asignaciones Actuales</h3>
+                    <div class="filter-options">
+                        <select class="filter-select">
+                            <option>Todos los Estados</option>
+                            <option>Pendiente</option>
+                            <option>En Evaluación</option>
+                            <option>Completada</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="assignments-table">
+                    <div class="table-header">
+                        <div>Estudiante</div>
+                        <div>Título de Tesis</div>
+                        <div>Estado</div>
+                        <div>Fecha Límite</div>
+                        <div>Acciones</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="user-cell">
+                            <div class="user-avatar small"></div>
+                            <div class="user-info">
+                                <p>Juan Pérez</p>
+                                <span>IA en Salud</span>
+                            </div>
+                        </div>
+                        <div>Aplicaciones de Machine Learning en Diagnóstico Médico</div>
+                        <div><span class="status-badge pending">Pendiente</span></div>
+                        <div class="date-cell">
+                            <p>15 Dic, 2024</p>
+                            <span class="warning">5 días restantes</span>
+                        </div>
+                        <div class="actions-cell">
+                            <button class="btn-primary small">Iniciar Evaluación</button>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="user-cell">
+                            <div class="user-avatar small"></div>
+                            <div class="user-info">
+                                <p>Ana López</p>
+                                <span>Seguridad Blockchain</span>
+                            </div>
+                        </div>
+                        <div>Framework Seguro de Blockchain para Transacciones Financieras</div>
+                        <div><span class="status-badge evaluating">En Evaluación</span></div>
+                        <div class="date-cell">
+                            <p>20 Dic, 2024</p>
+                            <span class="warning">10 días restantes</span>
+                        </div>
+                        <div class="actions-cell">
+                            <button class="btn-secondary small">Continuar</button>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="user-cell">
+                            <div class="user-avatar small"></div>
+                            <div class="user-info">
+                                <p>Carlos Rodríguez</p>
+                                <span>Análisis de Datos</span>
+                            </div>
+                        </div>
+                        <div>Análisis de Big Data para Inteligencia de Negocios</div>
+                        <div><span class="status-badge completed">Completada</span></div>
+                        <div class="date-cell">
+                            <p>30 Nov, 2024</p>
+                            <span class="success">Completada</span>
+                        </div>
+                        <div class="actions-cell">
+                            <button class="btn-outline small">Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Review Section -->
+        <section class="next-review-section">
+            <div class="container">
+                <h3>Próxima a Revisar</h3>
+                <div class="review-card urgent">
+                    <div class="review-header">
+                        <div class="thesis-info">
+                            <h4>IA en Sistemas Educativos</h4>
+                            <p>Laura Martínez • Ciencias de la Computación</p>
+                        </div>
+                        <div class="urgency-badge">Urgente</div>
+                    </div>
+                    <div class="review-details">
+                        <div class="detail">
+                            <span>Fecha de Envío:</span>
+                            <span>25 de Noviembre, 2024</span>
+                        </div>
+                        <div class="detail">
+                            <span>Fecha Límite:</span>
+                            <span class="warning">15 de Diciembre, 2024 (2 días)</span>
+                        </div>
+                        <div class="detail">
+                            <span>Páginas:</span>
+                            <span>85 páginas</span>
+                        </div>
+                    </div>
+                    <div class="review-actions">
+                        <button class="btn-primary">Iniciar Evaluación</button>
+                        <button class="btn-outline">Solicitar Extensión</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Tools -->
+        <section class="tools-section">
+            <div class="container">
+                <h3>Herramientas de Evaluación</h3>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L22 8V16L12 22L2 16V8L12 2Z" fill="#2563EB" />
+                                <path d="M12 6L16 8V12L12 14L8 12V8L12 6Z" fill="white" />
+                            </svg>
+                        </div>
+                        <h4>Formulario de Evaluación</h4>
+                        <p>Accede al formulario estándar de evaluación</p>
+                        <button class="btn-primary">Abrir Formulario</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L22 8V16L12 22L2 16V8L12 2Z" fill="#16A34A" />
+                                <path d="M12 6L16 8V12L12 14L8 12V8L12 6Z" fill="white" />
+                            </svg>
+                        </div>
+                        <h4>Guía de Rúbrica</h4>
+                        <p>Consulta criterios y lineamientos de evaluación</p>
+                        <button class="btn-primary">Ver Guía</button>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L22 8V16L12 22L2 16V8L12 2Z" fill="#7C3AED" />
+                                <path d="M12 6L16 8V12L12 14L8 12V8L12 6Z" fill="white" />
+                            </svg>
+                        </div>
+                        <h4>Evaluaciones Anteriores</h4>
+                        <p>Accede a tus evaluaciones pasadas</p>
+                        <button class="btn-primary">Ver Historial</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 0L21.5 6V12L11 18L0.5 12V6L11 0Z" fill="#2563EB" />
+                            <path d="M11 4L15.5 7V11L11 14L6.5 11V7L11 4Z" fill="white" />
+                        </svg>
+                    </div>
+                    <div class="footer-text">
+                        <h3>Sistema EvalTesis</h3>
+                        <p>Portal de Profesores</p>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2024 Sistema Universitario de Evaluación de Tesis</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/teacher-dashboard.js"></script>
+</body>
+</html>

@@ -2,655 +2,972 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Semana 4 – Aplicaciones / Enunciados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 10 - Mejoras en Sistema de Evaluación de Tesis</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* Acordeón */
+    /* MISMOS ESTILOS DE SEMANA 1 */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas - SIN ALTURA MÁXIMA FIJA */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+      /* REMOVIMOS max-height y overflow */
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
     .acordeon {
-      background-color: #00ffc3;
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
       color: #000;
       cursor: pointer;
-      padding: 14px;
+      padding: 18px 20px;
       width: 100%;
       border: none;
       text-align: left;
       outline: none;
       font-size: 1.1rem;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     .acordeon:hover {
-      background-color: #00cfa3;
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
     }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
+    /* PANEL CON EXPANSIÓN NATURAL - SIN SCROLL FIJO */
     .panel {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
-      padding: 0 18px;
-      border-left: 3px solid #00ffc3;
-      color: #ccc;
-      margin-bottom: 20px;
-      border-radius: 0 0 5px 5px;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
     }
-    pre {
+
+    .panel.active {
+      padding: 20px;
+      /* QUITAMOS max-height fija y overflow-y */
+      /* La altura se calculará automáticamente con JS */
+    }
+
+    /* SCROLL SOLO PARA CONTENIDOS ESPECÍFICOS */
+    .panel-con-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 4px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-thumb {
+      background: #00ffc3;
+      border-radius: 4px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-thumb:hover {
+      background: #00cfa3;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
       background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+      overflow-x: auto; /* Scroll horizontal para código */
+    }
+
+    .codigo-resumido pre {
       color: #0ff;
-      padding: 10px;
-      overflow-x: auto;
-      border-radius: 5px;
+      margin: 0;
       font-size: 0.9rem;
+      line-height: 1.4;
+      min-width: max-content;
     }
-    .btn {
-      background-color: #00ffc3;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #00cfa3;
-    }
-    .fila-dos-columnas {
+
+    .codigo-header {
       display: flex;
-      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
       flex-wrap: wrap;
-      margin-bottom: 20px;
     }
-    .columna {
-      flex: 1 1 300px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
     }
-    .columna.izquierda {
-      max-width: 400px;
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
     }
-    .columna.derecha {
-      color: #ccc;
-      font-size: 0.95rem;
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Mensaje informativo */
+    .mensaje-informativo {
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid #3b82f6;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .mensaje-informativo p {
+      color: #3b82f6;
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Estilos para el problema resuelto */
+    .problema-resuelto {
+      background: rgba(0, 255, 195, 0.05);
+      border: 2px solid #00ffc3;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.1);
+    }
+
+    .problema-resuelto h4 {
+      color: #00ffc3;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problema-resuelto p {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Separador visual */
+    .separador {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ffc3, transparent);
+      margin: 25px 0;
+      border: none;
+    }
+
+    /* TABLA COMPARATIVA CON SCROLL HORIZONTAL SOLO */
+    .tabla-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      max-height: 400px; /* Scroll vertical solo si es necesario */
+      overflow-y: auto;
+    }
+
+    .tabla-comparativa {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    .tabla-comparativa th {
+      background: #00ffc3;
+      color: #000;
+      padding: 15px;
+      text-align: left;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      white-space: nowrap;
+    }
+
+    .tabla-comparativa td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #334155;
+      color: #cbd5e1;
+      white-space: nowrap;
+    }
+
+    .tabla-comparativa tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tabla-comparativa tr:hover {
+      background: rgba(0, 255, 195, 0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+      
+      .tabla-container {
+        margin: 10px -10px;
+        border-radius: 0;
+        max-height: 300px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tarjeta-tema {
+        padding: 20px;
+      }
+      
+      .panel.active {
+        padding: 15px;
+      }
+      
+      .acordeon {
+        padding: 15px;
+        font-size: 1rem;
+      }
     }
   </style>
+</head>
 <body>
   <nav class="navbar">
-    <a href="../interfaz.html"><i class="fas fa-home"></i> Casa</a>
-    <a href="../tareas.html"><i class="fas fa-tasks"></i> Tareas por Semanas</a>
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
   </nav>
 
+  <canvas id="particles"></canvas>
+
   <main class="container">
-    <section class="frase-celebre">
-      <blockquote>“La constancia conquista todo.” – Séneca</blockquote>
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-rocket"></i> Semana 10 - Mejoras en Sistema de Evaluación de Tesis</h1>
+      <p>Optimización de interfaces con herramientas UX/UI y mejoras funcionales en el sistema de roles y evaluaciones.</p>
     </section>
 
-    <section>
-      <h2>Semana 4 – Enunciados y Aplicaciones</h2>
-      <p>En esta semana desarrollarás las aplicaciones propuestas en los enunciados con interfaces gráficas, realizando lógica de negocio y validaciones.</p>
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">🎨</div>
+        <h4>Herramientas UX/UI</h4>
+        <p>Análisis comparativo de herramientas de diseño profesional</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">👨‍🎓</div>
+        <h4>Panel Estudiante</h4>
+        <p>Visualización de resultados y gestión académica</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">👨‍🏫</div>
+        <h4>Panel Profesor</h4>
+        <p>Evaluación de tesis y gestión de asignaciones</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">⚙️</div>
+        <h4>Panel Administrador</h4>
+        <p>CRUD completo y gestión del sistema</p>
+      </div>
+    </div>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Herramientas UX/UI -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-palette"></i> 1. Herramientas UX/UI para Diseño Profesional</h2>
+        <p>Análisis comparativo de las principales herramientas de diseño de interfaces y experiencia de usuario utilizadas en el desarrollo moderno.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-chart-bar"></i> Cuadro Comparativo de Herramientas UX/UI
+        </button>
+        <div class="panel">
+          <div class="problema-resuelto">
+            <h4><i class="fas fa-check-circle"></i> Comparativa de Características</h4>
+            <p>Evaluación de las 6 herramientas más populares en el mercado actual para diseño de interfaces.</p>
+            
+            <!-- TABLA CON SCROLL HORIZONTAL -->
+            <div class="tabla-container">
+              <table class="tabla-comparativa">
+                <thead>
+                  <tr>
+                    <th>Herramienta</th>
+                    <th>Precio</th>
+                    <th>Plataforma</th>
+                    <th>Colaboración</th>
+                    <th>Prototipado</th>
+                    <th>Integraciones</th>
+                    <th>Learning Curve</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Figma</strong></td>
+                    <td>Gratis/Premium</td>
+                    <td>Web, Windows, Mac</td>
+                    <td>Excelente</td>
+                    <td>Avanzado</td>
+                    <td>Extensas</td>
+                    <td>Baja</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Adobe XD</strong></td>
+                    <td>Adobe Creative Cloud</td>
+                    <td>Windows, Mac</td>
+                    <td>Buena</td>
+                    <td>Avanzado</td>
+                    <td>Adobe Suite</td>
+                    <td>Media</td>
+                  </tr>
+                  <tr>
+                    <td><strong>InVision</strong></td>
+                    <td>Freemium</td>
+                    <td>Web</td>
+                    <td>Excelente</td>
+                    <td>Básico</td>
+                    <td>Limitadas</td>
+                    <td>Baja</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Axure RP</strong></td>
+                    <td>Premium</td>
+                    <td>Windows, Mac</td>
+                    <td>Buena</td>
+                    <td>Muy Avanzado</td>
+                    <td>Básicas</td>
+                    <td>Alta</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sketch</strong></td>
+                    <td>Premium</td>
+                    <td>Mac Only</td>
+                    <td>Buena</td>
+                    <td>Básico</td>
+                    <td>Extensas</td>
+                    <td>Media</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mockup</strong></td>
+                    <td>Varía</td>
+                    <td>Multiplataforma</td>
+                    <td>Variable</td>
+                    <td>Básico</td>
+                    <td>Limitadas</td>
+                    <td>Baja</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4><i class="fas fa-lightbulb"></i> Recomendaciones para el Proyecto</h4>
+            <ul>
+              <li><strong>Figma:</strong> Ideal para colaboración en equipo y diseño responsive</li>
+              <li><strong>Adobe XD:</strong> Excelente integración con otros productos Adobe</li>
+              <li><strong>InVision:</strong> Perfecto para prototipado rápido y feedback</li>
+              <li><strong>Axure RP:</strong> Para prototipos complejos con lógica avanzada</li>
+            </ul>
+          </div>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-link"></i> Enlace al Prototipo en Figma</h4>
+            </div>
+            <pre><code>https://www.figma.com/design/6qliDhcMuVb76T62zYSBWv/Musho-AI--Community---Community-?node-id=0-1&m=dev&t=qxvtAxmJZv4vDv4W-1</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta Mejoras del Sistema -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-cogs"></i> 2. Mejoras en el Sistema de Evaluación</h2>
+        <p>Optimizaciones implementadas en el sistema de login, paneles de usuario y funcionalidades específicas por rol.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-user-graduate"></i> Panel de Estudiante - Mejoras Implementadas
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Estudiante</h4>
+          <ul>
+            <li><strong>Visualización de Resultados:</strong> Consulta detallada de calificaciones y evaluaciones</li>
+            <li><strong>Seguimiento de Progreso:</strong> Timeline interactivo del proceso de evaluación</li>
+            <li><strong>Feedback del Evaluador:</strong> Comentarios detallados y constructivos</li>
+            <li><strong>Descarga de Documentos:</strong> Reportes completos en formato PDF</li>
+            <li><strong>Solicitud de Aclaraciones:</strong> Comunicación directa con evaluadores</li>
+            <li><strong>Historial Académico:</strong> Acceso a evaluaciones anteriores</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> Estructura de Datos - Estudiante</h4>
+            </div>
+            <pre><code>// Modelo de datos del estudiante
+const studentData = {
+  personalInfo: {
+    name: "Juan Pérez",
+    email: "juan.perez@universidad.edu",
+    department: "Ciencias de la Computación",
+    enrollmentDate: "2022-03-15"
+  },
+  thesis: {
+    title: "Aplicaciones de Machine Learning en Diagnóstico Médico",
+    status: "evaluated",
+    submissionDate: "2024-11-15",
+    evaluator: "Dra. María García"
+  },
+  evaluation: {
+    finalScore: 85,
+    grade: "A-",
+    criteria: [
+      { name: "Calidad de Investigación", score: 42, maxScore: 50 },
+      { name: "Metodología", score: 38, maxScore: 50 },
+      { name: "Redacción y Presentación", score: 45, maxScore: 50 }
+    ],
+    feedback: "Excelente trabajo en la implementación...",
+    completionDate: "2024-12-10"
+  }
+};</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-chalkboard-teacher"></i> Panel de Profesor - Mejoras Implementadas
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Profesor</h4>
+          <ul>
+            <li><strong>Gestión de Evaluaciones:</strong> Lista completa de tesis asignadas</li>
+            <li><strong>Sistema de Prioridades:</strong> Identificación de evaluaciones urgentes</li>
+            <li><strong>Herramientas de Calificación:</strong> Formularios de evaluación estandarizados</li>
+            <li><strong>Seguimiento de Progreso:</strong> Control de evaluaciones en curso</li>
+            <li><strong>Comunicación:</strong> Sistema de feedback para estudiantes</li>
+            <li><strong>Historial de Evaluaciones:</strong> Acceso a evaluaciones anteriores</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> Lógica de Evaluación - Profesor</h4>
+            </div>
+            <pre><code>// Sistema de gestión de evaluaciones
+class ThesisEvaluation {
+  constructor(thesisId, studentId, professorId) {
+    this.thesisId = thesisId;
+    this.studentId = studentId;
+    this.professorId = professorId;
+    this.status = "assigned"; // assigned, in-progress, completed
+    this.dueDate = this.calculateDueDate();
+    this.criteria = this.initializeCriteria();
+  }
+
+  calculateDueDate() {
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 30); // 30 días para evaluar
+    return dueDate;
+  }
+
+  initializeCriteria() {
+    return [
+      { name: "Calidad de Investigación", weight: 0.3, score: 0 },
+      { name: "Metodología", weight: 0.25, score: 0 },
+      { name: "Originalidad", weight: 0.2, score: 0 },
+      { name: "Redacción", weight: 0.15, score: 0 },
+      { name: "Aportes", weight: 0.1, score: 0 }
+    ];
+  }
+
+  calculateFinalScore() {
+    return this.criteria.reduce((total, criterion) => {
+      return total + (criterion.score * criterion.weight);
+    }, 0);
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <button class="acordeon">
+          <i class="fas fa-user-cog"></i> Panel de Administrador - Mejoras Implementadas
+        </button>
+        <div class="panel">
+          <h4>Funcionalidades del Administrador</h4>
+          <ul>
+            <li><strong>CRUD Completo:</strong> Crear, leer, actualizar y eliminar usuarios</li>
+            <li><strong>Asignación de Evaluadores:</strong> Gestión inteligente de asignaciones</li>
+            <li><strong>Gestión de Tesis:</strong> Upload y organización de documentos</li>
+            <li><strong>Seguimiento de Estados:</strong> Inicio, evaluando, completado</li>
+            <li><strong>Reportes y Analytics:</strong> Métricas del sistema</li>
+            <li><strong>Configuración del Sistema:</strong> Parámetros y calendarios</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-code"></i> Sistema de Gestión - Administrador</h4>
+            </div>
+            <pre><code>// Gestión de usuarios y asignaciones
+class AdminSystem {
+  constructor() {
+    this.users = [];
+    this.theses = [];
+    this.evaluations = [];
+  }
+
+  // CRUD de usuarios
+  createUser(userData) {
+    const newUser = {
+      id: this.generateId(),
+      ...userData,
+      createdAt: new Date(),
+      status: 'active'
+    };
+    this.users.push(newUser);
+    return newUser;
+  }
+
+  // Asignación automática de evaluadores
+  assignEvaluator(thesisId, professorId) {
+    const thesis = this.theses.find(t => t.id === thesisId);
+    const professor = this.users.find(u => u.id === professorId && u.role === 'professor');
+    
+    if (thesis && professor) {
+      const evaluation = new ThesisEvaluation(thesisId, thesis.studentId, professorId);
+      this.evaluations.push(evaluation);
+      thesis.status = 'assigned';
+      return evaluation;
+    }
+    return null;
+  }
+
+  // Gestión de estados
+  updateThesisStatus(thesisId, newStatus) {
+    const thesis = this.theses.find(t => t.id === thesisId);
+    if (thesis && ['submitted', 'assigned', 'evaluating', 'completed'].includes(newStatus)) {
+      thesis.status = newStatus;
+      thesis.updatedAt = new Date();
+      return true;
+    }
+    return false;
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Implementación Técnica -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-laptop-code"></i> 3. Implementación Técnica y Código</h2>
+      <p>Detalles técnicos de la implementación del sistema mejorado con ejemplos de código y estructura.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-mobile-alt"></i> Diseño Responsive y UX Mejorada
+      </button>
+      <div class="panel">
+        <h4>Principios de Diseño Implementados</h4>
+        <ul>
+          <li><strong>Mobile-First:</strong> Diseño optimizado para dispositivos móviles</li>
+          <li><strong>Accesibilidad:</strong> Cumplimiento de estándares WCAG 2.1</li>
+          <li><strong>Navegación Intuitiva:</strong> Flujo de usuario optimizado</li>
+          <li><strong>Feedback Visual:</strong> Estados de carga y confirmación</li>
+          <li><strong>Performance:</strong> Carga optimizada y lazy loading</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-code"></i> CSS Responsive - Grid System</h4>
+          </div>
+          <pre><code>/* Sistema de grid responsive */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* Media queries para diferentes breakpoints */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+        </div>
+      </div>
     </section>
 
-    <!-- Acordeón para Enunciado 1 -->
-    <button class="acordeon">Ver Enunciado 1 (Main + Lógica / Vista)</button>
-    <div class="panel">
-      <h3>Enunciado 1 – Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado01;
-
-import Controlador.FiguraControlador;
-import Vista.CuadradoVista;
-
-public class Enunciado01 {
-    public static void main(String[] args) {
-        CuadradoVista vista = new CuadradoVista();
-        FiguraControlador controlador = new FiguraControlador(vista);
-        vista.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – FiguraControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.*;
-import Vista.CuadradoVista;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class FiguraControlador {
-    private Figura modelo;
-    private final CuadradoVista vista;
-
-    public FiguraControlador(CuadradoVista vista) {
-        this.vista = vista;
-
-        this.vista.agregarCalcularListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                calcular();
-            }
-        });
-
-        this.vista.agregarNuevoListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                vista.limpiarCampos();
-            }
-        });
-
-        this.vista.agregarSairListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-    }
-
-    public void calcular() {
-        double lado = vista.obtenerLado();
-        String figura = vista.getFiguraSeleccionada();
-
-        switch (figura) {
-            case "cuadrado":
-                modelo = new Cuadrado(lado);
-                break;
-            case "circulo":
-                modelo = new Circulo(lado);
-                break;
-            case "triangulo":
-                modelo = new Triangulo(lado);
-                break;
-            default:
-                vista.mostrarResultados(0, 0);
-                return;
-        }
-
-        double area = modelo.calcularArea();
-        double perimetro = modelo.calcularPerimetro();
-        vista.mostrarResultados(area, perimetro);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – CuadradoVista</h4>
-      <pre><code>
-package Vista;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-public class CuadradoVista extends javax.swing.JFrame {
-    // Botones figura
-    private String figuraSeleccionada;
-    private PanelDibujo panelFigura;
-
-    public CuadradoVista() {
-        initComponents();
-        formulario();
-        this.setTitle("Área y Perímetro de Figuras");
-        setLocationRelativeTo(null); // Centra la ventana
-
-        btnCalcular.setEnabled(false);
-        btnNuevo.setEnabled(false);
-
-        btnSalir.addActionListener(e -> System.exit(0));
-
-        btnCuadrado.addActionListener(e -> seleccionarFigura("cuadrado"));
-        btnCirculo.addActionListener(e -> seleccionarFigura("circulo"));
-        btnTriangulo.addActionListener(e -> seleccionarFigura("triangulo"));
-
-        txtLado.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                habilitarBotones();
-            }
-
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char key = evt.getKeyChar();
-                if (!Character.isDigit(key) && key != '.') {
-                    evt.consume();
-                }
-            }
-        });
-
-        btnNuevo.addActionListener(e -> limpiarCampos());
-
-        btnCalcular.addActionListener(e -> {
-            double lado = obtenerLado();
-            if (lado <= 0) {
-                JOptionPane.showMessageDialog(this, "Ingrese un valor válido mayor que 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            double area = 0, perimetro = 0;
-            switch (figuraSeleccionada) {
-                case "cuadrado":
-                    area = lado * lado;
-                    perimetro = 4 * lado;
-                    break;
-                case "circulo":
-                    area = Math.PI * lado * lado;
-                    perimetro = 2 * Math.PI * lado;
-                    break;
-                case "triangulo":
-                    double altura = Math.sqrt(3) * lado / 2;
-                    area = (lado * altura) / 2;
-                    perimetro = 3 * lado;
-                    break;
-            }
-            mostrarResultados(area, perimetro);
-        });
-    }
-
-    // ... continúa con los métodos obtenerLado, limpiarCampos, etc.
-}
-      </code></pre>
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana10" class="btn solucion" target="_blank">
+        <i class="fab fa-github"></i> Ver Proyecto Completo en GitHub
+      </a>
+      <a href="https://www.figma.com/design/6qliDhcMuVb76T62zYSBWv/Musho-AI--Community---Community-?node-id=0-1&m=dev&t=qxvtAxmJZv4vDv4W-1" class="btn" target="_blank">
+        <i class="fab fa-figma"></i> Ver Prototipo en Figma
+      </a>
     </div>
 
-    <!-- Acordeón para Enunciado 2 -->
-    <button class="acordeon">Ver Enunciado 2 (Login / Conversión)</button>
-    <div class="panel">
-      <h3>Enunciado 2 – Java Main Class</h3>
-      <pre><code>
-package com.zonajava.enunciado02;
-
-import Controlador.LoginControlador;
-import Modelo.Usuario;
-import Vista.LoginVista;
-
-import javax.swing.*;
-import java.util.List;
-/**
- *
- * @author La Zona Vip
- */
-public class Enunciado02 {
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            List<Usuario> usuarios = List.of(
-                new Usuario("alumno1", "pass1", "ALUMNO"),
-                new Usuario("profesor1", "pass2", "PROFESOR")
-            );
-
-            LoginVista login = new LoginVista();
-            LoginControlador controlador = new LoginControlador(login, usuarios);
-            login.setVisible(true);
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – ConversionControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.*;
-import Vista.ConversionVista;
-import Vista.LoginVista;
-
-import java.util.List;
-
-public class ConversionControlador {
-    private ConversionVista vista;
-    private Usuario usuario;
-    private List<Usuario> usuarios;
-
-    public ConversionControlador(ConversionVista vista, Usuario usuario, List<Usuario> usuarios) {
-        this.vista = vista;
-        this.usuario = usuario;
-        this.usuarios = usuarios;
-
-        vista.setRol(usuario.getRol());
-
-        vista.agregarCalcularListener(e -> calcular());
-        vista.agregarGuardarSalirListener(e -> guardarYSalir());
-        vista.agregarEliminarListener(e -> eliminarTodo());
-
-        if ("PROFESOR".equalsIgnoreCase(usuario.getRol())) {
-            mostrarConversionesGuardadas();
-        }
-    }
-
-    private void calcular() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            vista.setResultado(valor + " " + origen + " = " + resultado + " " + destino);
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Por favor, ingrese un número válido.");
-        }
-    }
-
-    private double convertir(double valor, String origen, String destino) {
-        double valorEnMetros = switch (origen) {
-            case "cm" -> valor / 100;
-            case "mm" -> valor / 1000;
-            case "km" -> valor * 1000;
-            default -> valor;
-        };
-
-        return switch (destino) {
-            case "cm" -> valorEnMetros * 100;
-            case "mm" -> valorEnMetros * 1000;
-            case "km" -> valorEnMetros / 1000;
-            default -> valorEnMetros;
-        };
-    }
-
-    private void guardarYSalir() {
-        try {
-            double valor = Double.parseDouble(vista.getValor());
-            String origen = vista.getUnidadOrigen();
-            String destino = vista.getUnidadDestino();
-            double resultado = convertir(valor, origen, destino);
-
-            RepositorioConversiones.guardar(new Conversion(valor, origen, destino, resultado));
-        } catch (NumberFormatException ex) {
-            vista.setResultado("Error al guardar: valor no numérico.");
-        }
-
-        volverAlLogin();
-    }
-
-    private void eliminarTodo() {
-        RepositorioConversiones.limpiarConversiones();
-        vista.setResultado("Conversiones eliminadas.");
-    }
-
-    private void mostrarConversionesGuardadas() {
-        StringBuilder sb = new StringBuilder();
-        for (Conversion c : RepositorioConversiones.obtenerConversiones()) {
-            sb.append(c.toString()).append("\n");
-        }
-        vista.mostrarConversiones(sb.toString());
-    }
-
-    private void volverAlLogin() {
-        vista.dispose();
-        LoginVista loginVista = new LoginVista();
-        new LoginControlador(loginVista, usuarios);
-        loginVista.setVisible(true);
-    }
-}
-      </code></pre>
-
-      <h4>Controlador – LoginControlador</h4>
-      <pre><code>
-package Controlador;
-
-import Modelo.Usuario;
-import Vista.LoginVista;
-import Vista.ConversionVista;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-public class LoginControlador {
-    private final LoginVista loginVista;
-    private final List<Usuario> usuarios;
-
-    public LoginControlador(LoginVista vista, List<Usuario> usuarios) {
-        this.loginVista = vista;
-        this.usuarios = usuarios;
-
-        this.loginVista.agregarLoginListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login();
-            }
-        });
-    }
-
-    private void login() {
-        String usuario = loginVista.getUsuario();
-        String password = loginVista.getPassword();
-
-        Usuario userEncontrado = usuarios.stream()
-                .filter(u -> u.getUsername().equals(usuario) && u.getPassword().equals(password))
-                .findFirst()
-                .orElse(null);
-
-        if (userEncontrado == null) {
-            loginVista.setMensaje("Usuario o contraseña incorrectos.");
-        } else {
-            loginVista.setMensaje("Bienvenido " + userEncontrado.getUsername());
-            abrirConversionVista(userEncontrado);
-        }
-    }
-
-    private void abrirConversionVista(Usuario usuario) {
-        SwingUtilities.invokeLater(() -> {
-            ConversionVista conversionVista = new ConversionVista();
-            ConversionControlador conversionControlador = new ConversionControlador(conversionVista, usuario, usuarios);
-            conversionVista.setRol(usuario.getRol());
-            conversionVista.setVisible(true);
-            loginVista.dispose();
-        });
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Conversion</h4>
-      <pre><code>
-package Modelo;
-
-public class Conversion {
-    private double valor;
-    private String unidadOrigen;
-    private String unidadDestino;
-    private double resultado;
-
-    public Conversion(double valor, String unidadOrigen, String unidadDestino, double resultado) {
-        this.valor = valor;
-        this.unidadOrigen = unidadOrigen;
-        this.unidadDestino = unidadDestino;
-        this.resultado = resultado;
-    }
-
-    @Override
-    public String toString() {
-        return valor + " " + unidadOrigen + " = " + resultado + " " + unidadDestino;
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – RepositorioConversiones</h4>
-      <pre><code>
-package Modelo;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RepositorioConversiones {
-    public static List<Conversion> conversiones = new ArrayList<>();
-
-    public static void guardar(Conversion c) {
-        conversiones.add(c);
-    }
-
-    public static List<Conversion> obtenerConversiones() {
-        return conversiones;
-    }
-
-    public static void limpiarConversiones() {
-        conversiones.clear();
-    }
-}
-      </code></pre>
-
-      <h4>Modelo – Usuario</h4>
-      <pre><code>
-package Modelo;
-
-public class Usuario {
-    private String username;
-    private String password;
-    private String rol; // "ALUMNO" o "PROFESOR"
-
-    public Usuario(String username, String password, String rol) {
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-}
-      </code></pre>
-    </div>
-
-    <!-- Acordeón para Vista Login -->
-    <button class="acordeon">Ver Vista – ConversionVista / LoginVista</button>
-    <div class="panel">
-      <h4>Vista – ConversionVista</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-public class ConversionVista extends JFrame {
-    // Aquí irían tus atributos y componentes Swing…
-    public ConversionVista() {
-        initComponents();
-        inicializarElementos();
-
-        btnCalcular.addActionListener(e -> {
-            // …
-        });
-    }
-
-    public String getValor() {
-        return txtValor.getText().trim();
-    }
-    public String getUnidadOrigen() {
-        return (String) cmbOrigen.getSelectedItem();
-    }
-    public String getUnidadDestino() {
-        return (String) cmbDestino.getSelectedItem();
-    }
-    public void setResultado(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void setRol(String rol) {
-        lblRol.setText("Rol: " + rol);
-        if ("PROFESOR".equalsIgnoreCase(rol)) {
-            txtValor.setEditable(false);
-            btnCalcular.setEnabled(false);
-            btnGuardarSalir.setVisible(false);
-        } else {
-            txtValor.setEditable(true);
-            btnCalcular.setEnabled(true);
-            btnGuardarSalir.setVisible(true);
-        }
-    }
-    public void agregarCalcularListener(ActionListener listener) {
-        btnCalcular.addActionListener(listener);
-    }
-    public void inicializarElementos() {
-        DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
-        listRenderer.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-
-        cmbOrigen.setRenderer(listRenderer);
-        cmbDestino.setRenderer(listRenderer);
-
-        cmbOrigen.removeAllItems();
-        cmbDestino.removeAllItems();
-
-        String[] unidades = {"m", "cm", "mm", "km"};
-        for (String unidad : unidades) {
-            cmbOrigen.addItem(unidad);
-            cmbDestino.addItem(unidad);
-        }
-
-        cmbOrigen.setSelectedIndex(0);
-        cmbDestino.setSelectedIndex(1);
-    }
-    public void mostrarConversiones(String texto) {
-        txtResultado.setText(texto);
-    }
-    public void agregarGuardarSalirListener(ActionListener listener) {
-        btnGuardarSalir.addActionListener(listener);
-    }
-    public void agregarEliminarListener(ActionListener listener) {
-        btnEliminarTodo.addActionListener(listener);
-    }
-}
-      </code></pre>
-
-      <h4>Vista – LoginVista</h4>
-      <pre><code>
-package Vista;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-
-public class LoginVista extends javax.swing.JFrame {
-    public LoginVista() {
-        initComponents();
-
-        btnLogin.addActionListener(e -> {
-            // …
-        });
-    }
-    public String getUsuario() {
-        return txtUsuario.getText().trim();
-    }
-    public String getPassword() {
-        return new String(txtPassword.getPassword());
-    }
-    public void setMensaje(String mensaje) {
-        lblMensaje.setText(mensaje);
-    }
-    public void agregarLoginListener(ActionListener listener) {
-        btnLogin.addActionListener(listener);
-    }
-}
-      </code></pre>
-    </div>
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
   </main>
 
   <script>
-    const acordeones = document.querySelectorAll('.acordeon');
-    acordeones.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active');
-        const panel = btn.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-          btn.textContent = btn.textContent.replace('Ocultar', 'Ver');
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          btn.textContent = btn.textContent.replace('Ver', 'Ocultar');
-        }
+    // Funcionalidad de acordeones MEJORADA
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.classList.contains('active')) {
+            // Cerrar panel
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            // Abrir panel - calcular altura automáticamente
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+            
+            // Scroll suave hacia el acordeón si está cerca del borde inferior
+            const rect = btn.getBoundingClientRect();
+            if (rect.bottom > window.innerHeight - 100) {
+              btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
       });
-      // Inicializar con “Ver …” si no tiene
-      if (!btn.textContent.startsWith('Ver')) {
-        btn.textContent = 'Ver ' + btn.textContent;
-      }
     });
   </script>
 </body>

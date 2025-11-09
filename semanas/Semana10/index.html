@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Sistema de Evaluación de Tesis - Iniciar Sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" />
+    <link rel="stylesheet" href="./css/login.css" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo">
+                    <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 0L29.5 8V16L15 24L0.5 16V8L15 0Z" fill="url(#gradient)" />
+                        <path d="M15 6L21 10V14L15 18L9 14V10L15 6Z" fill="white" />
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#4F46E5" />
+                                <stop offset="100%" stop-color="#7C3AED" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h1 class="title">Sistema de Evaluación de Tesis</h1>
+                <p class="subtitle">Inicia sesión para acceder a tu panel</p>
+            </div>
+
+            <div class="form-section">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <div class="input-container">
+                            <input type="email" id="email" placeholder="tu.correo@ejemplo.com" class="form-input" required>
+                            <div class="input-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 3.5C2 2.67157 2.67157 2 3.5 2H12.5C13.3284 2 14 2.67157 14 3.5V12.5C14 13.3284 13.3284 14 12.5 14H3.5C2.67157 14 2 13.3284 2 12.5V3.5Z" stroke="#6B7280" stroke-width="1.5"/>
+                                    <path d="M2 4.5L7.58579 8.79289C7.96086 9.05857 8.43914 9.05857 8.81421 8.79289L14.5 4.5" stroke="#6B7280" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <div class="input-container">
+                            <input type="password" id="password" placeholder="••••••••" class="form-input" required>
+                            <div class="input-icon">
+                                <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.5 7.5V4.5C11.5 2.29086 9.70914 0.5 7.5 0.5C5.29086 0.5 3.5 2.29086 3.5 4.5V7.5" stroke="#6B7280" stroke-width="1.5"/>
+                                    <rect x="1" y="7" width="13" height="8" rx="2" stroke="#6B7280" stroke-width="1.5"/>
+                                    <circle cx="7" cy="11" r="1" fill="#6B7280"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="form-label">Iniciar Sesión Como</label>
+                        <div class="select-container">
+                            <select id="role" class="form-select" required>
+                                <option value="" disabled selected>Selecciona tu rol</option>
+                                <option value="student">Estudiante</option>
+                                <option value="teacher">Profesor</option>
+                                <option value="admin">Administrador</option>
+                            </select>
+                            <div class="select-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 6L8 10L12 6" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">Recordarme</span>
+                        </label>
+                        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="login-button">Iniciar Sesión</button>
+                </form>
+
+                <div class="register-link">
+                    <p>¿No tienes una cuenta? <a href="frame1.html" id="registerLink">Regístrate aquí</a></p>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2024 Sistema de Evaluación de Tesis. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            
+            // Validación básica
+            if (!email || !password || !role) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            // Guardar datos de usuario en sessionStorage
+            const userData = {
+                email: email,
+                role: role,
+                name: role === 'student' ? 'Juan Pérez' : 
+                      role === 'teacher' ? 'Dr. María García' : 'Usuario Admin',
+                loginTime: new Date().toISOString()
+            };
+            
+            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+            
+            // Redirección basada en el rol
+            switch(role) {
+                case 'student':
+                    window.location.href = 'student-dashboard.html';
+                    break;
+                case 'teacher':
+                    window.location.href = 'teacher-dashboard.html';
+                    break;
+                case 'admin':
+                    window.location.href = 'admin-dashboard.html';
+                    break;
+                default:
+                    alert('Por favor selecciona un rol válido');
+            }
+        });
+
+        // Navegación al registro
+        document.getElementById('registerLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'frame1.html';
+        });
+    </script>
+</body>
+</html>
