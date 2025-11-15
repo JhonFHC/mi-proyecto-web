@@ -10,7 +10,7 @@ const semanas = [
   "Proyecto Integrado Completo",
   "Web Application (NetBeans, Maven)",
   "Mejoras en Sistema de Evaluación de Tesis",
-  "Estructuras de Control y Funciones",
+  "Arquitectura MVC del Sistema",
   "DOM y Manipulación de Elementos",
   "Eventos en JavaScript",
   "Arreglos y Objetos en JavaScript",
