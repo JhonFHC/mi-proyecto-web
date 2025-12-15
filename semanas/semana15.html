@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 15 - Proyecto Final</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
+  <style>
+    /* MISMOS ESTILOS DE SEMANAS ANTERIORES */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
+    .acordeon {
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
+      color: #000;
+      cursor: pointer;
+      padding: 18px 20px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .acordeon:hover {
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
+    }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
+      background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Diagrama de Arquitectura */
+    .arquitectura-container {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 1px solid #334155;
+    }
+
+    .arquitectura-container h3 {
+      color: #00ffc3;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .niveles-arquitectura {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nivel {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .nivel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .nivel-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    .nivel-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .nivel-item {
+      background: rgba(0, 255, 195, 0.05);
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      border: 1px solid #334155;
+    }
+
+    /* Capturas de Pantalla */
+    .capturas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .captura-item {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+    }
+
+    .captura-item:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .captura-img {
+      width: 100%;
+      height: 200px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ffc3;
+      font-size: 3rem;
+    }
+
+    .captura-info {
+      padding: 15px;
+    }
+
+    .captura-info h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+    }
+
+    .captura-info p {
+      color: #cbd5e1;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Tabla de Características */
+    .tabla-caracteristicas-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .tabla-caracteristicas {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    .tabla-caracteristicas th {
+      background: #00ffc3;
+      color: #000;
+      padding: 15px;
+      text-align: left;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .tabla-caracteristicas td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #334155;
+      color: #cbd5e1;
+    }
+
+    .tabla-caracteristicas tr:hover {
+      background: rgba(0, 255, 195, 0.05);
+    }
+
+    .check {
+      color: #00ffc3;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+
+      .nivel-content {
+        grid-template-columns: 1fr;
+      }
+
+      .capturas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-trophy"></i> Semana 15 - Proyecto Final</h1>
+      <p>Sistema Completo de Evaluación de Tesis - Implementación final con arquitectura MVC, base de datos MySQL y sistema de 38 criterios.</p>
+    </section>
+
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">🏗️</div>
+        <h4>Arquitectura MVC</h4>
+        <p>Patrón Modelo-Vista-Controlador implementado</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📊</div>
+        <h4>38 Criterios</h4>
+        <p>Sistema completo de evaluación académica</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">👥</div>
+        <h4>4 Roles</h4>
+        <p>Estudiante, Asesor, Jurado, Administrador</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">🚀</div>
+        <h4>100% Funcional</h4>
+        <p>Sistema completo y listo para producción</p>
+      </div>
+    </div>
+
+    <!-- Arquitectura del Sistema -->
+    <div class="arquitectura-container fade-in">
+      <h3><i class="fas fa-sitemap"></i> Arquitectura del Sistema - Patrón MVC</h3>
+      
+      <div class="niveles-arquitectura">
+        <div class="nivel">
+          <div class="nivel-header">
+            <i class="fas fa-eye"></i>
+            <h4>Nivel 1: VISTA (JSP)</h4>
+          </div>
+          <div class="nivel-content">
+            <div class="nivel-item">login.jsp - Autenticación</div>
+            <div class="nivel-item">dashboard.jsp - Panel principal</div>
+            <div class="nivel-item">tesis.jsp - Gestión documentos</div>
+            <div class="nivel-item">evaluacion.jsp - Calificación</div>
+            <div class="nivel-item">reportes.jsp - Análisis estadístico</div>
+            <div class="nivel-item">usuarios.jsp - Administración</div>
+          </div>
+        </div>
+        
+        <div class="nivel">
+          <div class="nivel-header">
+            <i class="fas fa-cogs"></i>
+            <h4>Nivel 2: CONTROLADOR (Servlet)</h4>
+          </div>
+          <div class="nivel-content">
+            <div class="nivel-item">LoginServlet.java - Autenticación</div>
+            <div class="nivel-item">TesisServlet.java - CRUD tesis</div>
+            <div class="nivel-item">UsuarioServlet.java - Gestión usuarios</div>
+            <div class="nivel-item">EvaluacionServlet.java - Sistema 38 criterios</div>
+            <div class="nivel-item">ReporteServlet.java - Generación PDF/Excel</div>
+            <div class="nivel-item">AuthFilter.java - Seguridad</div>
+          </div>
+        </div>
+        
+        <div class="nivel">
+          <div class="nivel-header">
+            <i class="fas fa-database"></i>
+            <h4>Nivel 3: MODELO & DAO</h4>
+          </div>
+          <div class="nivel-content">
+            <div class="nivel-item">Usuario.java - Modelo usuarios</div>
+            <div class="nivel-item">Tesis.java - Modelo documentos</div>
+            <div class="nivel-item">Evaluacion.java - Modelo calificaciones</div>
+            <div class="nivel-item">DatabaseConnection.java - Conexión BD</div>
+            <div class="nivel-item">UsuarioDAO.java - CRUD usuarios</div>
+            <div class="nivel-item">TesisDAO.java - CRUD tesis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Estructura del Proyecto -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-folder-tree"></i> 1. Estructura del Proyecto</h2>
+        <p>Organización completa del sistema en NetBeans con Maven.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-project-diagram"></i> Estructura Física del Proyecto
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-folder"></i> SistemaEvaluacionTesis/</h4>
+            </div>
+            <pre><code>SistemaEvaluacionTesis/
+│
+├── pom.xml                    ← Configuración Maven
+├── nb-configuration.xml       ← Configuración NetBeans
+│
+├── src/main/java/
+│   └── com/zonajava/sistemaevaluaciontesis/
+│
+│       ├── controller/          ← SERVLETS (Controladores)
+│       │   ├── LoginServlet.java
+│       │   ├── DashboardServlet.java
+│       │   ├── TesisServlet.java
+│       │   ├── EvaluacionServlet.java
+│       │   ├── EvaluacionAsesorServlet.java
+│       │   └── UsuarioServlet.java
+│       │
+│       ├── dao/                 ← ACCESO A DATOS (DAOs)
+│       │   ├── DatabaseConnection.java
+│       │   ├── UsuarioDAO.java
+│       │   ├── TesisDAO.java
+│       │   ├── EvaluacionDAO.java
+│       │   ├── CriterioDAO.java
+│       │   └── DetalleEvaluacionDAO.java
+│       │
+│       ├── model/               ← MODELOS (POJOs)
+│       │   ├── Usuario.java
+│       │   ├── Tesis.java
+│       │   ├── Evaluacion.java
+│       │   ├── CriterioEvaluacion.java
+│       │   └── DetalleEvaluacion.java
+│       │
+│       ├── filters/             ← FILTROS
+│       │   └── AuthFilter.java
+│       │
+│       └── util/                ← UTILIDADES
+│           ├── PDFGenerator.java
+│           └── ExcelExporter.java
+│
+└── src/main/webapp/            ← RECURSOS WEB
+    │
+    ├── META-INF/
+    │   └── context.xml
+    │
+    ├── WEB-INF/
+    │   ├── web.xml
+    │   └── beans.xml
+    │
+    ├── css/
+    │   └── global.css
+    │
+    ├── js/
+    │   └── main.js
+    │
+    ├── uploads/                 ← ARCHIVOS SUBIDOS
+    │   ├── tesis/
+    │   └── profile/
+    │
+    └── vistas/                  ← JSPs (Vistas)
+        ├── login.jsp
+        ├── error404.jsp
+        ├── error500.jsp
+        │
+        ├── estudiante/          ← Vistas Estudiante
+        │   ├── dashboard.jsp
+        │   └── tesis.jsp
+        │
+        ├── asesor/              ← Vistas Asesor
+        │   ├── dashboard.jsp
+        │   └── evaluacion.jsp
+        │
+        ├── jurado/              ← Vistas Jurado
+        │   ├── dashboard.jsp
+        │   └── evaluacion.jsp
+        │
+        └── admin/               ← Vistas Administrador
+            ├── dashboard.jsp
+            ├── usuarios.jsp
+            └── reportes.jsp</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta Configuración Maven -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-cogs"></i> 2. Configuración Maven</h2>
+        <p>Gestión de dependencias y configuración del proyecto con Apache Maven.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-file-code"></i> pom.xml - Dependencias
+        </button>
+        <div class="panel">
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> pom.xml - Configuración Principal</h4>
+            </div>
+            <pre><code>&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;com.zonajava&lt;/groupId&gt;
+    &lt;artifactId&gt;SistemaEvaluacionTesis&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    
+    &lt;properties&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    
+    &lt;dependencies&gt;
+        &lt;!-- Jakarta EE --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;5.0.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet.jsp&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet.jsp-api&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- JSTL --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet.jsp.jstl&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet.jsp.jstl-api&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.glassfish.web&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet.jsp.jstl&lt;/artifactId&gt;
+            &lt;version&gt;3.0.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- MySQL Connector --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;8.0.33&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- iText PDF --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.itextpdf&lt;/groupId&gt;
+            &lt;artifactId&gt;itext7-core&lt;/artifactId&gt;
+            &lt;version&gt;7.2.5&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- Apache POI para Excel --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+            &lt;version&gt;5.2.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- Logging --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+            &lt;version&gt;2.0.7&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    &lt;build&gt;
+        &lt;finalName&gt;${project.artifactId}&lt;/finalName&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.3.2&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Capturas de Pantalla -->
+    <div class="capturas-grid fade-in">
+      <div class="captura-item">
+        <div class="captura-img">
+          <i class="fas fa-sign-in-alt"></i>
+        </div>
+        <div class="captura-info">
+          <h4>Login y Autenticación</h4>
+          <p>Sistema seguro de acceso con roles y validación</p>
+        </div>
+      </div>
+      
+      <div class="captura-item">
+        <div class="captura-img">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <div class="captura-info">
+          <h4>Panel Estudiante</h4>
+          <p>Gestión de tesis, seguimiento y comunicación</p>
+        </div>
+      </div>
+      
+      <div class="captura-item">
+        <div class="captura-img">
+          <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <div class="captura-info">
+          <h4>Panel Jurado</h4>
+          <p>Sistema de evaluación con 38 criterios detallados</p>
+        </div>
+      </div>
+      
+      <div class="captura-item">
+        <div class="captura-img">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+        <div class="captura-info">
+          <h4>Reportes y Analytics</h4>
+          <p>Dashboard con métricas y exportación PDF/Excel</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Características del Sistema -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-list-check"></i> 3. Características Implementadas</h2>
+      <p>Funcionalidades completas del sistema de evaluación de tesis.</p>
+
+      <div class="tabla-caracteristicas-container">
+        <table class="tabla-caracteristicas">
+          <thead>
+            <tr>
+              <th>Módulo</th>
+              <th>Característica</th>
+              <th>Estado</th>
+              <th>Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Autenticación</strong></td>
+              <td>Sistema de login con 4 roles</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>Estudiante, Asesor, Jurado, Administrador</td>
+            </tr>
+            <tr>
+              <td><strong>Gestión de Tesis</strong></td>
+              <td>CRUD completo de documentos</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>5 estados: Borrador, Enviada, Evaluación, Aprobada, Rechazada</td>
+            </tr>
+            <tr>
+              <td><strong>Evaluación</strong></td>
+              <td>Sistema de 38 criterios</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>Puntaje 0-1 por criterio, calificación final 0-20</td>
+            </tr>
+            <tr>
+              <td><strong>Reportes</strong></td>
+              <td>Dashboard administrativo</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>Métricas, gráficos, exportación PDF/Excel</td>
+            </tr>
+            <tr>
+              <td><strong>Usuarios</strong></td>
+              <td>Administración completa</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>CRUD usuarios, asignación de roles</td>
+            </tr>
+            <tr>
+              <td><strong>Base de Datos</strong></td>
+              <td>MySQL con 6 tablas</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>Relaciones, índices, datos de prueba</td>
+            </tr>
+            <tr>
+              <td><strong>Seguridad</strong></td>
+              <td>Filtros y validaciones</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>AuthFilter, sesiones, control de acceso</td>
+            </tr>
+            <tr>
+              <td><strong>Interfaz</strong></td>
+              <td>Responsive design</td>
+              <td><span class="check">✅ COMPLETO</span></td>
+              <td>Bootstrap 5, CSS personalizado</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Manual de Instalación -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-book"></i> 4. Manual de Instalación</h2>
+      <p>Guía paso a paso para desplegar el sistema en producción.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-server"></i> Requisitos del Sistema
+      </button>
+      <div class="panel">
+        <h4>Stack Tecnológico Requerido</h4>
+        <ul>
+          <li><strong>Servidor de Aplicaciones:</strong> Apache Tomcat 10+</li>
+          <li><strong>Base de Datos:</strong> MySQL 8.0+</li>
+          <li><strong>Java:</strong> JDK 11+</li>
+          <li><strong>Maven:</strong> 3.6+ (para compilación)</li>
+          <li><strong>Sistema Operativo:</strong> Windows/Linux/macOS</li>
+          <li><strong>Memoria RAM:</strong> Mínimo 2GB recomendado</li>
+          <li><strong>Almacenamiento:</strong> 500MB para aplicación y datos</li>
+        </ul>
+      </button>
+
+      <button class="acordeon">
+        <i class="fas fa-database"></i> Configuración Base de Datos
+      </button>
+      <div class="panel">
+        <h4>Pasos para Configurar MySQL</h4>
+        <ol>
+          <li><strong>Instalar MySQL 8.0+</strong> desde mysql.com</li>
+          <li><strong>Crear base de datos:</strong>
+            <div class="codigo-resumido">
+              <pre><code>CREATE DATABASE sistema_evaluacion_tesis 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></pre>
+            </div>
+          </li>
+          <li><strong>Crear usuario y permisos:</strong>
+            <div class="codigo-resumido">
+              <pre><code>CREATE USER 'gestion'@'localhost' IDENTIFIED BY 'admin123';
+GRANT ALL PRIVILEGES ON sistema_evaluacion_tesis.* TO 'gestion'@'localhost';
+FLUSH PRIVILEGES;</code></pre>
+            </div>
+          </li>
+          <li><strong>Ejecutar script SQL:</strong> BSGestion.sql</li>
+          <li><strong>Verificar datos:</strong> 38 criterios creados automáticamente</li>
+        </ol>
+      </button>
+
+      <button class="acordeon">
+        <i class="fas fa-code"></i> Configuración del Proyecto
+      </button>
+      <div class="panel">
+        <h4>Pasos para Desplegar en Tomcat</h4>
+        <ol>
+          <li><strong>Clonar repositorio:</strong>
+            <div class="codigo-resumido">
+              <pre><code>git clone https://github.com/JhonFHC/SistemaEvaluacionTesis.git</code></pre>
+            </div>
+          </li>
+          <li><strong>Compilar con Maven:</strong>
+            <div class="codigo-resumido">
+              <pre><code>cd SistemaEvaluacionTesis
+mvn clean package</code></pre>
+            </div>
+          </li>
+          <li><strong>Desplegar WAR en Tomcat:</strong>
+            <div class="codigo-resumido">
+              <pre><code>cp target/SistemaEvaluacionTesis.war 
+     $CATALINA_HOME/webapps/</code></pre>
+            </div>
+          </li>
+          <li><strong>Iniciar Tomcat:</strong>
+            <div class="codigo-resumido">
+              <pre><code>catalina start</code></pre>
+            </div>
+          </li>
+          <li><strong>Acceder al sistema:</strong>
+            <div class="codigo-resumido">
+              <pre><code>http://localhost:8080/SistemaEvaluacionTesis/</code></pre>
+            </div>
+          </li>
+        </ol>
+      </button>
+    </section>
+
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://github.com/JhonFHC/SistemaEvaluacionTesis" class="btn solucion" target="_blank">
+        <i class="fab fa-github"></i> Ver Proyecto Completo en GitHub
+      </a>
+      <a href="BSGestion.sql" class="btn solucion" download>
+        <i class="fas fa-database"></i> Descargar Script SQL
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
+      </a>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
+  </main>
+
+  <script>
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.classList.contains('active')) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 11 - Arquitectura MVC del Sistema</title>
+  <title>Semana 11 - Modelos del Sistema</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
   <style>
-    /* MISMOS ESTILOS DE SEMANA 1 */
+    /* MISMOS ESTILOS DE SEMANA 9 Y 10 */
     nav.navbar {
       background-color: #1e293b;
       padding: 10px 20px;
@@ -124,7 +124,7 @@
       margin: 40px 0;
     }
 
-    /* Tarjetas de temas - SIN ALTURA MÁXIMA FIJA */
+    /* Tarjetas de temas */
     .tarjeta-tema {
       background: rgba(30, 41, 59, 0.9);
       border-radius: 15px;
@@ -132,7 +132,6 @@
       box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
       border: 1px solid #334155;
       transition: transform 0.3s ease;
-      /* REMOVIMOS max-height y overflow */
     }
 
     .tarjeta-tema:hover {
@@ -188,7 +187,6 @@
       transform: rotate(90deg);
     }
 
-    /* PANEL CON EXPANSIÓN NATURAL - SIN SCROLL FIJO */
     .panel {
       background: rgba(255, 255, 255, 0.05);
       max-height: 0;
@@ -200,32 +198,6 @@
 
     .panel.active {
       padding: 20px;
-      /* QUITAMOS max-height fija y overflow-y */
-      /* La altura se calculará automáticamente con JS */
-    }
-
-    /* SCROLL SOLO PARA CONTENIDOS ESPECÍFICOS */
-    .panel-con-scroll {
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .panel-con-scroll::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .panel-con-scroll::-webkit-scrollbar-track {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 4px;
-    }
-
-    .panel-con-scroll::-webkit-scrollbar-thumb {
-      background: #00ffc3;
-      border-radius: 4px;
-    }
-
-    .panel-con-scroll::-webkit-scrollbar-thumb:hover {
-      background: #00cfa3;
     }
 
     .panel ul {
@@ -246,7 +218,6 @@
       padding: 20px;
       margin: 20px 0;
       border-left: 4px solid #00ffc3;
-      overflow-x: auto; /* Scroll horizontal para código */
     }
 
     .codigo-resumido pre {
@@ -254,7 +225,6 @@
       margin: 0;
       font-size: 0.9rem;
       line-height: 1.4;
-      min-width: max-content;
     }
 
     .codigo-header {
@@ -393,47 +363,56 @@
       line-height: 1.5;
     }
 
-    /* Estructura de paquetes CON SCROLL */
-    .estructura-paquetes {
-      background: rgba(30, 41, 59, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px 0;
-      border-left: 4px solid #00ffc3;
-      max-height: 400px;
-      overflow-y: auto;
+    /* Diagrama UML */
+    .diagrama-uml {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 1px solid #334155;
     }
 
-    .estructura-paquetes h4 {
+    .diagrama-uml h3 {
       color: #00ffc3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .uml-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .uml-clase {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #00ffc3;
+    }
+
+    .uml-clase h4 {
+      color: #00ffc3;
+      border-bottom: 1px solid #00ffc3;
+      padding-bottom: 10px;
       margin-bottom: 15px;
     }
 
-    .estructura-paquetes pre {
+    .uml-atributos, .uml-metodos {
       color: #cbd5e1;
-      margin: 0;
-      font-family: 'Courier New', monospace;
+      font-family: monospace;
       font-size: 0.9rem;
-      line-height: 1.4;
     }
 
-    /* Scrollbar personalizado para estructura de paquetes */
-    .estructura-paquetes::-webkit-scrollbar {
-      width: 8px;
+    .uml-atributos div, .uml-metodos div {
+      padding: 3px 0;
+      border-left: 3px solid transparent;
+      padding-left: 10px;
     }
 
-    .estructura-paquetes::-webkit-scrollbar-track {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 4px;
-    }
-
-    .estructura-paquetes::-webkit-scrollbar-thumb {
-      background: #00ffc3;
-      border-radius: 4px;
-    }
-
-    .estructura-paquetes::-webkit-scrollbar-thumb:hover {
-      background: #00cfa3;
+    .uml-atributos div:hover, .uml-metodos div:hover {
+      border-left-color: #00ffc3;
+      background: rgba(0, 255, 195, 0.05);
     }
 
     /* Responsive */
@@ -452,29 +431,6 @@
       
       .btn {
         justify-content: center;
-      }
-      
-      .estructura-paquetes {
-        max-height: 300px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .tarjeta-tema {
-        padding: 20px;
-      }
-      
-      .panel.active {
-        padding: 15px;
-      }
-      
-      .acordeon {
-        padding: 15px;
-        font-size: 1rem;
-      }
-      
-      .estructura-paquetes {
-        max-height: 250px;
       }
     }
   </style>
@@ -502,461 +458,380 @@
   <main class="container">
     <!-- Encabezado -->
     <section class="encabezado-semana fade-in">
-      <h1><i class="fas fa-sitemap"></i> Semana 11 - Arquitectura MVC del Sistema</h1>
-      <p>Implementación completa del patrón Modelo-Vista-Controlador en el Sistema de Evaluación de Tesis con Java Servlets y JSP.</p>
+      <h1><i class="fas fa-code"></i> Semana 11 - Modelos del Sistema</h1>
+      <p>Diseño e implementación de las clases modelo que representan la estructura de datos del sistema de evaluación de tesis.</p>
     </section>
 
     <!-- Grid de resumen -->
     <div class="resumen-grid fade-in">
       <div class="tarjeta-resumen">
-        <div class="icono">🎯</div>
-        <h4>Controladores</h4>
-        <p>3 Servlets principales que gestionan la lógica de negocio</p>
+        <div class="icono">👤</div>
+        <h4>Usuario</h4>
+        <p>Gestión de todos los usuarios del sistema con sus roles y permisos</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📄</div>
+        <h4>Tesis</h4>
+        <p>Representación de documentos de investigación académica</p>
       </div>
       <div class="tarjeta-resumen">
         <div class="icono">📊</div>
-        <h4>Modelos</h4>
-        <p>Entidades principales: Usuario, Tesis, Evaluación</p>
+        <h4>Evaluación</h4>
+        <p>Sistema de calificación basado en 38 criterios específicos</p>
       </div>
       <div class="tarjeta-resumen">
-        <div class="icono">🗃️</div>
-        <h4>DAO</h4>
-        <p>4 clases de acceso a datos con operaciones CRUD</p>
+        <div class="icono">⚙️</div>
+        <h4>Conexión BD</h4>
+        <p>Patrón Singleton para gestión de conexiones a MySQL</p>
       </div>
-      <div class="tarjeta-resumen">
-        <div class="icono">🌐</div>
-        <h4>Vistas</h4>
-        <p>Interfaces JSP organizadas por roles de usuario</p>
+    </div>
+
+    <!-- Diagrama UML -->
+    <div class="diagrama-uml fade-in">
+      <h3><i class="fas fa-project-diagram"></i> Diagrama de Clases - Modelo de Datos</h3>
+      <div class="uml-grid">
+        <div class="uml-clase">
+          <h4>Usuario.java</h4>
+          <div class="uml-atributos">
+            <div>+ idUsuario: int</div>
+            <div>+ nombreCompleto: String</div>
+            <div>+ email: String</div>
+            <div>+ password: String</div>
+            <div>+ rol: String</div>
+            <div>+ departamento: String</div>
+            <div>+ estado: String</div>
+            <div>+ fechaCreacion: Date</div>
+          </div>
+          <div class="uml-metodos">
+            <div>+ Usuario()</div>
+            <div>+ Usuario(...)</div>
+            <div>+ getters() / setters()</div>
+          </div>
+        </div>
+        
+        <div class="uml-clase">
+          <h4>Tesis.java</h4>
+          <div class="uml-atributos">
+            <div>+ idTesis: int</div>
+            <div>+ titulo: String</div>
+            <div>+ descripcion: String</div>
+            <div>+ idEstudiante: int</div>
+            <div>+ idAsesor: int</div>
+            <div>+ estado: String</div>
+            <div>+ archivoUrl: String</div>
+            <div>+ fechaEnvio: Date</div>
+          </div>
+          <div class="uml-metodos">
+            <div>+ Tesis()</div>
+            <div>+ Tesis(...)</div>
+            <div>+ getters() / setters()</div>
+          </div>
+        </div>
+        
+        <div class="uml-clase">
+          <h4>Evaluacion.java</h4>
+          <div class="uml-atributos">
+            <div>+ idEvaluacion: int</div>
+            <div>+ idTesis: int</div>
+            <div>+ idJurado: int</div>
+            <div>+ calificacionFinal: double</div>
+            <div>+ comentarios: String</div>
+            <div>+ fechaEvaluacion: Date</div>
+            <div>+ estado: String</div>
+            <div>+ nombreJurado: String</div>
+          </div>
+          <div class="uml-metodos">
+            <div>+ Evaluacion()</div>
+            <div>+ Evaluacion(...)</div>
+            <div>+ getters() / setters()</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Grid de contenido -->
     <div class="grid-contenido">
-      <!-- Tarjeta Estructura General -->
+      <!-- Tarjeta Modelo Usuario -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-folder-tree"></i> Estructura del Proyecto MVC</h2>
-        <p>Organización completa del sistema en paquetes según el patrón Modelo-Vista-Controlador.</p>
+        <h2><i class="fas fa-user"></i> 1. Modelo Usuario</h2>
+        <p>Clase que representa a todos los usuarios del sistema: estudiantes, asesores, jurados y administradores.</p>
 
         <button class="acordeon">
-          <i class="fas fa-layer-group"></i> Estructura de Paquetes y Arquitectura
+          <i class="fas fa-code"></i> Implementación del Modelo Usuario
         </button>
         <div class="panel">
-          <div class="estructura-paquetes">
-            <h4><i class="fas fa-folder"></i> Estructura de Directorios</h4>
-            <pre><code>src/
-├── main/
-│   ├── java/
-│   │   └── com/zonajava/sistemaevaluaciontesis/
-│   │       ├── controller/          # Controladores (Servlets)
-│   │       │   ├── LoginServlet.java
-│   │       │   ├── TesisServlet.java
-│   │       │   └── UsuarioServlet.java
-│   │       ├── dao/                 # Data Access Objects
-│   │       │   ├── DatabaseConnection.java
-│   │       │   ├── EvaluacionDAO.java
-│   │       │   ├── TesisDAO.java
-│   │       │   └── UsuarioDAO.java
-│   │       ├── model/               # Modelos (Entidades)
-│   │       │   ├── Usuario.java
-│   │       │   ├── Tesis.java
-│   │       │   └── Evaluacion.java
-│   │       └── filter/              # Filtros de seguridad
-│   │           └── AuthenticationFilter.java
-│   │
-│   └── webapp/
-│       ├── WEB-INF/
-│       ├── vistas/                  # Vistas principales
-│       │   └── login.jsp
-│       ├── admin/                   # Vistas de administrador
-│       │   ├── dashboard.jsp
-│       │   ├── usuarios.jsp
-│       │   └── tesis.jsp
-│       ├── estudiante/              # Vistas de estudiante
-│       │   ├── dashboard.jsp
-│       │   └── tesis.jsp
-│       ├── asesor/                  # Vistas de asesor
-│       │   ├── dashboard.jsp
-│       │   └── tesis.jsp
-│       └── jurado/                  # Vistas de jurado
-│           ├── dashboard.jsp
-│           └── evaluaciones.jsp
-└── resources/
-    └── database.properties</code></pre>
-          </div>
-
-          <h4><i class="fas fa-random"></i> Flujo MVC del Sistema</h4>
+          <h4>Características Principales</h4>
           <ul>
-            <li><strong>Petición HTTP → Servlet (Controller)</strong> - Recibe y procesa la solicitud</li>
-            <li><strong>Servlet → DAO (Model)</strong> - Accede a los datos mediante DAO</li>
-            <li><strong>DAO → Base de Datos</strong> - Ejecuta operaciones CRUD</li>
-            <li><strong>DAO → Servlet</strong> - Retorna datos procesados</li>
-            <li><strong>Servlet → JSP (View)</strong> - Envía datos a la vista</li>
-            <li><strong>JSP → Respuesta HTML</strong> - Renderiza la interfaz al usuario</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Tarjeta Controladores -->
-      <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-cogs"></i> Capa de Controladores</h2>
-        <p>Servlets que gestionan la lógica de negocio, procesan peticiones y coordinan entre modelos y vistas.</p>
-
-        <button class="acordeon">
-          <i class="fas fa-sign-in-alt"></i> LoginServlet - Control de Autenticación
-        </button>
-        <div class="panel">
-          <h4>Funcionalidades Principales</h4>
-          <ul>
-            <li><strong>Autenticación de usuarios:</strong> Valida credenciales contra la base de datos</li>
-            <li><strong>Gestión de sesiones:</strong> Crea y mantiene sesiones de usuario</li>
-            <li><strong>Redirección por roles:</strong> Dirige a dashboards específicos según el rol</li>
-            <li><strong>Logout seguro:</strong> Invalida sesiones al cerrar sesión</li>
+            <li><strong>Gestión de roles:</strong> estudiante, asesor, jurado, admin</li>
+            <li><strong>Validación de estado:</strong> activo/inactivo</li>
+            <li><strong>Seguridad:</strong> Contraseñas encriptadas</li>
+            <li><strong>Auditoría:</strong> Fecha de creación automática</li>
           </ul>
 
           <div class="codigo-resumido">
             <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> LoginServlet.java - Método doPost</h4>
+              <h4><i class="fas fa-file-code"></i> Usuario.java - Estructura</h4>
             </div>
-            <pre><code>@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            <pre><code>package com.zonajava.sistemaevaluaciontesis.model;
+
+import java.util.Date;
+
+public class Usuario {
+    private int idUsuario;
+    private String nombreCompleto;
+    private String email;
+    private String password;
+    private String rol;
+    private String departamento;
+    private String estado;
+    private Date fechaCreacion;
     
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
+    // Constructores
+    public Usuario() {}
     
-    Usuario usuario = usuarioDAO.autenticar(email, password);
-    
-    if (usuario != null) {
-        HttpSession session = request.getSession();
-        session.setAttribute("usuario", usuario);
-        
-        // Redirigir según el rol
-        switch (usuario.getRol()) {
-            case "admin":
-                response.sendRedirect("admin/dashboard.jsp");
-                break;
-            case "estudiante":
-                response.sendRedirect("estudiante/dashboard.jsp");
-                break;
-            case "asesor":
-                response.sendRedirect("asesor/dashboard.jsp");
-                break;
-            case "jurado":
-                response.sendRedirect("jurado/dashboard.jsp");
-                break;
-            default:
-                response.sendRedirect("vistas/login.jsp?error=rol_no_valido");
-        }
-    } else {
-        response.sendRedirect("vistas/login.jsp?error=credenciales_invalidas");
+    public Usuario(int idUsuario, String nombreCompleto, String email, 
+                   String password, String rol, String departamento, 
+                   String estado, Date fechaCreacion) {
+        this.idUsuario = idUsuario;
+        this.nombreCompleto = nombreCompleto;
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+        this.departamento = departamento;
+        this.estado = estado;
+        this.fechaCreacion = fechaCreacion;
     }
-}</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-file-alt"></i> TesisServlet - Gestión de Tesis
-        </button>
-        <div class="panel">
-          <h4>Operaciones CRUD de Tesis</h4>
-          <ul>
-            <li><strong>Crear tesis:</strong> Permite a estudiantes crear nuevas tesis</li>
-            <li><strong>Actualizar tesis:</strong> Modificación de tesis existentes</li>
-            <li><strong>Enviar tesis:</strong> Cambio de estado a "enviada" para evaluación</li>
-            <li><strong>Asignar jurados:</strong> Asignación de evaluadores a tesis</li>
-            <li><strong>Búsqueda:</strong> Filtrado y búsqueda de tesis</li>
-          </ul>
-
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> TesisServlet.java - Crear Tesis</h4>
-            </div>
-            <pre><code>private void crearTesis(HttpServletRequest request, HttpServletResponse response, Usuario usuario)
-        throws ServletException, IOException {
     
-    try {
-        Tesis tesis = new Tesis();
-        tesis.setTitulo(request.getParameter("titulo"));
-        tesis.setDescripcion(request.getParameter("descripcion"));
-        tesis.setIdEstudiante(usuario.getIdUsuario());
-        tesis.setIdAsesor(Integer.parseInt(request.getParameter("idAsesor")));
-        tesis.setArchivoUrl(request.getParameter("archivoUrl"));
-        tesis.setEstado("borrador");
-        
-        if (tesisDAO.crearTesis(tesis)) {
-            response.sendRedirect("estudiante/tesis.jsp?success=tesis_creada");
-        } else {
-            response.sendRedirect("estudiante/tesis.jsp?error=creacion_fallida");
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        response.sendRedirect("estudiante/tesis.jsp?error=creacion_fallida");
+    // Getters y Setters completos
+    public int getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+    
+    public String getNombreCompleto() { return nombreCompleto; }
+    public void setNombreCompleto(String nombreCompleto) { 
+        this.nombreCompleto = nombreCompleto; 
     }
-}</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-users"></i> UsuarioServlet - Administración de Usuarios
-        </button>
-        <div class="panel">
-          <h4>Gestión Completa de Usuarios</h4>
-          <ul>
-            <li><strong>CRUD completo:</strong> Crear, leer, actualizar y eliminar usuarios</li>
-            <li><strong>Búsqueda avanzada:</strong> Filtrado por nombre, email o departamento</li>
-            <li><strong>Control de acceso:</strong> Solo administradores pueden gestionar usuarios</li>
-            <li><strong>Validaciones:</strong> Verificación de permisos y datos</li>
-          </ul>
-
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> UsuarioServlet.java - Crear Usuario</h4>
-            </div>
-            <pre><code>private void crearUsuario(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
     
-    Usuario usuario = new Usuario();
-    usuario.setNombreCompleto(request.getParameter("nombreCompleto"));
-    usuario.setEmail(request.getParameter("email"));
-    usuario.setPassword(request.getParameter("password"));
-    usuario.setRol(request.getParameter("rol"));
-    usuario.setDepartamento(request.getParameter("departamento"));
-    
-    if (usuarioDAO.crearUsuario(usuario)) {
-        response.sendRedirect("usuarios?success=usuario_creado");
-    } else {
-        response.sendRedirect("usuarios?error=creacion_fallida");
-    }
+    // ... resto de getters y setters
 }</code></pre>
           </div>
         </div>
       </section>
 
-      <!-- Tarjeta Modelos y DAO -->
+      <!-- Tarjeta Modelo Tesis -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-database"></i> Capa de Modelos y Acceso a Datos</h2>
-        <p>Entidades del dominio y clases DAO que manejan la persistencia de datos en MySQL.</p>
+        <h2><i class="fas fa-file-pdf"></i> 2. Modelo Tesis</h2>
+        <p>Clase que representa los documentos de tesis con sus estados y metadatos.</p>
 
         <button class="acordeon">
-          <i class="fas fa-table"></i> DatabaseConnection - Conexión a BD
+          <i class="fas fa-code"></i> Implementación del Modelo Tesis
         </button>
         <div class="panel">
-          <h4>Gestión Centralizada de Conexiones</h4>
+          <h4>Estados de una Tesis</h4>
           <ul>
-            <li><strong>Pool de conexiones:</strong> Reutilización eficiente de conexiones</li>
-            <li><strong>Configuración centralizada:</strong> Parámetros en un solo lugar</li>
-            <li><strong>Manejo de errores:</strong> Excepciones controladas apropiadamente</li>
-            <li><strong>Driver MySQL:</strong> Compatible con MySQL Connector/J</li>
+            <li><strong>borrador:</strong> En edición por el estudiante</li>
+            <li><strong>enviada:</strong> Lista para evaluación</li>
+            <li><strong>en_evaluacion:</strong> En proceso de calificación</li>
+            <li><strong>aprobada:</strong> Evaluación satisfactoria</li>
+            <li><strong>rechazada:</strong> Requiere modificaciones</li>
           </ul>
 
           <div class="codigo-resumido">
             <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> DatabaseConnection.java</h4>
+              <h4><i class="fas fa-file-code"></i> Tesis.java - Estructura</h4>
             </div>
-            <pre><code>public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/sistema_evaluacion_tesis";
-    private static final String USER = "gestion";
-    private static final String PASSWORD = "admin123";
+            <pre><code>package com.zonajava.sistemaevaluaciontesis.model;
+
+import java.util.Date;
+
+public class Tesis {
+    private int idTesis;
+    private String titulo;
+    private String descripcion;
+    private int idEstudiante;
+    private int idAsesor;
+    private String estado;
+    private String archivoUrl;
+    private Date fechaEnvio;
+    private Date fechaCreacion;
+    private String nombreEstudiante;
+    private String nombreAsesor;
     
-    public static Connection getConnection() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver MySQL no encontrado", e);
-        }
-    }
-}</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-user-friends"></i> UsuarioDAO - Operaciones de Usuario
-        </button>
-        <div class="panel">
-          <h4>Funcionalidades de UsuarioDAO</h4>
-          <ul>
-            <li><strong>Autenticación:</strong> Verificación de credenciales</li>
-            <li><strong>CRUD completo:</strong> Todas las operaciones básicas</li>
-            <li><strong>Búsquedas:</strong> Por criterios múltiples</li>
-            <li><strong>Filtrado por rol:</strong> Obtención de usuarios por tipo</li>
-          </ul>
-
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> UsuarioDAO.java - Autenticación</h4>
-            </div>
-            <pre><code>public Usuario autenticar(String email, String password) {
-    Usuario usuario = null;
-    String sql = "SELECT * FROM usuarios WHERE email = ? AND password = ? AND estado = 'activo'";
+    // Constructores
+    public Tesis() {}
     
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-        
-        stmt.setString(1, email);
-        stmt.setString(2, password);
-        
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            usuario = new Usuario();
-            usuario.setIdUsuario(rs.getInt("id_usuario"));
-            usuario.setNombreCompleto(rs.getString("nombre_completo"));
-            usuario.setEmail(rs.getString("email"));
-            usuario.setPassword(rs.getString("password"));
-            usuario.setRol(rs.getString("rol"));
-            usuario.setDepartamento(rs.getString("departamento"));
-            usuario.setEstado(rs.getString("estado"));
-            usuario.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
+    public Tesis(int idTesis, String titulo, String descripcion, 
+                 int idEstudiante, int idAsesor, String estado, 
+                 String archivoUrl, Date fechaEnvio, Date fechaCreacion) {
+        this.idTesis = idTesis;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.idEstudiante = idEstudiante;
+        this.idAsesor = idAsesor;
+        this.estado = estado;
+        this.archivoUrl = archivoUrl;
+        this.fechaEnvio = fechaEnvio;
+        this.fechaCreacion = fechaCreacion;
     }
-    return usuario;
-}</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-graduation-cap"></i> TesisDAO - Gestión de Tesis
-        </button>
-        <div class="panel">
-          <h4>Operaciones Avanzadas de Tesis</h4>
-          <ul>
-            <li><strong>Gestión completa:</strong> CRUD de tesis con relaciones</li>
-            <li><strong>Búsquedas complejas:</strong> Con joins a tablas relacionadas</li>
-            <li><strong>Asignación de jurados:</strong> Gestión de evaluadores</li>
-            <li><strong>Estados:</strong> Control de flujo de estados de tesis</li>
-          </ul>
-
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> TesisDAO.java - Obtener Todas las Tesis</h4>
-            </div>
-            <pre><code>public List<Tesis> obtenerTodasTesis() {
-    List<Tesis> tesisList = new ArrayList<>();
-    String sql = "SELECT t.*, ue.nombre_completo as nombre_estudiante, ua.nombre_completo as nombre_asesor " +
-                "FROM tesis t " +
-                "LEFT JOIN usuarios ue ON t.id_estudiante = ue.id_usuario " +
-                "LEFT JOIN usuarios ua ON t.id_asesor = ua.id_usuario " +
-                "ORDER BY t.fecha_creacion DESC";
     
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         ResultSet rs = stmt.executeQuery()) {
-        
-        while (rs.next()) {
-            Tesis tesis = new Tesis();
-            tesis.setIdTesis(rs.getInt("id_tesis"));
-            tesis.setTitulo(rs.getString("titulo"));
-            tesis.setDescripcion(rs.getString("descripcion"));
-            tesis.setIdEstudiante(rs.getInt("id_estudiante"));
-            tesis.setIdAsesor(rs.getInt("id_asesor"));
-            tesis.setEstado(rs.getString("estado"));
-            tesis.setArchivoUrl(rs.getString("archivo_url"));
-            tesis.setFechaEnvio(rs.getTimestamp("fecha_envio"));
-            tesis.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-            tesis.setNombreEstudiante(rs.getString("nombre_estudiante"));
-            tesis.setNombreAsesor(rs.getString("nombre_asesor"));
-            tesisList.add(tesis);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return tesisList;
-}</code></pre>
-          </div>
-        </div>
-
-        <button class="acordeon">
-          <i class="fas fa-star"></i> EvaluacionDAO - Sistema de Evaluaciones
-        </button>
-        <div class="panel">
-          <h4>Gestión de Procesos de Evaluación</h4>
-          <ul>
-            <li><strong>Crear evaluaciones:</strong> Asignar tesis a jurados</li>
-            <li><strong>Consultas por rol:</strong> Evaluaciones por jurado o tesis</li>
-            <li><strong>Actualizaciones:</strong> Calificaciones y comentarios</li>
-            <li><strong>Estadísticas:</strong> Métricas para dashboards</li>
-          </ul>
-
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> EvaluacionDAO.java - Métricas</h4>
-            </div>
-            <pre><code>public int obtenerTotalEvaluacionesPendientes(int idJurado) {
-    String sql = "SELECT COUNT(*) as total FROM evaluaciones WHERE id_jurado = ? AND estado = 'pendiente'";
+    // Getters y Setters
+    public int getIdTesis() { return idTesis; }
+    public void setIdTesis(int idTesis) { this.idTesis = idTesis; }
     
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
-        
-        stmt.setInt(1, idJurado);
-        ResultSet rs = stmt.executeQuery();
-        
-        if (rs.next()) {
-            return rs.getInt("total");
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return 0;
+    // ... resto de getters y setters
 }</code></pre>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Características Técnicas -->
+    <!-- Modelo Evaluación -->
     <section class="tarjeta-tema fade-in">
-      <h2><i class="fas fa-microchip"></i> Características Técnicas del MVC</h2>
-      <p>Principios de diseño y mejores prácticas implementadas en la arquitectura.</p>
+      <h2><i class="fas fa-chart-bar"></i> 3. Modelo Evaluación</h2>
+      <p>Sistema de calificación basado en 38 criterios específicos para evaluación de tesis.</p>
 
       <button class="acordeon">
-        <i class="fas fa-shield-alt"></i> Seguridad y Control de Acceso
+        <i class="fas fa-code"></i> Implementación del Modelo Evaluación
       </button>
       <div class="panel">
-        <h4>Medidas de Seguridad Implementadas</h4>
+        <h4>Sistema de 38 Criterios</h4>
         <ul>
-          <li><strong>Autenticación por sesiones:</strong> HttpSession para mantener estado</li>
-          <li><strong>Control de roles:</strong> Verificación de permisos en cada servlet</li>
-          <li><strong>Prepared Statements:</strong> Prevención de SQL Injection</li>
-          <li><strong>Validación de datos:</strong> Sanitización de entradas del usuario</li>
-          <li><strong>Logout seguro:</strong> Invalida sesiones correctamente</li>
+          <li><strong>Título (Criterio 1):</strong> Claridad y precisión</li>
+          <li><strong>Resumen/Abstract (2-3):</strong> Estructura y contenido</li>
+          <li><strong>Introducción (4-11):</strong> Problema, justificación, objetivos</li>
+          <li><strong>Marco Teórico (13-16):</strong> Antecedentes y bases teóricas</li>
+          <li><strong>Metodología (20-28):</strong> Diseño y procedimientos</li>
+          <li><strong>Resultados (29-30):</strong> Presentación y análisis</li>
+          <li><strong>Formato (35-38):</strong> APA, redacción y ortografía</li>
         </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> Evaluacion.java - Estructura</h4>
+          </div>
+          <pre><code>package com.zonajava.sistemaevaluaciontesis.model;
+
+import java.util.Date;
+
+public class Evaluacion {
+    private int idEvaluacion;
+    private int idTesis;
+    private int idJurado;
+    private double calificacionFinal;
+    private String comentarios;
+    private Date fechaEvaluacion;
+    private String estado;
+    private String nombreJurado;
+    private String tituloTesis;
+    
+    // Constructores
+    public Evaluacion() {}
+    
+    public Evaluacion(int idEvaluacion, int idTesis, int idJurado, 
+                      double calificacionFinal, String comentarios, 
+                      Date fechaEvaluacion, String estado) {
+        this.idEvaluacion = idEvaluacion;
+        this.idTesis = idTesis;
+        this.idJurado = idJurado;
+        this.calificacionFinal = calificacionFinal;
+        this.comentarios = comentarios;
+        this.fechaEvaluacion = fechaEvaluacion;
+        this.estado = estado;
+    }
+    
+    // Getters y Setters
+    public int getIdEvaluacion() { return idEvaluacion; }
+    public void setIdEvaluacion(int idEvaluacion) { 
+        this.idEvaluacion = idEvaluacion; 
+    }
+    
+    // ... resto de getters y setters
+}</code></pre>
+        </div>
       </div>
+    </section>
+
+    <!-- Conexión Base de Datos -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-database"></i> 4. Conexión a Base de Datos</h2>
+      <p>Implementación del patrón Singleton para gestión eficiente de conexiones MySQL.</p>
 
       <button class="acordeon">
-        <i class="fas fa-tachometer-alt"></i> Performance y Optimización
+        <i class="fas fa-code"></i> DatabaseConnection.java
       </button>
       <div class="panel">
-        <h4>Optimizaciones Implementadas</h4>
+        <h4>Patrón Singleton Aplicado</h4>
         <ul>
-          <li><strong>Pool de conexiones:</strong> Reutilización eficiente de conexiones BD</li>
-          <li><strong>Prepared Statements:</strong> Reutilización de consultas SQL</li>
-          <li><strong>Lazy loading:</strong> Carga bajo demanda de datos relacionados</li>
-          <li><strong>Cache de consultas:</strong> Resultados frecuentes en memoria</li>
-          <li><strong>Redirecciones eficientes:</strong> Minimiza round-trips al servidor</li>
+          <li><strong>Una sola instancia:</strong> Evita múltiples conexiones</li>
+          <li><strong>Thread-safe:</strong> Seguro en entornos concurrentes</li>
+          <li><strong>Logging:</strong> Registro de operaciones</li>
+          <li><strong>Pool de conexiones:</strong> Gestión eficiente de recursos</li>
         </ul>
-      </div>
 
-      <button class="acordeon">
-        <i class="fas fa-bug"></i> Manejo de Errores y Excepciones
-      </button>
-      <div class="panel">
-        <h4>Sistema Robusto de Manejo de Errores</h4>
-        <ul>
-          <li><strong>Try-with-resources:</strong> Liberación automática de recursos</li>
-          <li><strong>Logging consistente:</strong> Registro de excepciones para debugging</li>
-          <li><strong>Mensajes de error amigables:</strong> Feedback claro al usuario</li>
-          <li><strong>Validaciones múltiples:</strong> En frontend y backend</li>
-          <li><strong>Rollback automático:</strong> En operaciones transaccionales</li>
-        </ul>
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> DatabaseConnection.java</h4>
+          </div>
+          <pre><code>package com.zonajava.sistemaevaluaciontesis.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
+public class DatabaseConnection {
+    private static final Logger LOGGER = Logger.getLogger(
+        DatabaseConnection.class.getName());
+    
+    private static final String URL = 
+        "jdbc:mysql://localhost:3306/sistema_evaluacion_tesis";
+    private static final String USER = "gestion";
+    private static final String PASSWORD = "admin123";
+    
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            LOGGER.info("Driver MySQL cargado correctamente");
+        } catch (ClassNotFoundException e) {
+            LOGGER.severe("Error al cargar el driver MySQL: " + e.getMessage());
+            throw new RuntimeException("Driver no encontrado", e);
+        }
+    }
+    
+    private DatabaseConnection() { }
+    
+    public static Connection getConnection() throws SQLException {
+        try {
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            LOGGER.info("Conexión establecida con éxito a MySQL");
+            return connection;
+        } catch (SQLException e) {
+            LOGGER.severe("Error al conectar a MySQL: " + e.getMessage());
+            throw new SQLException("No se pudo conectar a la BD", e);
+        }
+    }
+    
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+                LOGGER.fine("Conexión cerrada");
+            } catch (SQLException e) {
+                LOGGER.warning("Error al cerrar conexión: " + e.getMessage());
+            }
+        }
+    }
+}</code></pre>
+        </div>
       </div>
     </section>
 
     <!-- Botones de acción -->
     <div class="botones-accion">
       <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana11" class="btn solucion" target="_blank">
-        <i class="fab fa-github"></i> Ver Código Completo en GitHub
+        <i class="fab fa-github"></i> Ver Modelos en GitHub
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
       </a>
     </div>
 
@@ -967,7 +842,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
   </main>
 
   <script>
-    // Funcionalidad de acordeones MEJORADA
+    // Funcionalidad de acordeones
     document.addEventListener('DOMContentLoaded', function() {
       const acordeones = document.querySelectorAll('.acordeon');
 
@@ -977,19 +852,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
           const panel = this.nextElementSibling;
           
           if (panel.classList.contains('active')) {
-            // Cerrar panel
             panel.style.maxHeight = null;
             panel.classList.remove('active');
           } else {
-            // Abrir panel - calcular altura automáticamente
             panel.style.maxHeight = panel.scrollHeight + 'px';
             panel.classList.add('active');
-            
-            // Scroll suave hacia el acordeón si está cerca del borde inferior
-            const rect = btn.getBoundingClientRect();
-            if (rect.bottom > window.innerHeight - 100) {
-              btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
           }
         });
       });

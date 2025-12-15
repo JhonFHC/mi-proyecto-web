@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 13 - Base de Datos MySQL</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
+  <style>
+    /* MISMOS ESTILOS DE SEMANA 11 Y 12 */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
+    .acordeon {
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
+      color: #000;
+      cursor: pointer;
+      padding: 18px 20px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .acordeon:hover {
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
+    }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
+      background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Diagrama de Base de Datos */
+    .diagrama-bd {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 1px solid #334155;
+    }
+
+    .diagrama-bd h3 {
+      color: #00ffc3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .bd-entity {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 15px 0;
+      border: 1px solid #00ffc3;
+    }
+
+    .bd-entity h4 {
+      color: #00ffc3;
+      border-bottom: 1px solid #00ffc3;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bd-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .bd-column {
+      background: rgba(0, 255, 195, 0.05);
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .bd-column.pk {
+      border-left: 3px solid #00ffc3;
+    }
+
+    .bd-column.fk {
+      border-left: 3px solid #3b82f6;
+    }
+
+    /* Tabla de Criterios */
+    .tabla-criterios-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .tabla-criterios {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    .tabla-criterios th {
+      background: #00ffc3;
+      color: #000;
+      padding: 12px;
+      text-align: left;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .tabla-criterios td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #334155;
+      color: #cbd5e1;
+    }
+
+    .tabla-criterios tr:hover {
+      background: rgba(0, 255, 195, 0.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+
+      .bd-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-database"></i> Semana 13 - Base de Datos MySQL</h1>
+      <p>Diseño e implementación de la base de datos relacional con 38 criterios de evaluación y estructura normalizada.</p>
+    </section>
+
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">📊</div>
+        <h4>6 Tablas</h4>
+        <p>Estructura normalizada para gestión completa</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📋</div>
+        <h4>38 Criterios</h4>
+        <p>Sistema detallado de evaluación de tesis</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">🔗</div>
+        <h4>Integridad</h4>
+        <p>Foreign keys y constraints de datos</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">⚡</div>
+        <h4>Índices</h4>
+        <p>Optimización para alto rendimiento</p>
+      </div>
+    </div>
+
+    <!-- Diagrama de Base de Datos -->
+    <div class="diagrama-bd fade-in">
+      <h3><i class="fas fa-project-diagram"></i> Diagrama Entidad-Relación</h3>
+      
+      <div class="bd-entity">
+        <h4><i class="fas fa-table"></i> Tabla: usuarios</h4>
+        <div class="bd-columns">
+          <div class="bd-column pk">id_usuario (PK)</div>
+          <div class="bd-column">codigo_upla (UNIQUE)</div>
+          <div class="bd-column">nombre_completo</div>
+          <div class="bd-column">email (UNIQUE)</div>
+          <div class="bd-column">password</div>
+          <div class="bd-column">rol (ENUM)</div>
+          <div class="bd-column">departamento</div>
+          <div class="bd-column">estado (ENUM)</div>
+          <div class="bd-column">fecha_creacion</div>
+        </div>
+      </div>
+      
+      <div class="bd-entity">
+        <h4><i class="fas fa-file-alt"></i> Tabla: tesis</h4>
+        <div class="bd-columns">
+          <div class="bd-column pk">id_tesis (PK)</div>
+          <div class="bd-column fk">id_estudiante (FK → usuarios)</div>
+          <div class="bd-column fk">id_asesor (FK → usuarios)</div>
+          <div class="bd-column">titulo</div>
+          <div class="bd-column">descripcion</div>
+          <div class="bd-column">estado (ENUM)</div>
+          <div class="bd-column">archivo_url</div>
+          <div class="bd-column">fecha_envio</div>
+        </div>
+      </div>
+      
+      <div class="bd-entity">
+        <h4><i class="fas fa-chart-bar"></i> Tabla: evaluaciones</h4>
+        <div class="bd-columns">
+          <div class="bd-column pk">id_evaluacion (PK)</div>
+          <div class="bd-column fk">id_tesis (FK → tesis)</div>
+          <div class="bd-column fk">id_jurado (FK → usuarios)</div>
+          <div class="bd-column">calificacion_final</div>
+          <div class="bd-column">comentarios</div>
+          <div class="bd-column">estado (ENUM)</div>
+          <div class="bd-column">fecha_evaluacion</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta Script SQL -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-file-code"></i> 1. Script SQL Completo</h2>
+        <p>Creación de la base de datos con todas las tablas, relaciones y datos iniciales.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-database"></i> Script BSGestion.sql
+        </button>
+        <div class="panel">
+          <h4>Estructura Completa de la Base de Datos</h4>
+          <ul>
+            <li><strong>Creación de BD:</strong> sistema_evaluacion_tesis</li>
+            <li><strong>6 tablas relacionadas:</strong> Usuarios, Tesis, Evaluaciones</li>
+            <li><strong>Datos iniciales:</strong> Usuarios demo y criterios</li>
+            <li><strong>Índices optimizados:</strong> Para consultas rápidas</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> BSGestion.sql - Parte 1</h4>
+            </div>
+            <pre><code>-- 1. CREAR BASE DE DATOS
+DROP DATABASE IF EXISTS sistema_evaluacion_tesis;
+CREATE DATABASE sistema_evaluacion_tesis 
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE sistema_evaluacion_tesis;
+
+-- 2. TABLA USUARIOS
+CREATE TABLE usuarios (
+    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_upla VARCHAR(10) UNIQUE NOT NULL,
+    nombre_completo VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('estudiante', 'asesor', 'jurado', 'admin') NOT NULL,
+    departamento VARCHAR(100),
+    estado ENUM('activo', 'inactivo') DEFAULT 'activo',
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. TABLA TESIS
+CREATE TABLE tesis (
+    id_tesis INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    resumen TEXT,
+    palabras_clave VARCHAR(255),
+    id_estudiante INT NOT NULL,
+    id_asesor INT NOT NULL,
+    estado ENUM('borrador', 'enviada', 'en_evaluacion', 
+                'aprobada', 'rechazada') DEFAULT 'borrador',
+    archivo_url VARCHAR(255),
+    fecha_envio TIMESTAMP NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+                         ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_estudiante) REFERENCES usuarios(id_usuario) 
+        ON DELETE CASCADE,
+    FOREIGN KEY (id_asesor) REFERENCES usuarios(id_usuario) 
+        ON DELETE CASCADE
+);</code></pre>
+          </div>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> BSGestion.sql - Parte 2</h4>
+            </div>
+            <pre><code>-- 4. TABLA CRITERIOS_EVALUACION (LOS 38 CRITERIOS)
+CREATE TABLE criterios_evaluacion (
+    id_criterio INT PRIMARY KEY AUTO_INCREMENT,
+    numero INT NOT NULL,
+    seccion VARCHAR(50) NOT NULL,
+    descripcion TEXT NOT NULL,
+    peso DECIMAL(3,2) DEFAULT 1.0,
+    estado ENUM('activo', 'inactivo') DEFAULT 'activo',
+    UNIQUE KEY unique_numero (numero)
+);
+
+-- 5. TABLA EVALUACIONES
+CREATE TABLE evaluaciones (
+    id_evaluacion INT PRIMARY KEY AUTO_INCREMENT,
+    id_tesis INT NOT NULL,
+    id_jurado INT NOT NULL,
+    calificacion_final DECIMAL(4,2),
+    comentarios TEXT,
+    fecha_evaluacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado ENUM('pendiente', 'en_progreso', 'completada') 
+           DEFAULT 'pendiente',
+    recomendacion ENUM('aprobado', 'aprobado_obs', 'desaprobado'),
+    FOREIGN KEY (id_tesis) REFERENCES tesis(id_tesis) 
+        ON DELETE CASCADE,
+    FOREIGN KEY (id_jurado) REFERENCES usuarios(id_usuario) 
+        ON DELETE CASCADE
+);</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta Criterios de Evaluación -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-list-check"></i> 2. Los 38 Criterios</h2>
+        <p>Sistema detallado de evaluación para tesis universitarias.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-chart-pie"></i> Tabla de Criterios por Sección
+        </button>
+        <div class="panel">
+          <div class="tabla-criterios-container">
+            <table class="tabla-criterios">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Sección</th>
+                  <th>Descripción del Criterio</th>
+                  <th>Peso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>TÍTULO</td>
+                  <td>El título es claro, preciso y refleja el contenido</td>
+                  <td>1.0</td>
+                </tr>
+                <tr>
+                  <td>2-3</td>
+                  <td>RESUMEN/ABSTRACT</td>
+                  <td>Incluye objetivo, metodología, resultados y conclusiones</td>
+                  <td>2.0</td>
+                </tr>
+                <tr>
+                  <td>4-11</td>
+                  <td>INTRODUCCIÓN</td>
+                  <td>Problema, justificación y objetivos claros</td>
+                  <td>8.0</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>ASPECTOS ÉTICOS</td>
+                  <td>Considera aspectos éticos de la investigación</td>
+                  <td>1.0</td>
+                </tr>
+                <tr>
+                  <td>13-16</td>
+                  <td>MARCO TEÓRICO</td>
+                  <td>Antecedentes, bases teóricas y definiciones</td>
+                  <td>4.0</td>
+                </tr>
+                <tr>
+                  <td>17-19</td>
+                  <td>HIPÓTESIS/VARIABLES</td>
+                  <td>Hipótesis claras y variables operacionalizadas</td>
+                  <td>3.0</td>
+                </tr>
+                <tr>
+                  <td>20-28</td>
+                  <td>METODOLOGÍA</td>
+                  <td>Diseño, muestra, técnicas y procedimientos</td>
+                  <td>9.0</td>
+                </tr>
+                <tr>
+                  <td>29-30</td>
+                  <td>RESULTADOS</td>
+                  <td>Presentación clara con tablas y figuras</td>
+                  <td>2.0</td>
+                </tr>
+                <tr>
+                  <td>31-34</td>
+                  <td>ANÁLISIS Y CONCLUSIONES</td>
+                  <td>Análisis adecuado y conclusiones pertinentes</td>
+                  <td>4.0</td>
+                </tr>
+                <tr>
+                  <td>35-38</td>
+                  <td>FORMATO</td>
+                  <td>APA, redacción, ortografía y presentación</td>
+                  <td>4.0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> Inserción de Criterios</h4>
+            </div>
+            <pre><code>-- 8. INSERTAR LOS 38 CRITERIOS
+INSERT INTO criterios_evaluacion (numero, seccion, descripcion) VALUES
+(1, 'TÍTULO', 'El título es claro, preciso y refleja el contenido de la investigación'),
+(2, 'RESUMEN/ABSTRACT', 'El resumen incluye objetivo, metodología, resultados y conclusiones'),
+(3, 'RESUMEN/ABSTRACT', 'No excede las 250 palabras y contiene palabras clave'),
+(4, 'INTRODUCCIÓN', 'Presenta el problema, justificación y objetivos de manera clara'),
+-- ... (continúan los 38 criterios)
+(38, 'ASPECTOS DE FORMA', 'Presenta buena redacción y ortografía');</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Conexión Java-MySQL -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-plug"></i> 3. Conexión Java-MySQL</h2>
+      <p>Implementación del patrón Singleton para gestión eficiente de conexiones.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-code"></i> DatabaseConnection.java
+      </button>
+      <div class="panel">
+        <h4>Características de la Conexión</h4>
+        <ul>
+          <li><strong>Patrón Singleton:</strong> Una instancia global</li>
+          <li><strong>Thread-safe:</strong> Seguro en entornos concurrentes</li>
+          <li><strong>Logging:</strong> Registro de operaciones</li>
+          <li><strong>Pool de conexiones:</strong> Gestión eficiente</li>
+          <li><strong>Driver MySQL:</strong> com.mysql.cj.jdbc.Driver</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> DatabaseConnection.java</h4>
+          </div>
+          <pre><code>package com.zonajava.sistemaevaluaciontesis.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
+public class DatabaseConnection {
+    private static final Logger LOGGER = Logger.getLogger(
+        DatabaseConnection.class.getName());
+    
+    private static final String URL = 
+        "jdbc:mysql://localhost:3306/sistema_evaluacion_tesis";
+    private static final String USER = "gestion";
+    private static final String PASSWORD = "admin123";
+    
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            LOGGER.info("Driver MySQL cargado correctamente");
+        } catch (ClassNotFoundException e) {
+            LOGGER.severe("Error al cargar el driver MySQL: " + e.getMessage());
+            throw new RuntimeException("No se pudo cargar el driver MySQL", e);
+        }
+    }
+    
+    private DatabaseConnection() { }
+    
+    public static Connection getConnection() throws SQLException {
+        try {
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            LOGGER.info("Conexión establecida con éxito a MySQL");
+            return connection;
+        } catch (SQLException e) {
+            LOGGER.severe("Error al conectar a MySQL: " + e.getMessage());
+            throw new SQLException("No se pudo conectar a la base de datos", e);
+        }
+    }
+    
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+                LOGGER.fine("Conexión cerrada");
+            } catch (SQLException e) {
+                LOGGER.warning("Error al cerrar conexión: " + e.getMessage());
+            }
+        }
+    }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Datos de Prueba -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-vial"></i> 4. Datos de Prueba</h2>
+      <p>Inserción de datos iniciales para testing y demostración del sistema.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-users"></i> Usuarios de Prueba
+      </button>
+      <div class="panel">
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> Inserción de Usuarios Demo</h4>
+          </div>
+          <pre><code>-- 9. INSERTAR USUARIOS DE PRUEBA
+INSERT INTO usuarios (codigo_upla, nombre_completo, email, password, rol, departamento) VALUES
+-- Admin
+('a00001a', 'Administrador Principal', 'admin@upla.edu.pe', 'admin123', 'admin', 'Administración'),
+-- Estudiante
+('e12345a', 'Juan Pérez López', 'e12345a@ms.upla.edu.pe', 'est123', 'estudiante', 'Ingeniería Civil'),
+-- Asesor
+('p23456b', 'Dr. Carlos Mendoza Ruiz', 'p23456b@ms.upla.edu.pe', 'prof123', 'asesor', 'Ingeniería Civil'),
+-- Jurados
+('j34567c', 'Dra. María González Silva', 'j34567c@ms.upla.edu.pe', 'prof123', 'jurado', 'Ingeniería Civil'),
+('j45678d', 'Mg. Pedro Torres Vargas', 'j45678d@ms.upla.edu.pe', 'prof123', 'jurado', 'Ingeniería Civil'),
+('j56789e', 'Dr. Ana López Castillo', 'j56789e@ms.upla.edu.pe', 'prof123', 'jurado', 'Ingeniería Civil');</code></pre>
+        </div>
+      </button>
+
+      <button class="acordeon">
+        <i class="fas fa-file-pdf"></i> Tesis de Prueba
+      </button>
+      <div class="panel">
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> Inserción de Tesis Demo</h4>
+          </div>
+          <pre><code>-- 10. INSERTAR TESIS DE PRUEBA
+INSERT INTO tesis (titulo, descripcion, resumen, palabras_clave, 
+                   id_estudiante, id_asesor, estado, archivo_url, fecha_envio) VALUES
+('Implementación de sistema de gestión de agua', 
+ 'Sistema para mejorar gestión de agua potable en zonas urbanas',
+ 'Este estudio propone un sistema integrado para la gestión eficiente de recursos hídricos...',
+ 'agua, gestión, sistema, ingeniería civil', 
+ 2, 3, 'en_evaluacion', 'tesis_1.pdf', NOW()),
+('Estudio de algoritmos de machine learning', 
+ 'Comparativa de algoritmos de ML para predicción de datos',
+ 'Investigación sobre la efectividad de diferentes algoritmos de machine learning...',
+ 'machine learning, algoritmos, IA, clasificación', 
+ 2, 3, 'enviada', 'tesis_2.pdf', NOW());</code></pre>
+        </div>
+      </button>
+    </section>
+
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana13" class="btn solucion" target="_blank">
+        <i class="fab fa-github"></i> Ver Base de Datos en GitHub
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
+      </a>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
+  </main>
+
+  <script>
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.classList.contains('active')) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

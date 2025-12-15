@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 16 - Mi Punto de Vista</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
+  <style>
+    /* MISMOS ESTILOS DE SEMANAS ANTERIORES */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos para contenido informal */
+    .contenido-informal {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 2px dashed #00ffc3;
+    }
+
+    .contenido-informal h3 {
+      color: #00ffc3;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+
+    .reflexion-item {
+      background: rgba(0, 255, 195, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+      transition: all 0.3s ease;
+    }
+
+    .reflexion-item:hover {
+      background: rgba(0, 255, 195, 0.1);
+      transform: translateX(10px);
+    }
+
+    .reflexion-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .reflexion-icon {
+      font-size: 2rem;
+      color: #00ffc3;
+    }
+
+    .reflexion-title {
+      color: #00ffc3;
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .reflexion-text {
+      color: #cbd5e1;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      text-align: justify;
+    }
+
+    .reflexion-text strong {
+      color: #00ffc3;
+    }
+
+    /* Emoji destacados */
+    .emoji-section {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 10px;
+      border: 1px solid #334155;
+    }
+
+    .emoji-big {
+      font-size: 4rem;
+      margin: 20px 0;
+    }
+
+    .emoji-text {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Citas destacadas */
+    .cita-destacada {
+      background: linear-gradient(135deg, rgba(0, 255, 195, 0.1), rgba(59, 130, 246, 0.1));
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 2px solid #00ffc3;
+      position: relative;
+    }
+
+    .cita-destacada::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-size: 5rem;
+      color: #00ffc3;
+      opacity: 0.3;
+      font-family: serif;
+    }
+
+    .cita-texto {
+      color: #cbd5e1;
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cita-autor {
+      color: #00ffc3;
+      text-align: right;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    /* Lista de aprendizajes */
+    .aprendizajes-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .aprendizaje-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid #334155;
+    }
+
+    .aprendizaje-item:hover {
+      border-color: #00ffc3;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 255, 195, 0.2);
+    }
+
+    .aprendizaje-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .aprendizaje-titulo {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .aprendizaje-desc {
+      color: #cbd5e1;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+
+      .aprendizajes-list {
+        grid-template-columns: 1fr;
+      }
+
+      .cita-texto {
+        font-size: 1.1rem;
+      }
+
+      .reflexion-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-comment-dots"></i> Semana 16 - Mi Punto de Vista</h1>
+      <p>Reflexiones personales, experiencias y aprendizajes de todo el proceso de desarrollo del sistema de evaluación de tesis.</p>
+    </section>
+
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">🎯</div>
+        <h4>El Viaje</h4>
+        <p>De la idea al sistema completo en 16 semanas</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">💡</div>
+        <h4>Aprendizajes</h4>
+        <p>No solo código, también metodología y paciencia</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">🔥</div>
+        <h4>Desafíos</h4>
+        <p>Los problemas que casi me hacen tirar la toalla</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">🚀</div>
+        <h4>El Futuro</h4>
+        <p>Qué viene después de este proyecto</p>
+      </div>
+    </div>
+
+    <!-- Cita Destacada -->
+    <div class="cita-destacada fade-in">
+      <div class="cita-texto">
+        "Cada línea de código escrita, cada error corregido y cada noche de debugging 
+        me enseñó que el desarrollo de software no es solo escribir código, 
+        es resolver problemas reales para personas reales."
+      </div>
+      <div class="cita-autor">— Jhon Huaman, desarrollador de este sistema</div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="contenido-informal fade-in">
+      <h3><i class="fas fa-brain"></i> Reflexiones Personales del Desarrollo</h3>
+
+      <!-- Reflexión 1: El Inicio -->
+      <div class="reflexion-item">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">🚀</div>
+          <h4 class="reflexion-title">Cuando Todo Era Un "Hello World"</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>Recuerdo que al principio solo pensaba: "¿38 criterios? ¿En serio?" 😅. Me parecía una 
+          locura diseñar un sistema tan complejo. Pero ahora, mirando atrás, entiendo que <strong>los 
+          grandes proyectos se construyen paso a paso</strong>. Empecé con un simple formulario de login 
+          y terminé con un sistema completo con roles, permisos y hasta exportación a PDF.</p>
+          
+          <p>Lo más gracioso es que al principio me pasaba horas buscando "cómo hacer un CRUD en JSP" 
+          en Google, y ahora estoy debuggeando problemas de concurrencia en las evaluaciones. <strong>El 
+          crecimiento es real</strong>, aunque a veces ni te das cuenta hasta que miras atrás.</p>
+        </div>
+      </div>
+
+      <!-- Emoji Section 1 -->
+      <div class="emoji-section">
+        <div class="emoji-big">🤯</div>
+        <div class="emoji-text">
+          <strong>Dato curioso:</strong> Probablemente escribí más de 15,000 líneas de código entre Java, 
+          SQL, HTML, CSS y JavaScript. ¡Eso es como una novela corta pero con más punto y coma!
+        </div>
+      </div>
+
+      <!-- Reflexión 2: Los Desafíos -->
+      <div class="reflexion-item">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">🔥</div>
+          <h4 class="reflexion-title">Las Noches de Debugging y Cafeína</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>¡Ay, los errores! 😤 Tengo que admitirlo: hubo momentos en que casi tiro la laptop por 
+          la ventana. El peor fue cuando <strong>todo el sistema de login dejó de funcionar</strong> porque 
+          se me olvidó cerrar una conexión a la base de datos. Pasé 4 horas buscando el error hasta que 
+          me di cuenta que era un simple <code>connection.close()</code> que faltaba.</p>
+          
+          <p>Pero aprendí algo valioso: <strong>los errores no son fracasos, son oportunidades de 
+          aprendizaje disfrazadas</strong>. Cada bug que solucioné me hizo mejor programador. Aunque 
+          en el momento solo quería gritar, ahora agradezco esos problemas porque me enseñaron a 
+          pensar como desarrollador.</p>
+        </div>
+      </div>
+
+      <!-- Aprendizajes Clave -->
+      <div class="aprendizajes-list fade-in">
+        <div class="aprendizaje-item">
+          <div class="aprendizaje-emoji">🧠</div>
+          <h4 class="aprendizaje-titulo">Pensamiento Lógico</h4>
+          <p class="aprendizaje-desc">Aprendí a descomponer problemas grandes en pequeñas partes solucionables</p>
+        </div>
+        
+        <div class="aprendizaje-item">
+          <div class="aprendizaje-emoji">💪</div>
+          <h4 class="aprendizaje-titulo">Resiliencia</h4>
+          <p class="aprendizaje-desc">Cuando el código falla por 10ma vez, solo queda intentarlo una vez más</p>
+        </div>
+        
+        <div class="aprendizaje-item">
+          <div class="aprendizaje-emoji">🔍</div>
+          <h4 class="aprendizaje-titulo">Debugging</h4>
+          <p class="aprendizaje-desc">Convertí el "no funciona" en "vamos a encontrar por qué"</p>
+        </div>
+      </div>
+
+      <!-- Reflexión 3: Lo Que Más Disfruté -->
+      <div class="reflexion-item">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">🎨</div>
+          <h4 class="reflexion-title">Cuando el Código Se Convierte en Algo Real</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>Lo mejor de todo fue <strong>ver cómo líneas de código se convertían en un sistema 
+          funcional</strong>. Recuerdo el momento en que por primera vez un usuario "fake" (yo mismo 
+          probando) pudo subir una tesis, recibir una evaluación y ver su calificación. ¡Fue mágico! ✨</p>
+          
+          <p>Diseñar la interfaz en Figma fue divertido, pero ver esa interfaz <strong>cobrar vida 
+          en el navegador</strong> fue increíble. Cada botón que funcionaba, cada formulario que validaba 
+          datos, cada reporte que se generaba automáticamente... todo me daba una satisfacción enorme.</p>
+          
+          <p>Y pensar que todo empezó con: <em>"Hmm, ¿y si hago un sistema para evaluar tesis?"</em> 
+          Ahora tengo un sistema que podría usar una universidad real. ¡Qué locura!</p>
+        </div>
+      </div>
+
+      <!-- Emoji Section 2 -->
+      <div class="emoji-section">
+        <div class="emoji-big">😎</div>
+        <div class="emoji-text">
+          <strong>Momento de orgullo:</strong> Cuando implementé el sistema de 38 criterios y funcionó 
+          perfectamente a la primera. ¡Eso sí que no pasa todos los días!
+        </div>
+      </div>
+
+      <!-- Reflexión 4: Lo Que Cambió en Mí -->
+      <div class="reflexion-item">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">🌱</div>
+          <h4 class="reflexion-title">Más Allá del Código: El Crecimiento Personal</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>Este proyecto no solo me hizo mejor programador, <strong>me hizo mejor profesional</strong>. 
+          Aprendí a:</p>
+          
+          <ul style="color: #cbd5e1; margin-left: 20px; line-height: 1.8;">
+            <li><strong>Gestionar mi tiempo:</strong> 16 semanas parecen mucho, pero se pasan volando</li>
+            <li><strong>Documentar TODO:</strong> Porque el "Jhon del futuro" agradece al "Jhon del pasado"</li>
+            <li><strong>Pedir ayuda cuando la necesito:</strong> Stack Overflow fue mi mejor amigo</li>
+            <li><strong>Celebrar las pequeñas victorias:</strong> ¡Hoy funcionó el login! 🎉</li>
+          </ul>
+          
+          <p>También aprendí que <strong>la perfección es enemiga del progreso</strong>. Al principio 
+          quería que todo fuera perfecto, pero entendí que es mejor tener algo funcional que algo 
+          "perfecto" que nunca se termina.</p>
+        </div>
+      </div>
+
+      <!-- Reflexión 5: Para Los Que Vienen Después -->
+      <div class="reflexion-item">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">💬</div>
+          <h4 class="reflexion-title">Consejos Para Mi "Yo" del Pasado (Y Para Ti)</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>Si estás empezando un proyecto grande o estás aprendiendo desarrollo web, aquí tienes 
+          mis consejos de supervivencia:</p>
+          
+          <div style="background: rgba(0, 255, 195, 0.05); padding: 20px; border-radius: 10px; margin: 15px 0;">
+            <ol style="color: #cbd5e1; line-height: 1.8;">
+              <li><strong>Empieza pequeño:</strong> No intentes hacer Facebook en tu primer proyecto</li>
+              <li><strong>Commit temprano, commit seguido:</strong> GitHub es tu mejor aliado</li>
+              <li><strong>Duerme bien:</strong> El código con sueño siempre tiene bugs</li>
+              <li><strong>Aprende a usar la consola del navegador:</strong> Es tu superpoder</li>
+              <li><strong>No copies y pegues sin entender:</strong> A la larga, te morderá</li>
+              <li><strong>Celebra cada hito:</strong> ¡Hoy terminé la base de datos! ¡Hoy funcionan los reportes!</li>
+            </ol>
+          </div>
+          
+          <p>Y lo más importante: <strong>disfruta el proceso</strong>. Hay días malos, sí, pero cuando 
+          ves tu creación funcionando... no hay mejor sensación. 🤩</p>
+        </div>
+      </div>
+
+      <!-- Reflexión Final -->
+      <div class="reflexion-item" style="border-left: 4px solid #9333ea;">
+        <div class="reflexion-header">
+          <div class="reflexion-icon">🚀</div>
+          <h4 class="reflexion-title">¿Y Ahora Qué? El Futuro del Sistema (Y el Mío)</h4>
+        </div>
+        <div class="reflexion-text">
+          <p>Este sistema está terminado, pero <strong>nunca realmente "terminas" un proyecto de 
+          software</strong>. Siempre hay mejoras por hacer:</p>
+          
+          <p>• <strong>App móvil:</strong> ¿Imaginas evaluar tesis desde tu teléfono? 📱<br>
+          • <strong>Chat en tiempo real:</strong> Para que estudiantes y jurados puedan comunicarse<br>
+          • <strong>Machine Learning:</strong> ¿Y si el sistema pudiera predecir la calificación? 🤖<br>
+          • <strong>Integración con Google Drive:</strong> Para manejo de documentos más fácil</p>
+          
+          <p>Pero por ahora, me tomo un respiro. 🍃 Este proyecto me enseñó más de lo que esperaba, 
+          no solo de código, sino de <strong>perseverancia, creatividad y resolución de problemas</strong>.</p>
+          
+          <p style="text-align: center; margin-top: 20px; font-size: 1.2rem; color: #00ffc3;">
+            <strong>Gracias por seguir este viaje conmigo. ¡Al infinito y más allá! 🚀</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Última Cita -->
+    <div class="cita-destacada fade-in" style="border-color: #9333ea;">
+      <div class="cita-texto">
+        "El software no se trata solo de ceros y unos, se trata de crear soluciones que impacten 
+        positivamente en la vida de las personas. Este sistema puede ayudar a estudiantes a graduarse, 
+        a profesores a evaluar mejor y a universidades a ser más eficientes. Eso es lo que hace que 
+        todo valga la pena."
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://github.com/JhonFHC/SistemaEvaluacionTesis" class="btn solucion" target="_blank">
+        <i class="fab fa-github"></i> Ver el Proyecto en GitHub
+      </a>
+      <a href="mailto:tuemail@upla.edu.pe" class="btn">
+        <i class="fas fa-envelope"></i> Contáctame para Feedback
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
+      </a>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
+
+    <!-- Firma Final -->
+    <div style="text-align: center; margin: 50px 0 30px 0; color: #cbd5e1; font-style: italic;">
+      <p>Desarrollado con 💻, ☕ y mucha 🎵 por</p>
+      <h3 style="color: #00ffc3; margin: 10px 0;">Jhon Huaman Cardenas</h3>
+      <p>Estudiante de Ingeniería de Sistemas - UPLA</p>
+      <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">
+        PD: Si encuentras algún bug, por favor no me lo digas... al menos no hoy 😅
+      </p>
+    </div>
+  </main>
+
+  <script>
+    // Efecto especial para esta página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animación de aparición secuencial para las reflexiones
+      const reflexiones = document.querySelectorAll('.reflexion-item');
+      
+      reflexiones.forEach((reflexion, index) => {
+        setTimeout(() => {
+          reflexion.style.opacity = '0';
+          reflexion.style.transform = 'translateY(20px)';
+          reflexion.style.transition = 'all 0.8s ease';
+          
+          setTimeout(() => {
+            reflexion.style.opacity = '1';
+            reflexion.style.transform = 'translateY(0)';
+          }, 50);
+        }, index * 300);
+      });
+
+      // Efecto hover mejorado para los emojis grandes
+      const emojis = document.querySelectorAll('.emoji-big');
+      emojis.forEach(emoji => {
+        emoji.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.2) rotate(5deg)';
+          this.style.transition = 'transform 0.3s ease';
+        });
+        
+        emoji.addEventListener('mouseleave', function() {
+          this.style.transform = 'scale(1) rotate(0deg)';
+        });
+      });
+
+      // Efecto de confeti al hacer clic en botones de acción
+      const botones = document.querySelectorAll('.btn');
+      botones.forEach(boton => {
+        boton.addEventListener('click', function(e) {
+          if(!this.href.includes('tareas.html')) {
+            e.preventDefault();
+            
+            // Crear efecto visual simple
+            const efecto = document.createElement('div');
+            efecto.style.position = 'fixed';
+            efecto.style.top = '50%';
+            efecto.style.left = '50%';
+            efecto.style.transform = 'translate(-50%, -50%)';
+            efecto.style.fontSize = '3rem';
+            efecto.style.color = '#00ffc3';
+            efecto.style.zIndex = '1000';
+            efecto.textContent = '🎉';
+            efecto.style.opacity = '0';
+            efecto.style.transition = 'all 0.5s ease';
+            
+            document.body.appendChild(efecto);
+            
+            // Animación
+            setTimeout(() => {
+              efecto.style.opacity = '1';
+              efecto.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            }, 10);
+            
+            setTimeout(() => {
+              efecto.style.opacity = '0';
+              efecto.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            }, 500);
+            
+            setTimeout(() => {
+              document.body.removeChild(efecto);
+              // Redirigir después del efecto
+              if(this.href) window.location.href = this.href;
+            }, 1000);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

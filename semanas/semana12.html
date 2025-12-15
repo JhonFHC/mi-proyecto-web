@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semana 12 - Controladores del Sistema</title>
+  <link rel="stylesheet" href="../assets/style1.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script defer src="../assets/interacciones.js"></script>
+  <style>
+    /* MISMOS ESTILOS DE SEMANA 11 */
+    nav.navbar {
+      background-color: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 0 3px #00ffc3);
+      transition: filter 0.3s ease;
+    }
+
+    .logo-link:hover .logo {
+      filter: drop-shadow(0 0 6px #00cfa3);
+    }
+
+    .nombre-desarrollador-nav {
+      color: #00ffc3;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: rgba(0, 255, 195, 0.1);
+      border: 1px solid #00ffc3;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navbar a:hover {
+      background-color: #3b82f6;
+      transform: scale(1.05);
+    }
+
+    .navbar a.clicked {
+      background-color: #3b82f6;
+    }
+
+    /* Contenedor principal */
+    .container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 1200px;
+    }
+
+    /* Encabezado */
+    .encabezado-semana {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+    }
+
+    .encabezado-semana h1 {
+      color: #00ffc3;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .encabezado-semana p {
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid de contenido */
+    .grid-contenido {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    /* Tarjetas de temas */
+    .tarjeta-tema {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+      border: 1px solid #334155;
+      transition: transform 0.3s ease;
+    }
+
+    .tarjeta-tema:hover {
+      transform: translateY(-5px);
+    }
+
+    .tarjeta-tema h2 {
+      color: #00ffc3;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.8rem;
+    }
+
+    .tarjeta-tema p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Acordeones mejorados */
+    .acordeon {
+      background: linear-gradient(135deg, #00ffc3, #00cfa3);
+      color: #000;
+      cursor: pointer;
+      padding: 18px 20px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .acordeon:hover {
+      background: linear-gradient(135deg, #00cfa3, #00b393);
+      transform: translateY(-2px);
+    }
+
+    .acordeon::after {
+      content: "▶";
+      transition: transform 0.3s ease;
+    }
+
+    .acordeon.active::after {
+      transform: rotate(90deg);
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .panel.active {
+      padding: 20px;
+    }
+
+    .panel ul {
+      color: #cbd5e1;
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .panel li {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    /* Códigos resumidos */
+    .codigo-resumido {
+      background: #111;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .codigo-resumido pre {
+      color: #0ff;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .codigo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .codigo-header h4 {
+      color: #00ffc3;
+      margin: 0;
+    }
+
+    /* Botones mejorados */
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 26px;
+      background: rgba(0, 255, 195, 0.15);
+      color: #00ffc3;
+      text-decoration: none;
+      border-radius: 10px;
+      border: 2px solid #00ffc3;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 255, 195, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: #00ffc3;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(-2px);
+    }
+
+    .btn.solucion {
+      background: rgba(147, 51, 234, 0.15);
+      border-color: #9333ea;
+      color: #9333ea;
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    }
+
+    .btn.solucion:hover {
+      background: #9333ea;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
+    }
+
+    .btn.regresar {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #6b7280;
+      color: #6b7280;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      max-width: 200px;
+      box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+    }
+
+    .btn.regresar:hover {
+      background: #6b7280;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
+    }
+
+    /* Grid de resumen */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .tarjeta-resumen {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 255, 195, 0.1);
+    }
+
+    .tarjeta-resumen:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .tarjeta-resumen .icono {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00ffc3;
+    }
+
+    .tarjeta-resumen h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .tarjeta-resumen p {
+      color: #cbd5e1;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Diagrama de flujo */
+    .diagrama-flujo {
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px 0;
+      border: 1px solid #334155;
+    }
+
+    .diagrama-flujo h3 {
+      color: #00ffc3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .flujo-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .flujo-step {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border-left: 4px solid #00ffc3;
+    }
+
+    .flujo-step-number {
+      background: #00ffc3;
+      color: #000;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .flujo-step-content h4 {
+      color: #00ffc3;
+      margin: 0 0 5px 0;
+    }
+
+    .flujo-step-content p {
+      color: #cbd5e1;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-contenido {
+        grid-template-columns: 1fr;
+      }
+      
+      .resumen-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .botones-accion {
+        flex-direction: column;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+
+      .flujo-step {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="../interfaz.html" class="logo-link" aria-label="Inicio">
+        <img src="../IMG/UPLA.png" alt="Logo Universidad" class="logo" />
+      </a>
+      <div class="nombre-desarrollador-nav">
+        <i class="fas fa-user"></i> Jhon Huaman Cardenas
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <a href="../interfaz.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="../sobre-mi.html"><i class="fas fa-user"></i> Sobre mí</a>
+      <a href="../tareas.html" class="clicked"><i class="fas fa-tasks"></i> Tareas</a>
+    </div>
+  </nav>
+
+  <canvas id="particles"></canvas>
+
+  <main class="container">
+    <!-- Encabezado -->
+    <section class="encabezado-semana fade-in">
+      <h1><i class="fas fa-cogs"></i> Semana 12 - Controladores del Sistema</h1>
+      <p>Implementación de los servlets que gestionan la lógica de negocio y coordinan las operaciones del sistema.</p>
+    </section>
+
+    <!-- Grid de resumen -->
+    <div class="resumen-grid fade-in">
+      <div class="tarjeta-resumen">
+        <div class="icono">🔐</div>
+        <h4>LoginServlet</h4>
+        <p>Autenticación y gestión de sesiones de usuarios</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📄</div>
+        <h4>TesisServlet</h4>
+        <p>CRUD completo para gestión de documentos</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">👥</div>
+        <h4>UsuarioServlet</h4>
+        <p>Administración de usuarios y roles</p>
+      </div>
+      <div class="tarjeta-resumen">
+        <div class="icono">📊</div>
+        <h4>EvaluacionServlet</h4>
+        <p>Sistema de calificación por criterios</p>
+      </div>
+    </div>
+
+    <!-- Diagrama de Flujo -->
+    <div class="diagrama-flujo fade-in">
+      <h3><i class="fas fa-project-diagram"></i> Flujo de Control - Patrón MVC</h3>
+      <div class="flujo-steps">
+        <div class="flujo-step">
+          <div class="flujo-step-number">1</div>
+          <div class="flujo-step-content">
+            <h4>Petición HTTP</h4>
+            <p>Usuario envía solicitud desde navegador</p>
+          </div>
+        </div>
+        <div class="flujo-step">
+          <div class="flujo-step-number">2</div>
+          <div class="flujo-step-content">
+            <h4>Servlet Controller</h4>
+            <p>Recibe petición y valida permisos</p>
+          </div>
+        </div>
+        <div class="flujo-step">
+          <div class="flujo-step-number">3</div>
+          <div class="flujo-step-content">
+            <h4>DAO Layer</h4>
+            <p>Accede a base de datos y procesa datos</p>
+          </div>
+        </div>
+        <div class="flujo-step">
+          <div class="flujo-step-number">4</div>
+          <div class="flujo-step-content">
+            <h4>Model Update</h4>
+            <p>Actualiza objetos del modelo</p>
+          </div>
+        </div>
+        <div class="flujo-step">
+          <div class="flujo-step-number">5</div>
+          <div class="flujo-step-content">
+            <h4>View Response</h4>
+            <p>Envía respuesta JSP al cliente</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de contenido -->
+    <div class="grid-contenido">
+      <!-- Tarjeta LoginServlet -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-sign-in-alt"></i> 1. LoginServlet</h2>
+        <p>Controlador principal de autenticación con gestión de sesiones y redirección por roles.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-code"></i> Implementación LoginServlet
+        </button>
+        <div class="panel">
+          <h4>Características de Seguridad</h4>
+          <ul>
+            <li><strong>Validación de credenciales:</strong> Email y password</li>
+            <li><strong>Gestión de sesiones:</strong> HttpSession con timeout</li>
+            <li><strong>Redirección por rol:</strong> Dashboard específico</li>
+            <li><strong>Logout seguro:</strong> Invalidate session</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> LoginServlet.java - doPost</h4>
+            </div>
+            <pre><code>package com.zonajava.sistemaevaluaciontesis.controller;
+
+import com.zonajava.sistemaevaluaciontesis.dao.UsuarioDAO;
+import com.zonajava.sistemaevaluaciontesis.model.Usuario;
+import java.io.IOException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    private UsuarioDAO usuarioDAO;
+    
+    @Override
+    public void init() {
+        usuarioDAO = new UsuarioDAO();
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, 
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        Usuario usuario = usuarioDAO.autenticar(email, password);
+        
+        if (usuario != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuario);
+            
+            // Redirigir según el rol
+            switch (usuario.getRol()) {
+                case "admin":
+                    response.sendRedirect("admin/dashboard.jsp");
+                    break;
+                case "estudiante":
+                    response.sendRedirect("estudiante/dashboard.jsp");
+                    break;
+                case "asesor":
+                    response.sendRedirect("asesor/dashboard.jsp");
+                    break;
+                case "jurado":
+                    response.sendRedirect("jurado/dashboard.jsp");
+                    break;
+                default:
+                    response.sendRedirect("vistas/login.jsp?error=rol_no_valido");
+            }
+        } else {
+            response.sendRedirect("vistas/login.jsp?error=credenciales_invalidas");
+        }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.sendRedirect("vistas/login.jsp");
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta TesisServlet -->
+      <section class="tarjeta-tema fade-in">
+        <h2><i class="fas fa-file-upload"></i> 2. TesisServlet</h2>
+        <p>Controlador completo para gestión de documentos de investigación.</p>
+
+        <button class="acordeon">
+          <i class="fas fa-code"></i> Implementación TesisServlet
+        </button>
+        <div class="panel">
+          <h4>Operaciones CRUD Implementadas</h4>
+          <ul>
+            <li><strong>CREATE:</strong> Crear nueva tesis (borrador)</li>
+            <li><strong>READ:</strong> Consultar tesis por estudiante/estado</li>
+            <li><strong>UPDATE:</strong> Editar tesis antes de envío</li>
+            <li><strong>DELETE:</strong> Eliminar tesis (solo admin)</li>
+            <li><strong>ENVIAR:</strong> Cambiar estado a "enviada"</li>
+          </ul>
+
+          <div class="codigo-resumido">
+            <div class="codigo-header">
+              <h4><i class="fas fa-file-code"></i> TesisServlet.java - Métodos Principales</h4>
+            </div>
+            <pre><code>package com.zonajava.sistemaevaluaciontesis.controller;
+
+import com.zonajava.sistemaevaluaciontesis.dao.TesisDAO;
+import com.zonajava.sistemaevaluaciontesis.model.Tesis;
+import com.zonajava.sistemaevaluaciontesis.model.Usuario;
+import java.io.IOException;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet("/tesis")
+public class TesisServlet extends HttpServlet {
+    private TesisDAO tesisDAO;
+    
+    @Override
+    public void init() {
+        tesisDAO = new TesisDAO();
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        
+        if (usuario == null) {
+            response.sendRedirect("vistas/login.jsp");
+            return;
+        }
+        
+        String action = request.getParameter("action");
+        
+        if ("buscar".equals(action)) {
+            String criterio = request.getParameter("criterio");
+            List<Tesis> tesisList = tesisDAO.buscarTesis(criterio);
+            request.setAttribute("tesis", tesisList);
+        } else {
+            List<Tesis> tesisList = tesisDAO.obtenerTodasTesis();
+            request.setAttribute("tesis", tesisList);
+        }
+        
+        // Redirigir según el rol
+        if ("admin".equals(usuario.getRol())) {
+            request.getRequestDispatcher("/admin/tesis.jsp").forward(request, response);
+        } else if ("asesor".equals(usuario.getRol())) {
+            request.getRequestDispatcher("/asesor/tesis.jsp").forward(request, response);
+        }
+    }
+    
+    private void crearTesis(HttpServletRequest request, 
+                           HttpServletResponse response, 
+                           Usuario usuario)
+            throws ServletException, IOException {
+        
+        try {
+            Tesis tesis = new Tesis();
+            tesis.setTitulo(request.getParameter("titulo"));
+            tesis.setDescripcion(request.getParameter("descripcion"));
+            tesis.setIdEstudiante(usuario.getIdUsuario());
+            tesis.setIdAsesor(Integer.parseInt(request.getParameter("idAsesor")));
+            tesis.setArchivoUrl(request.getParameter("archivoUrl"));
+            tesis.setEstado("borrador");
+            
+            if (tesisDAO.crearTesis(tesis)) {
+                response.sendRedirect("estudiante/tesis.jsp?success=tesis_creada");
+            }
+        } catch (Exception e) {
+            response.sendRedirect("estudiante/tesis.jsp?error=creacion_fallida");
+        }
+    }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- UsuarioServlet -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-users-cog"></i> 3. UsuarioServlet</h2>
+      <p>Controlador para administración completa de usuarios del sistema.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-code"></i> Implementación UsuarioServlet
+      </button>
+      <div class="panel">
+        <h4>Funcionalidades de Administración</h4>
+        <ul>
+          <li><strong>Crear usuarios:</strong> Con roles específicos</li>
+          <li><strong>Actualizar datos:</strong> Perfiles y permisos</li>
+          <li><strong>Buscar usuarios:</strong> Filtros por rol/estado</li>
+          <li><strong>Cambiar estado:</strong> Activar/desactivar</li>
+          <li><strong>Eliminar usuarios:</strong> Con validaciones</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> UsuarioServlet.java - doPost</h4>
+          </div>
+          <pre><code>package com.zonajava.sistemaevaluaciontesis.controller;
+
+import com.zonajava.sistemaevaluaciontesis.dao.UsuarioDAO;
+import com.zonajava.sistemaevaluaciontesis.model.Usuario;
+import java.io.IOException;
+import java.util.List;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet("/usuarios")
+public class UsuarioServlet extends HttpServlet {
+    private UsuarioDAO usuarioDAO;
+    
+    @Override
+    public void init() {
+        usuarioDAO = new UsuarioDAO();
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, 
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
+        
+        if (usuarioSesion == null || !"admin".equals(usuarioSesion.getRol())) {
+            response.sendRedirect("../vistas/login.jsp");
+            return;
+        }
+        
+        String action = request.getParameter("action");
+        
+        if ("crear".equals(action)) {
+            crearUsuario(request, response);
+        } else if ("actualizar".equals(action)) {
+            actualizarUsuario(request, response);
+        } else if ("eliminar".equals(action)) {
+            eliminarUsuario(request, response);
+        }
+    }
+    
+    private void crearUsuario(HttpServletRequest request, 
+                             HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        Usuario usuario = new Usuario();
+        usuario.setNombreCompleto(request.getParameter("nombreCompleto"));
+        usuario.setEmail(request.getParameter("email"));
+        usuario.setPassword(request.getParameter("password"));
+        usuario.setRol(request.getParameter("rol"));
+        usuario.setDepartamento(request.getParameter("departamento"));
+        
+        if (usuarioDAO.crearUsuario(usuario)) {
+            response.sendRedirect("usuarios?success=usuario_creado");
+        } else {
+            response.sendRedirect("usuarios?error=creacion_fallida");
+        }
+    }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arquitectura de Controladores -->
+    <section class="tarjeta-tema fade-in">
+      <h2><i class="fas fa-sitemap"></i> 4. Arquitectura MVC</h2>
+      <p>Diseño de la estructura de controladores siguiendo el patrón Modelo-Vista-Controlador.</p>
+
+      <button class="acordeon">
+        <i class="fas fa-diagram-project"></i> Estructura de Paquetes
+      </button>
+      <div class="panel">
+        <h4>Organización de Controladores</h4>
+        <ul>
+          <li><strong>com.zonajava.sistemaevaluaciontesis.controller</strong>
+            <ul>
+              <li>LoginServlet.java - Autenticación</li>
+              <li>TesisServlet.java - Gestión de documentos</li>
+              <li>UsuarioServlet.java - Administración de usuarios</li>
+              <li>EvaluacionServlet.java - Sistema de calificación</li>
+              <li>DashboardServlet.java - Vistas principales</li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-folder"></i> Estructura de Directorios</h4>
+          </div>
+          <pre><code>src/main/java/
+└── com/zonajava/sistemaevaluaciontesis/
+    ├── controller/          ← CONTROLADORES
+    │   ├── LoginServlet.java
+    │   ├── TesisServlet.java
+    │   ├── UsuarioServlet.java
+    │   ├── EvaluacionServlet.java
+    │   └── DashboardServlet.java
+    ├── dao/                ← ACCESO A DATOS
+    │   ├── UsuarioDAO.java
+    │   ├── TesisDAO.java
+    │   └── EvaluacionDAO.java
+    ├── model/              ← MODELOS
+    │   ├── Usuario.java
+    │   ├── Tesis.java
+    │   └── Evaluacion.java
+    └── filters/            ← FILTROS
+        └── AuthFilter.java</code></pre>
+        </div>
+      </div>
+
+      <button class="acordeon">
+        <i class="fas fa-shield-alt"></i> Filtros de Seguridad
+      </button>
+      <div class="panel">
+        <h4>Implementación de AuthFilter</h4>
+        <ul>
+          <li><strong>Validación de sesión:</strong> Usuario autenticado</li>
+          <li><strong>Control de acceso:</strong> Por roles y permisos</li>
+          <li><strong>Redirección:</strong> Login si no hay sesión</li>
+          <li><strong>Logging:</strong> Registro de accesos</li>
+        </ul>
+
+        <div class="codigo-resumido">
+          <div class="codigo-header">
+            <h4><i class="fas fa-file-code"></i> AuthFilter.java</h4>
+          </div>
+          <pre><code>@WebFilter("/*")
+public class AuthFilter implements Filter {
+    
+    @Override
+    public void doFilter(ServletRequest request, 
+                        ServletResponse response, 
+                        FilterChain chain)
+            throws IOException, ServletException {
+        
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false);
+        
+        String loginURI = req.getContextPath() + "/vistas/login.jsp";
+        boolean loggedIn = session != null && 
+                          session.getAttribute("usuario") != null;
+        
+        if (loggedIn || req.getRequestURI().endsWith("login.jsp") ||
+            req.getRequestURI().contains("/css/") ||
+            req.getRequestURI().contains("/js/")) {
+            chain.doFilter(request, response);
+        } else {
+            res.sendRedirect(loginURI);
+        }
+    }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://github.com/JhonFHC/mi-proyecto-web/tree/main/semanas/Semana12" class="btn solucion" target="_blank">
+        <i class="fab fa-github"></i> Ver Controladores en GitHub
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
+      </a>
+    </div>
+
+    <!-- Botón de regresar -->
+    <a href="../tareas.html" class="btn regresar">
+      <i class="fas fa-arrow-left"></i> Volver a Tareas
+    </a>
+  </main>
+
+  <script>
+    // Funcionalidad de acordeones
+    document.addEventListener('DOMContentLoaded', function() {
+      const acordeones = document.querySelectorAll('.acordeon');
+
+      acordeones.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          
+          if (panel.classList.contains('active')) {
+            panel.style.maxHeight = null;
+            panel.classList.remove('active');
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

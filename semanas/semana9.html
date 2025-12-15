@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 9 - Web Application (NetBeans, Maven)</title>
+  <title>Semana 9 - Diseño de la web (FIGMA)</title>
   <link rel="stylesheet" href="../assets/style1.css" />
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script defer src="../assets/interacciones.js"></script>
@@ -124,7 +124,7 @@
       margin: 40px 0;
     }
 
-    /* Tarjetas de temas */
+    /* Tarjetas de temas - SIN ALTURA MÁXIMA FIJA */
     .tarjeta-tema {
       background: rgba(30, 41, 59, 0.9);
       border-radius: 15px;
@@ -132,6 +132,7 @@
       box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
       border: 1px solid #334155;
       transition: transform 0.3s ease;
+      /* REMOVIMOS max-height y overflow */
     }
 
     .tarjeta-tema:hover {
@@ -187,6 +188,7 @@
       transform: rotate(90deg);
     }
 
+    /* PANEL CON EXPANSIÓN NATURAL - SIN SCROLL FIJO */
     .panel {
       background: rgba(255, 255, 255, 0.05);
       max-height: 0;
@@ -198,6 +200,32 @@
 
     .panel.active {
       padding: 20px;
+      /* QUITAMOS max-height fija y overflow-y */
+      /* La altura se calculará automáticamente con JS */
+    }
+
+    /* SCROLL SOLO PARA CONTENIDOS ESPECÍFICOS */
+    .panel-con-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 4px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-thumb {
+      background: #00ffc3;
+      border-radius: 4px;
+    }
+
+    .panel-con-scroll::-webkit-scrollbar-thumb:hover {
+      background: #00cfa3;
     }
 
     .panel ul {
@@ -218,6 +246,7 @@
       padding: 20px;
       margin: 20px 0;
       border-left: 4px solid #00ffc3;
+      overflow-x: auto; /* Scroll horizontal para código */
     }
 
     .codigo-resumido pre {
@@ -225,6 +254,7 @@
       margin: 0;
       font-size: 0.9rem;
       line-height: 1.4;
+      min-width: max-content;
     }
 
     .codigo-header {
@@ -239,7 +269,7 @@
       margin: 0;
     }
 
-    /* Botones mejorados - MÁS LLAMATIVOS */
+    /* Botones mejorados */
     .botones-accion {
       display: flex;
       gap: 15px;
@@ -321,7 +351,7 @@
       box-shadow: 0 8px 25px rgba(107, 114, 128, 0.6);
     }
 
-    /* Grid de resumen (nuevo para semana 9) */
+    /* Grid de resumen */
     .resumen-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -412,6 +442,96 @@
       border: none;
     }
 
+    /* TABLA COMPARATIVA CON SCROLL HORIZONTAL SOLO */
+    .tabla-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      max-height: 400px; /* Scroll vertical solo si es necesario */
+      overflow-y: auto;
+    }
+
+    .tabla-comparativa {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    .tabla-comparativa th {
+      background: #00ffc3;
+      color: #000;
+      padding: 15px;
+      text-align: left;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      white-space: nowrap;
+    }
+
+    .tabla-comparativa td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #334155;
+      color: #cbd5e1;
+      white-space: nowrap;
+    }
+
+    .tabla-comparativa tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tabla-comparativa tr:hover {
+      background: rgba(0, 255, 195, 0.05);
+    }
+
+    /* Galería de prototipos */
+    .galeria-prototipos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .prototipo-item {
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      transition: all 0.3s ease;
+    }
+
+    .prototipo-item:hover {
+      transform: translateY(-5px);
+      border-color: #00ffc3;
+      box-shadow: 0 8px 25px rgba(0, 255, 195, 0.2);
+    }
+
+    .prototipo-img {
+      width: 100%;
+      height: 200px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ffc3;
+      font-size: 3rem;
+    }
+
+    .prototipo-info {
+      padding: 15px;
+    }
+
+    .prototipo-info h4 {
+      color: #00ffc3;
+      margin: 0 0 10px 0;
+    }
+
+    .prototipo-info p {
+      color: #cbd5e1;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .grid-contenido {
@@ -428,6 +548,31 @@
       
       .btn {
         justify-content: center;
+      }
+      
+      .tabla-container {
+        margin: 10px -10px;
+        border-radius: 0;
+        max-height: 300px;
+      }
+
+      .galeria-prototipos {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tarjeta-tema {
+        padding: 20px;
+      }
+      
+      .panel.active {
+        padding: 15px;
+      }
+      
+      .acordeon {
+        padding: 15px;
+        font-size: 1rem;
       }
     }
   </style>
@@ -455,448 +600,395 @@
   <main class="container">
     <!-- Encabezado -->
     <section class="encabezado-semana fade-in">
-      <h1><i class="fas fa-rocket"></i> Semana 9 - Web Application (NetBeans, Maven)</h1>
-      <p>Desarrollo de aplicaciones web con NetBeans y Maven - Implementación de sistema de login con roles y librerías CSS.</p>
+      <h1><i class="fab fa-figma"></i> Semana 9 - Diseño de la web (FIGMA)</h1>
+      <p>Proceso completo de diseño UX/UI: desde la selección de herramientas hasta la creación de prototipos interactivos en Figma.</p>
     </section>
 
     <!-- Grid de resumen -->
     <div class="resumen-grid fade-in">
       <div class="tarjeta-resumen">
-        <div class="icono">🔐</div>
-        <h4>Sistema de Login</h4>
-        <p>Autenticación con roles: Estudiante, Profesor y Administrador</p>
+        <div class="icono">🎨</div>
+        <h4>Herramientas UX/UI</h4>
+        <p>Análisis comparativo de 6 herramientas de diseño profesional</p>
       </div>
       <div class="tarjeta-resumen">
-        <div class="icono">🚪</div>
-        <h4>Ventanas por Rol</h4>
-        <p>Interfaces personalizadas según el tipo de usuario</p>
+        <div class="icono">📊</div>
+        <h4>Evaluación</h4>
+        <p>Selección de Figma como herramienta principal</p>
       </div>
       <div class="tarjeta-resumen">
-        <div class="icono">📚</div>
-        <h4>Librerías CSS</h4>
-        <p>4 librerías modernas para diseño web profesional</p>
+        <div class="icono">🎯</div>
+        <h4>Prototipado</h4>
+        <p>Creación de wireframes y mockups interactivos</p>
       </div>
       <div class="tarjeta-resumen">
-        <div class="icono">⚙️</div>
-        <h4>NetBeans & Maven</h4>
-        <p>Configuración y gestión de proyectos web</p>
+        <div class="icono">🚀</div>
+        <h4>Iteración</h4>
+        <p>Mejora continua basada en feedback y testing</p>
       </div>
     </div>
 
     <!-- Grid de contenido -->
     <div class="grid-contenido">
-      <!-- Tarjeta Sistema de Login -->
+      <!-- Tarjeta Herramientas UX/UI -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-sign-in-alt"></i> 1. Ventana de Ingreso Login con Roles</h2>
-        <p>Implementación de un sistema de autenticación con tres tipos de usuarios: Estudiante, Profesor y Administrador.</p>
+        <h2><i class="fas fa-palette"></i> 1. Selección de Herramientas UX/UI</h2>
+        <p>Análisis comparativo de las principales herramientas de diseño de interfaces y experiencia de usuario utilizadas en el desarrollo moderno.</p>
 
         <button class="acordeon">
-          <i class="fas fa-user-shield"></i> Implementación del Sistema de Login
+          <i class="fas fa-chart-bar"></i> Cuadro Comparativo de Herramientas UX/UI
         </button>
         <div class="panel">
           <div class="problema-resuelto">
-            <h4><i class="fas fa-check-circle"></i> Características del Sistema</h4>
-            <p>El sistema de login implementado incluye validación de credenciales, manejo de sesiones y redirección según el rol del usuario.</p>
+            <h4><i class="fas fa-check-circle"></i> Comparativa de Características</h4>
+            <p>Evaluación de las 6 herramientas más populares en el mercado actual para diseño de interfaces.</p>
             
-            <h4><i class="fas fa-code"></i> Estructura de Roles</h4>
+            <!-- TABLA CON SCROLL HORIZONTAL -->
+            <div class="tabla-container">
+              <table class="tabla-comparativa">
+                <thead>
+                  <tr>
+                    <th>Herramienta</th>
+                    <th>Precio</th>
+                    <th>Plataforma</th>
+                    <th>Colaboración</th>
+                    <th>Prototipado</th>
+                    <th>Integraciones</th>
+                    <th>Learning Curve</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Figma</strong></td>
+                    <td>Gratis/Premium</td>
+                    <td>Web, Windows, Mac</td>
+                    <td>Excelente</td>
+                    <td>Avanzado</td>
+                    <td>Extensas</td>
+                    <td>Baja</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Adobe XD</strong></td>
+                    <td>Adobe Creative Cloud</td>
+                    <td>Windows, Mac</td>
+                    <td>Buena</td>
+                    <td>Avanzado</td>
+                    <td>Adobe Suite</td>
+                    <td>Media</td>
+                  </tr>
+                  <tr>
+                    <td><strong>InVision</strong></td>
+                    <td>Freemium</td>
+                    <td>Web</td>
+                    <td>Excelente</td>
+                    <td>Básico</td>
+                    <td>Limitadas</td>
+                    <td>Baja</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Axure RP</strong></td>
+                    <td>Premium</td>
+                    <td>Windows, Mac</td>
+                    <td>Buena</td>
+                    <td>Muy Avanzado</td>
+                    <td>Básicas</td>
+                    <td>Alta</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sketch</strong></td>
+                    <td>Premium</td>
+                    <td>Mac Only</td>
+                    <td>Buena</td>
+                    <td>Básico</td>
+                    <td>Extensas</td>
+                    <td>Media</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mockup</strong></td>
+                    <td>Varía</td>
+                    <td>Multiplataforma</td>
+                    <td>Variable</td>
+                    <td>Básico</td>
+                    <td>Limitadas</td>
+                    <td>Baja</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4><i class="fas fa-lightbulb"></i> Decisión Final: Figma</h4>
             <ul>
-              <li><strong>Estudiante:</strong> Acceso a recursos educativos y gestión personal</li>
-              <li><strong>Profesor:</strong> Herramientas de evaluación y gestión académica</li>
-              <li><strong>Administrador:</strong> Control total del sistema y gestión de usuarios</li>
+              <li><strong>Colaboración en tiempo real:</strong> Múltiples diseñadores pueden trabajar simultáneamente</li>
+              <li><strong>Acceso multiplataforma:</strong> Funciona en cualquier navegador sin instalación</li>
+              <li><strong>Prototipado interactivo:</strong> Capacidades avanzadas de animación y transiciones</li>
+              <li><strong>Ecosistema robusto:</strong> Plugins, bibliotecas y componentes reutilizables</li>
+              <li><strong>Versionado integrado:</strong> Historial de cambios y branches para diferentes versiones</li>
             </ul>
-
-            <!-- Código de Implementación -->
-            <div class="codigo-resumido">
-              <div class="codigo-header">
-                <h4><i class="fas fa-code"></i> Implementación Java - Clase Login</h4>
-              </div>
-              <pre><code>public class LoginController {
-    public boolean autenticarUsuario(String email, String password) {
-        // Validación de credenciales en base de datos
-        Usuario usuario = usuarioDAO.buscarPorEmail(email);
-        
-        if (usuario != null && 
-            BCrypt.checkpw(password, usuario.getPassword())) {
-            
-            // Establecer sesión según rol
-            HttpSession session = request.getSession();
-            session.setAttribute("rol", usuario.getRol());
-            session.setAttribute("nombre", usuario.getNombre());
-            
-            return true;
-        }
-        return false;
-    }
-    
-    public void redirigirSegunRol(HttpServletResponse response, String rol) 
-            throws IOException {
-        switch(rol) {
-            case "ESTUDIANTE":
-                response.sendRedirect("estudiante.jsp");
-                break;
-            case "PROFESOR":
-                response.sendRedirect("profesor.jsp");
-                break;
-            case "ADMIN":
-                response.sendRedirect("admin.jsp");
-                break;
-        }
-    }
-}</code></pre>
-            </div>
-
-            <!-- Formulario HTML -->
-            <div class="codigo-resumido">
-              <div class="codigo-header">
-                <h4><i class="fas fa-file-code"></i> Formulario de Login - JSP</h4>
-              </div>
-              <pre><code>&lt;form action="login" method="post" class="login-form"&gt;
-    &lt;div class="form-group"&gt;
-        &lt;label for="email"&gt;Correo Electrónico&lt;/label&gt;
-        &lt;input type="email" id="email" name="email" required&gt;
-    &lt;/div&gt;
-    
-    &lt;div class="form-group"&gt;
-        &lt;label for="password"&gt;Contraseña&lt;/label&gt;
-        &lt;input type="password" id="password" name="password" required&gt;
-    &lt;/div&gt;
-    
-    &lt;button type="submit" class="btn btn-primary"&gt;
-        Iniciar Sesión
-    &lt;/button&gt;
-&lt;/form&gt;</code></pre>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- Tarjeta Ventanas por Rol -->
+      <!-- Tarjeta Proceso de Diseño -->
       <section class="tarjeta-tema fade-in">
-        <h2><i class="fas fa-desktop"></i> 2. Ventana para Cada Rol</h2>
-        <p>Interfaces personalizadas según el tipo de usuario con funcionalidades específicas para cada rol.</p>
+        <h2><i class="fas fa-sitemap"></i> 2. Proceso de Diseño en Figma</h2>
+        <p>Metodología completa desde la investigación de usuarios hasta la creación de prototipos de alta fidelidad.</p>
 
         <button class="acordeon">
-          <i class="fas fa-user-graduate"></i> Panel de Estudiante
+          <i class="fas fa-search"></i> Fase 1: Investigación y Análisis
         </button>
         <div class="panel">
-          <h4>Funcionalidades del Estudiante</h4>
+          <h4>Investigación de Usuarios y Requerimientos</h4>
           <ul>
-            <li>Gestión de perfil académico</li>
-            <li>Consulta de calificaciones</li>
-            <li>Subida de tareas y proyectos</li>
-            <li>Visualización de horarios</li>
-            <li>Acceso a materiales de estudio</li>
+            <li><strong>Entrevistas con stakeholders:</strong> Comprensión de necesidades del negocio</li>
+            <li><strong>User personas:</strong> Creación de perfiles de usuario representativos</li>
+            <li><strong>Análisis competitivo:</strong> Estudio de soluciones existentes en el mercado</li>
+            <li><strong>User journey maps:</strong> Mapeo de experiencias de usuario completas</li>
+            <li><strong>Arquitectura de información:</strong> Estructuración lógica del contenido</li>
           </ul>
 
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> JSP - Panel Estudiante</h4>
+          <div class="galeria-prototipos">
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-user-friends"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>User Personas</h4>
+                <p>Perfiles detallados de estudiantes, profesores y administradores</p>
+              </div>
             </div>
-            <pre><code>&lt;div class="student-dashboard"&gt;
-    &lt;div class="welcome-section"&gt;
-        &lt;h2&gt;Bienvenido, ${sessionScope.nombre}&lt;/h2&gt;
-        &lt;p&gt;Rol: Estudiante&lt;/p&gt;
-    &lt;/div&gt;
-    
-    &lt;div class="quick-actions"&gt;
-        &lt;div class="action-card" onclick="location.href='mis-cursos'"&gt;
-            &lt;i class="fas fa-book"&gt;&lt;/i&gt;
-            &lt;span&gt;Mis Cursos&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div class="action-card" onclick="location.href='calificaciones'"&gt;
-            &lt;i class="fas fa-chart-bar"&gt;&lt;/i&gt;
-            &lt;span&gt;Calificaciones&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-route"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>Journey Maps</h4>
+                <p>Flujos de usuario desde el login hasta la evaluación final</p>
+              </div>
+            </div>
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-sitemap"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>Arquitectura</h4>
+                <p>Estructura organizacional del sistema completo</p>
+              </div>
+            </div>
           </div>
         </div>
 
         <button class="acordeon">
-          <i class="fas fa-chalkboard-teacher"></i> Panel de Profesor
+          <i class="fas fa-pencil-alt"></i> Fase 2: Wireframing y Esquemas
         </button>
         <div class="panel">
-          <h4>Funcionalidades del Profesor</h4>
+          <h4>Creación de Wireframes de Baja Fidelidad</h4>
           <ul>
-            <li>Gestión de cursos asignados</li>
-            <li>Calificación de estudiantes</li>
-            <li>Publicación de materiales</li>
-            <li>Control de asistencia</li>
-            <li>Generación de reportes</li>
+            <li><strong>Sketching inicial:</strong> Bocetos rápidos en papel y digital</li>
+            <li><strong>Wireframes estructurales:</strong> Definición de layout y componentes</li>
+            <li><strong>Flujo de navegación:</strong> Conexiones entre diferentes pantallas</li>
+            <li><strong>Feedback temprano:</strong> Validación con usuarios y stakeholders</li>
+            <li><strong>Iteración rápida:</strong> Múltiples versiones basadas en comentarios</li>
           </ul>
 
           <div class="codigo-resumido">
             <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> Servlet - Gestión de Cursos</h4>
+              <h4><i class="fas fa-link"></i> Enlace a Wireframes en Figma</h4>
             </div>
-            <pre><code>@WebServlet("/profesor/cursos")
-public class GestionCursosServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, 
-                         HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        String profesorEmail = (String) request.getSession()
-                                .getAttribute("email");
-        List&lt;Curso&gt; cursos = cursoDAO.obtenerCursosPorProfesor(profesorEmail);
-        
-        request.setAttribute("cursos", cursos);
-        request.getRequestDispatcher("/profesor/cursos.jsp")
-               .forward(request, response);
-    }
-}</code></pre>
+            <pre><code>https://www.figma.com/design/proyecto-wireframes-sistema-tesis</code></pre>
           </div>
         </div>
 
         <button class="acordeon">
-          <i class="fas fa-user-cog"></i> Panel de Administrador
+          <i class="fas fa-paint-brush"></i> Fase 3: Diseño Visual y Mockups
         </button>
         <div class="panel">
-          <h4>Funcionalidades del Administrador</h4>
+          <h4>Desarrollo de Mockups de Alta Fidelidad</h4>
           <ul>
-            <li>Gestión completa de usuarios</li>
-            <li>Configuración del sistema</li>
-            <li>Generación de reportes globales</li>
-            <li>Backup y mantenimiento</li>
-            <li>Control de auditoría</li>
+            <li><strong>Sistema de diseño:</strong> Creación de biblioteca de componentes</li>
+            <li><strong>Paleta de colores:</strong> Selección basada en psicología del color</li>
+            <li><strong>Tipografía:</strong> Jerarquías claras y legibilidad optimizada</li>
+            <li><strong>Iconografía:</strong> Set consistente de iconos representativos</li>
+            <li><strong>Layout responsive:</strong> Adaptación a diferentes dispositivos</li>
           </ul>
 
-          <div class="codigo-resumido">
-            <div class="codigo-header">
-              <h4><i class="fas fa-code"></i> JSP - Panel Administrador</h4>
+          <div class="galeria-prototipos">
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-palette"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>Sistema de Diseño</h4>
+                <p>Componentes reutilizables y guías de estilo</p>
+              </div>
             </div>
-            <pre><code>&lt;div class="admin-panel"&gt;
-    &lt;div class="stats-overview"&gt;
-        &lt;div class="stat-card"&gt;
-            &lt;h3&gt;${totalUsuarios}&lt;/h3&gt;
-            &lt;p&gt;Usuarios Totales&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class="stat-card"&gt;
-            &lt;h3&gt;${totalCursos}&lt;/h3&gt;
-            &lt;p&gt;Cursos Activos&lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-    
-    &lt;div class="admin-actions"&gt;
-        &lt;button onclick="gestionarUsuarios()" class="btn btn-warning"&gt;
-            Gestionar Usuarios
-        &lt;/button&gt;
-        &lt;button onclick="verReportes()" class="btn btn-info"&gt;
-            Ver Reportes
-        &lt;/button&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>Responsive Design</h4>
+                <p>Adaptación para desktop, tablet y móvil</p>
+              </div>
+            </div>
+            <div class="prototipo-item">
+              <div class="prototipo-img">
+                <i class="fas fa-icons"></i>
+              </div>
+              <div class="prototipo-info">
+                <h4>Icon Library</h4>
+                <p>Set completo de iconos personalizados</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Librerías CSS -->
+    <!-- Prototipos Finales -->
     <section class="tarjeta-tema fade-in">
-      <h2><i class="fas fa-palette"></i> 3. Librerías CSS para Desarrollo Web</h2>
-      <p>Exploración de 4 librerías CSS modernas que facilitan el desarrollo de interfaces web profesionales.</p>
+      <h2><i class="fas fa-rocket"></i> 3. Prototipos Finales en Figma</h2>
+      <p>Prototipos interactivos de alta fidelidad que simulan la experiencia completa del usuario.</p>
 
       <button class="acordeon">
-        <i class="fab fa-bootstrap"></i> Bootstrap 5
+        <i class="fas fa-sign-in-alt"></i> Sistema de Login y Autenticación
       </button>
       <div class="panel">
-        <h4>Características Principales</h4>
+        <h4>Diseño de la Experiencia de Autenticación</h4>
         <ul>
-          <li><strong>Sistema de grid responsive:</strong> 12 columnas adaptable</li>
-          <li><strong>Componentes predefinidos:</strong> Navbars, cards, modals</li>
-          <li><strong>Utilidades CSS:</strong> Margin, padding, colors, flexbox</li>
-          <li><strong>JavaScript integrado:</strong> Componentes interactivos</li>
+          <li><strong>Interfaz limpia y minimalista:</strong> Enfoque en la usabilidad</li>
+          <li><strong>Validación en tiempo real:</strong> Feedback inmediato al usuario</li>
+          <li><strong>Recordatorio de credenciales:</strong> Opciones de "olvidé mi contraseña"</li>
+          <li><strong>Diseño accesible:</strong> Cumplimiento de estándares WCAG 2.1</li>
+          <li><strong>Experiencia responsive:</strong> Optimizado para todos los dispositivos</li>
         </ul>
 
         <div class="codigo-resumido">
           <div class="codigo-header">
-            <h4><i class="fas fa-code"></i> Implementación en Maven</h4>
+            <h4><i class="fas fa-link"></i> Prototipo Interactivo - Login</h4>
           </div>
-          <pre><code>&lt;!-- En pom.xml --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.webjars&lt;/groupId&gt;
-    &lt;groupId&gt;bootstrap&lt;/groupId&gt;
-    &lt;version&gt;5.3.0&lt;/version&gt;
-&lt;/dependency&gt;
-
-&lt;!-- En JSP --&gt;
-&lt;link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" 
-      rel="stylesheet"&gt;
-&lt;script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+          <pre><code>https://www.figma.com/proto/proyecto-login-interactivo</code></pre>
         </div>
       </div>
 
       <button class="acordeon">
-        <i class="fab fa-css3-alt"></i> Tailwind CSS
+        <i class="fas fa-user-graduate"></i> Panel de Estudiante
       </button>
       <div class="panel">
-        <h4>Ventajas de Tailwind CSS</h4>
+        <h4>Interfaz para Gestión Académica</h4>
         <ul>
-          <li><strong>Enfoque utility-first:</strong> Clases CSS reutilizables</li>
-          <li><strong>Altamente personalizable:</strong> Configuración extensiva</li>
-          <li><strong>Responsive por diseño:</strong> Breakpoints integrados</li>
-          <li><strong>Performance optimizado:</strong> Purga de CSS no usado</li>
+          <li><strong>Dashboard personalizado:</strong> Resumen del estado académico</li>
+          <li><strong>Seguimiento de tesis:</strong> Progreso visual del trabajo</li>
+          <li><strong>Comunicación con evaluadores:</strong> Sistema de mensajería integrado</li>
+          <li><strong>Subida de documentos:</strong> Interfaz drag-and-drop intuitiva</li>
+          <li><strong>Calendario académico:</strong> Visualización de fechas importantes</li>
         </ul>
 
-        <div class="codigo-resumido">
-          <div class="codigo-header">
-            <h4><i class="fas fa-code"></i> Ejemplo de Uso</h4>
+        <div class="galeria-prototipos">
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Dashboard Estudiante</h4>
+              <p>Vista general del progreso académico</p>
+            </div>
           </div>
-          <pre><code>&lt;div class="max-w-md mx-auto bg-white rounded-xl 
-            shadow-md overflow-hidden md:max-w-2xl"&gt;
-    &lt;div class="md:flex"&gt;
-        &lt;div class="p-8"&gt;
-            &lt;div class="uppercase tracking-wide 
-                        text-sm text-indigo-500 
-                        font-semibold"&gt;
-                Sistema de Login
-            &lt;/div&gt;
-            &lt;p class="mt-2 text-gray-500"&gt;
-                Bienvenido al panel de control
-            &lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-file-upload"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Subida de Tesis</h4>
+              <p>Interfaz intuitiva para carga de documentos</p>
+            </div>
+          </div>
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Seguimiento</h4>
+              <p>Visualización del progreso de evaluación</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <button class="acordeon">
-        <i class="fas fa-gem"></i> Materialize CSS
+        <i class="fas fa-chalkboard-teacher"></i> Panel de Profesor
       </button>
       <div class="panel">
-        <h4>Características de Material Design</h4>
+        <h4>Interfaz para Evaluación y Gestión</h4>
         <ul>
-          <li><strong>Diseño Material:</strong> Según especificaciones de Google</li>
-          <li><strong>Componentes animados:</strong> Transiciones fluidas</li>
-          <li><strong>Responsive:</strong> Adaptable a todos los dispositivos</li>
-          <li><strong>Fácil implementación:</strong> Clases intuitivas</li>
+          <li><strong>Lista de tesis asignadas:</strong> Vista organizada por prioridad</li>
+          <li><strong>Herramientas de evaluación:</strong> Formularios estructurados</li>
+          <li><strong>Sistema de calificación:</strong> Rúbricas y criterios predefinidos</li>
+          <li><strong>Feedback detallado:</strong> Áreas para comentarios constructivos</li>
+          <li><strong>Gestión del tiempo:</strong> Recordatorios y plazos de entrega</li>
         </ul>
 
         <div class="codigo-resumido">
           <div class="codigo-header">
-            <h4><i class="fas fa-code"></i> Card con Materialize</h4>
+            <h4><i class="fas fa-link"></i> Prototipo Interactivo - Panel Profesor</h4>
           </div>
-          <pre><code>&lt;div class="card"&gt;
-    &lt;div class="card-image"&gt;
-        &lt;img src="images/sample.jpg"&gt;
-        &lt;span class="card-title"&gt;Título de la Card&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="card-content"&gt;
-        &lt;p&gt;Contenido de la tarjeta con información relevante.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class="card-action"&gt;
-        &lt;a href="#"&gt;Enlace de acción&lt;/a&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+          <pre><code>https://www.figma.com/proto/proyecto-panel-profesor</code></pre>
         </div>
       </div>
 
       <button class="acordeon">
-        <i class="fas fa-leaf"></i> Bulma CSS
+        <i class="fas fa-user-cog"></i> Panel de Administrador
       </button>
       <div class="panel">
-        <h4>Ventajas de Bulma</h4>
+        <h4>Interfaz para Gestión del Sistema</h4>
         <ul>
-          <li><strong>Basado en Flexbox:</strong> Layouts modernos y simples</li>
-          <li><strong>Sin JavaScript:</strong> Framework puramente CSS</li>
-          <li><strong>Modular:</strong> Importa solo lo que necesitas</li>
-          <li><strong>Comunidad activa:</strong> Extensiones y temas disponibles</li>
+          <li><strong>Vista general del sistema:</strong> Métricas y estadísticas</li>
+          <li><strong>Gestión de usuarios:</strong> CRUD completo de estudiantes y profesores</li>
+          <li><strong>Asignación de roles:</strong> Sistema flexible de permisos</li>
+          <li><strong>Reportes y analytics:</strong> Datos de uso y rendimiento</li>
+          <li><strong>Configuración del sistema:</strong> Parámetros y personalización</li>
         </ul>
 
-        <div class="codigo-resumido">
-          <div class="codigo-header">
-            <h4><i class="fas fa-code"></i> Navbar con Bulma</h4>
+        <div class="galeria-prototipos">
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Dashboard Admin</h4>
+              <p>Métricas y estadísticas del sistema</p>
+            </div>
           </div>
-          <pre><code>&lt;nav class="navbar is-primary" role="navigation"&gt;
-    &lt;div class="navbar-brand"&gt;
-        &lt;a class="navbar-item" href="/"&gt;
-            &lt;strong&gt;Sistema Académico&lt;/strong&gt;
-        &lt;/a&gt;
-    &lt;/div&gt;
-    
-    &lt;div class="navbar-menu"&gt;
-        &lt;div class="navbar-start"&gt;
-            &lt;a class="navbar-item" href="/cursos"&gt;
-                Cursos
-            &lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/nav&gt;</code></pre>
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Gestión de Usuarios</h4>
+              <p>Interfaz para administrar permisos y roles</p>
+            </div>
+          </div>
+          <div class="prototipo-item">
+            <div class="prototipo-img">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <div class="prototipo-info">
+              <h4>Configuración</h4>
+              <p>Panel de ajustes del sistema</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Configuración NetBeans y Maven -->
-    <section class="tarjeta-tema fade-in">
-      <h2><i class="fas fa-cogs"></i> Configuración NetBeans y Maven</h2>
-      <p>Configuración del entorno de desarrollo para proyectos web con NetBeans y gestión de dependencias con Maven.</p>
-
-      <button class="acordeon">
-        <i class="fas fa-project-diagram"></i> Estructura de Proyecto Maven
-      </button>
-      <div class="panel">
-        <div class="codigo-resumido">
-          <div class="codigo-header">
-            <h4><i class="fas fa-folder"></i> Estructura del Proyecto</h4>
-          </div>
-          <pre><code>sistema-academico/
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── com/empresa/sistema/
-│       │       ├── controllers/
-│       │       ├── models/
-│       │       ├── dao/
-│       │       └── filters/
-│       ├── webapp/
-│       │   ├── WEB-INF/
-│       │   ├── css/
-│       │   ├── js/
-│       │   ├── estudiante/
-│       │   ├── profesor/
-│       │   └── admin/
-│       └── resources/
-├── target/
-└── pom.xml</code></pre>
-        </div>
-
-        <div class="codigo-resumido">
-          <div class="codigo-header">
-            <h4><i class="fas fa-code"></i> Configuración pom.xml</h4>
-          </div>
-          <pre><code>&lt;project&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-    &lt;groupId&gt;com.empresa&lt;/groupId&gt;
-    &lt;artifactId&gt;sistema-academico&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0&lt;/version&gt;
-    &lt;packaging&gt;war&lt;/packaging&gt;
-    
-    &lt;dependencies&gt;
-        &lt;!-- Servlet API --&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
-            &lt;version&gt;4.0.1&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-        
-        &lt;!-- JSTL --&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;jstl&lt;/artifactId&gt;
-            &lt;version&gt;1.2&lt;/version&gt;
-        &lt;/dependency&gt;
-        
-        &lt;!-- MySQL Connector --&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;mysql&lt;/groupId&gt;
-            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
-            &lt;version&gt;8.0.33&lt;/version&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/project&gt;</code></pre>
-        </div>
-      </div>
-    </section>
+    <!-- Botones de acción -->
+    <div class="botones-accion">
+      <a href="https://www.figma.com/design/6qliDhcMuVb76T62zYSBWv/Musho-AI--Community---Community-?node-id=0-1&m=dev&t=qxvtAxmJZv4vDv4W-1" class="btn solucion" target="_blank">
+        <i class="fab fa-figma"></i> Ver Prototipo Completo en Figma
+      </a>
+      <a href="../tareas.html" class="btn">
+        <i class="fas fa-arrow-left"></i> Volver a Tareas
+      </a>
+    </div>
 
     <!-- Botón de regresar -->
     <a href="../tareas.html" class="btn regresar">
@@ -905,7 +997,7 @@ public class GestionCursosServlet extends HttpServlet {
   </main>
 
   <script>
-    // Funcionalidad de acordeones
+    // Funcionalidad de acordeones MEJORADA
     document.addEventListener('DOMContentLoaded', function() {
       const acordeones = document.querySelectorAll('.acordeon');
 
@@ -914,13 +1006,35 @@ public class GestionCursosServlet extends HttpServlet {
           this.classList.toggle('active');
           const panel = this.nextElementSibling;
           
-          if (panel.style.maxHeight) {
+          if (panel.classList.contains('active')) {
+            // Cerrar panel
             panel.style.maxHeight = null;
             panel.classList.remove('active');
           } else {
+            // Abrir panel - calcular altura automáticamente
             panel.style.maxHeight = panel.scrollHeight + 'px';
             panel.classList.add('active');
+            
+            // Scroll suave hacia el acordeón si está cerca del borde inferior
+            const rect = btn.getBoundingClientRect();
+            if (rect.bottom > window.innerHeight - 100) {
+              btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           }
+        });
+      });
+
+      // Mejora adicional: cerrar otros acordeones al abrir uno nuevo
+      acordeones.forEach((acordeon) => {
+        acordeon.addEventListener('click', function() {
+          acordeones.forEach((otherAccordion) => {
+            if (otherAccordion !== this && otherAccordion.classList.contains('active')) {
+              otherAccordion.classList.remove('active');
+              const otherPanel = otherAccordion.nextElementSibling;
+              otherPanel.style.maxHeight = null;
+              otherPanel.classList.remove('active');
+            }
+          });
         });
       });
     });

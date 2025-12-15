@@ -8,16 +8,16 @@ const semanas = [
   "Base de Datos del Sistema Académico",
   "Integración Base de Datos con Login",
   "Proyecto Integrado Completo",
-  "Web Application (NetBeans, Maven)",
-  "Mejoras en Sistema de Evaluación de Tesis",
-  "Arquitectura MVC del Sistema",
-  "DOM y Manipulación de Elementos",
-  "Eventos en JavaScript",
-  "Arreglos y Objetos en JavaScript",
-  "Proyecto Final – Maquetación Web",
-  "Presentación de Proyectos y Evaluación",
+  "Diseño de la web (FIGMA)",
+  "Diseño JSP (VISTA)",
+  "Modelos del Sistema",
+  "Controladores del Sistema",
+  "Base de Datos MySQL",
+  "Reportes y Analytics",
+  "Proyecto Final",
+  "Mi Punto de Vista",
 ];
-
+      
 // Generar dinámicamente el contenido
 const contenedor = document.getElementById("contenedor-semanas");
 
