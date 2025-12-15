@@ -15,7 +15,6 @@ const semanas = [
   "Base de Datos MySQL",
   "Reportes y Analytics",
   "Proyecto Final",
-  "Mi Punto de Vista",
 ];
       
 // Generar dinámicamente el contenido

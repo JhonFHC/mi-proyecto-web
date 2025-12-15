@@ -385,11 +385,6 @@
         estado: "completado",
         tieneDescarga: false
       },
-      { 
-        titulo: "Mi Punto de Vista", 
-        estado: "completado",
-        tieneDescarga: false
-      }
     ];
 
     // Generar dinámicamente el contenido
@@ -404,7 +399,7 @@
 
       // Construir URL de GitHub
       let githubUrl = "https://github.com/JhonFHC/mi-proyecto-web";
-      if (numero >= 1 && numero <= 16) {
+      if (numero >= 1 && numero <= 15) {
         githubUrl += `/tree/main/semanas/Semana${numero}`;
       } else {
         githubUrl += "/tree/main";
